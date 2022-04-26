@@ -11,10 +11,14 @@ const Header = () => {
           </Link>
         </Menu.Item>
         <Menu.Item>
-          <a>마이페이지</a>
+          <Link href="/mypage">
+            <a>마이페이지</a>
+          </Link>
         </Menu.Item>
         <Menu.Item>
-          <a>회원가입</a>
+          <Link href="/signup">
+            <a>회원가입</a>
+          </Link>
         </Menu.Item>
       </Menu>
     </div>
