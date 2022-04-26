@@ -12,8 +12,12 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^4.20.0",
+    "dotenv": "^16.0.0",
     "next": "^12.1.5",
     "next-images": "^1.8.4",
+    "react": "^18.0.0",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {

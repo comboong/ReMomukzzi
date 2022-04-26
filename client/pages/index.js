@@ -1,11 +1,16 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import ImageCarousel from "../components/ImageCarousel";
+import ShopInfo from "../components/ShopInfo";
+import KaKaoMap from "../components/KaKaoMap";
 
 const Home = () => {
   return (
     <>
       <Header />
-      <div> Momukzzi 업데이트 합시다! </div>
+      <ImageCarousel />
+      <ShopInfo />
+      {/* <KaKaoMap /> */}
       <Footer />
     </>
   );

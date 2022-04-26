@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { Menu } from 'antd'
+import Link from "next/link";
+import { Menu } from "antd";
 
 const Header = () => {
 	return (
@@ -11,16 +11,18 @@ const Header = () => {
 					</Link>
 				</Menu.Item>
 				<Menu.Item>
-					<Link href="mypage">
+					<Link href="/mypage">
 						<a>마이페이지</a>
 					</Link>
 				</Menu.Item>
 				<Menu.Item>
-					<a>회원가입</a>
+					<Link href="/signup">
+						<a>회원가입</a>
+					</Link>
 				</Menu.Item>
 			</Menu>
 		</div>
-	)
-}
+	);
+};
 
-export default Header
+export default Header;
