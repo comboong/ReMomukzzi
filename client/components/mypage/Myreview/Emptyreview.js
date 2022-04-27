@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Cake from "../../images/케이크.jpeg";
+import Cake from "../../../images/케이크.jpeg";
 
 const ContentEmpty = styled.div`
 	display: flex;

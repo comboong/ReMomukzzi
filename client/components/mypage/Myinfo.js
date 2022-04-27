@@ -1,24 +1,16 @@
 import styled from "styled-components";
-import Emptyreview from "./Emptyreview";
+import ChangeMyinfo from "./ChangeMyinfo/ChangeMyinfo";
+import Myreview from "./Myreview/Myreview";
 
 const MypageContainer = styled.div`
 	padding: 10px;
 	font-size: 14px;
 	word-break: keep-all;
 	min-height: 81vh;
-	width: 100%;
-	border: 1px solid black;
+	/* border: 1px solid black; */
+	overflow: auto;
 `;
 const MypageLeftContainer = styled.div`
-	/* display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-	width: 30%;
-	margin-right: 50px; */
 	width: 50%;
 	float: left;
 	box-sizing: border-box;
@@ -71,12 +63,14 @@ const Myinfo = () => {
 			<MypageContainer>
 				<MypageLeftContainer>
 					<MypageTitle>내 정보</MypageTitle>
-					<MypageMyinfoContainer></MypageMyinfoContainer>
+					<MypageMyinfoContainer>
+						<ChangeMyinfo />
+					</MypageMyinfoContainer>
 				</MypageLeftContainer>
 				<MypageRightContainer>
 					<MypageTitle>내 리뷰</MypageTitle>
 					<MypageReviewContainer>
-						<Emptyreview />
+						<Myreview />
 					</MypageReviewContainer>
 				</MypageRightContainer>
 			</MypageContainer>
