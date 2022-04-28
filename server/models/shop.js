@@ -48,6 +48,7 @@ module.exports = (sequelize, DataTypes) => {
       map_id: DataTypes.STRING,
       x: DataTypes.DOUBLE,
       y: DataTypes.DOUBLE,
+      status: DataTypes.BOOLEAN
     },
     {
       sequelize,
