@@ -15,9 +15,15 @@
     "axios": "^0.27.2",
     "dotenv": "^16.0.0",
     "next": "^12.1.5",
+    "next-images": "^1.8.4",
     "react": "^18.0.0",
+    "react-loading": "^2.0.3",
     "react-slick": "^0.29.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^2.0.7",
+    "react-dom": "^18.1.0"
   }
 }
