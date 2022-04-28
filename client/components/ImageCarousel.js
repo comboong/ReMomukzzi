@@ -6,7 +6,7 @@ const SlideContainer = styled.div`
   height: 30%;
 `;
 
-const ImageCarousel = () => {
+const ImageCarousel = ({ imageInfo }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -18,12 +18,19 @@ const ImageCarousel = () => {
   return (
     <SlideContainer>
       <Slider {...settings}>
-        <div>
+        {/* <div>
           <img src="https://t1.daumcdn.net/cfile/tistory/9926614F5F0661AC20" />
         </div>
         <div>
           <img src="https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201903/08/52cf07ea-c8da-4574-b0e9-21e0e3b31118.jpg" />
-        </div>
+        </div> */}
+        {imageInfo[0].shoppic.photodatas.map((el) => {
+          return (
+            <div>
+              <img src={el} />
+            </div>
+          );
+        })}
       </Slider>
     </SlideContainer>
   );
