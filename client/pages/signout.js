@@ -1,14 +1,14 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Myinfo from "../components/mypage/Myinfo";
+import SignoutForm from "../components/mypage/ChangeMyinfo/SignoutForm";
 
-const Mypage = () => {
+const Signout = () => {
 	return (
 		<>
 			<Header />
-			<Myinfo />
+			<SignoutForm />
 			<Footer />
 		</>
 	);
 };
-export default Mypage;
+export default Signout;
