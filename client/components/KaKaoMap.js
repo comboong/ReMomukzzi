@@ -1,11 +1,7 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
-const MapContainer = styled.div`
-  aspect-ratio: 320 / 220;
-`;
-
-const KaKaoMap = () => {
+const KaKaoMap = ({ Info }) => {
   useEffect(() => {
     const mapScript = document.createElement("script");
 
@@ -14,29 +10,39 @@ const KaKaoMap = () => {
 
     document.head.appendChild(mapScript);
 
+    console.log(Info[0].shopinfo.shopinfo.y);
     const onLoadKakaoMap = () => {
       window.kakao.maps.load(() => {
+        var locPosition = new kakao.maps.LatLng(
+          Info[0].shopinfo.shopinfo.y,
+          Info[0].shopinfo.shopinfo.x
+        ); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+
         const container = document.getElementById("map");
+
         const options = {
-          center: new window.kakao.maps.LatLng(33.450701, 126.570667),
+          center: new window.kakao.maps.LatLng(
+            Info[0].shopinfo.shopinfo.y,
+            Info[0].shopinfo.shopinfo.x
+          ),
+          level: 3,
         };
+
         const map = new window.kakao.maps.Map(container, options);
-        const markerPosition = new window.kakao.maps.LatLng(
-          33.450701,
-          126.570667
-        );
+
         const marker = new window.kakao.maps.Marker({
-          position: markerPosition,
+          position: locPosition,
         });
         marker.setMap(map);
       });
     };
+
     mapScript.addEventListener("load", onLoadKakaoMap);
 
     return () => mapScript.removeEventListener("load", onLoadKakaoMap);
   }, []);
 
-  return <div id="map" style={{ aspectRatio: 320 / 220 }} />;
+  return <div id="map" style={{ width: 400, height: 300 }} />;
 };
 
 export default KaKaoMap;
