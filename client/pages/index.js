@@ -36,7 +36,7 @@ const Home = () => {
                   if (res.length === 45) {
                     axios
                       .post(
-                        `${process.env.NEXT_PUBLIC_SERVER_URL}:4000/data`,
+                        `${process.env.NEXT_PUBLIC_SERVER_URL}/data`,
                         { data: res },
                         {
                           withCredentials: true,
