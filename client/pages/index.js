@@ -33,6 +33,7 @@ const Home = () => {
                   return temp;
                 })
                 .then((res) => {
+                  console.log(res)
                   if (res.length === 45) {
                     axios
                       .post(
