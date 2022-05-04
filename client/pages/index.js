@@ -4,13 +4,16 @@ import ImageCarousel from "../components/ImageCarousel";
 import ShopInfo from "../components/ShopInfo";
 import KaKaoMap from "../components/KaKaoMap";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import { Row, Col } from "antd";
+import { loadingAction, getShopInfo } from "../reducers";
+import { useDispatch, useSelector } from "react-redux";
 
 const Home = () => {
-  const [loading, setLoading] = useState(false);
-  const [shopInfo, setShopInfo] = useState([]);
+  const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.isLoading);
+  const shopInfo = useSelector((state) => state.shopInfo);
 
   useEffect(() => {
     function getLocation() {
@@ -36,7 +39,8 @@ const Home = () => {
                   if (res.length === 45) {
                     axios
                       .post(
-                        `${process.env.NEXT_PUBLIC_SERVER_URL}:4000/data`,
+                        "http://mmzserver.shop/data",
+                        // `${process.env.NEXT_PUBLIC_SERVER_URLL}:443/data`,
                         { data: res },
                         {
                           withCredentials: true,
@@ -44,8 +48,10 @@ const Home = () => {
                       )
                       .then((res) => {
                         console.log(res.data.data.result);
-                        setShopInfo(res.data.data.result);
-                        setLoading(true);
+                        dispatch(getShopInfo(res.data.data.result));
+                        // setShopInfo(res.data.data.result);
+
+                        dispatch(loadingAction());
                       });
                   }
                 });
@@ -69,7 +75,7 @@ const Home = () => {
 
   return (
     <>
-      {loading && (
+      {!isLoading && (
         <>
           <Header />
           <ImageCarousel imageInfo={shopInfo} />
