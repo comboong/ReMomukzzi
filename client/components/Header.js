@@ -20,6 +20,11 @@ const Header = () => {
 						<a>회원가입</a>
 					</Link>
 				</Menu.Item>
+				<Menu.Item>
+					<Link href="/login">
+						<a>로그인</a>
+					</Link>
+				</Menu.Item>
 			</Menu>
 		</div>
 	);

@@ -1,4 +1,6 @@
+import React from "react";
 import styled from "styled-components";
+import MoreviewLoader from "../MoreviewLoader";
 import ChangeMyinfo from "./ChangeMyinfo/ChangeMyinfo";
 import Myreview from "./Myreview/Myreview";
 
@@ -60,6 +62,7 @@ background-position: 80px 50px; */
 const Myinfo = () => {
 	return (
 		<>
+			{/* {localStorage.getItem("accessToken") ? ( */}
 			<MypageContainer>
 				<MypageLeftContainer>
 					<MypageTitle>내 정보</MypageTitle>
@@ -74,6 +77,9 @@ const Myinfo = () => {
 					</MypageReviewContainer>
 				</MypageRightContainer>
 			</MypageContainer>
+			{/* ) : (
+				<MoreviewLoader />
+			)} */}
 		</>
 	);
 };
