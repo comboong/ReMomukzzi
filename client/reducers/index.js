@@ -1,6 +1,8 @@
 const initialState = {
   isLoading: true,
+  isFirstGet: false,
   shopInfo: [],
+  shopDetailInfo: [],
 };
 
 // action creator
@@ -10,9 +12,22 @@ export const loadingAction = () => {
   };
 };
 
+export const firstGetAction = () => {
+  return {
+    type: "FIRST_GET",
+  };
+};
+
 export const getShopInfo = (data) => {
   return {
-    type: "GET_SHOPINFO",
+    type: "GET_SHOP_INFO",
+    data,
+  };
+};
+
+export const getShopDetailInfo = (data) => {
+  return {
+    type: "GET_SHOPDETAIL_INFO",
     data,
   };
 };
@@ -25,10 +40,20 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         isLoading: false,
       };
-    case "GET_SHOPINFO":
+    case "GET_SHOP_INFO":
       return {
         ...state,
         shopInfo: action.data,
+      };
+    case "FIRST_GET":
+      return {
+        ...state,
+        isFirstGet: true,
+      };
+    case "GET_SHOPDETAIL_INFO":
+      return {
+        ...state,
+        shopDetailInfo: action.data,
       };
     default:
       return state;

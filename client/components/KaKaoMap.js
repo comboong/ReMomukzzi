@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 
+const MapDiv = styled.div`
+  width: 90%;
+  height: 90%;
+  padding: 30px;
+`;
+
 const KaKaoMap = ({ Info }) => {
   useEffect(() => {
     const mapScript = document.createElement("script");
@@ -10,7 +16,6 @@ const KaKaoMap = ({ Info }) => {
 
     document.head.appendChild(mapScript);
 
-    console.log(Info[0].shopinfo.shopinfo.y);
     const onLoadKakaoMap = () => {
       window.kakao.maps.load(() => {
         var locPosition = new kakao.maps.LatLng(
@@ -42,7 +47,7 @@ const KaKaoMap = ({ Info }) => {
     return () => mapScript.removeEventListener("load", onLoadKakaoMap);
   }, []);
 
-  return <div id="map" style={{ width: 400, height: 300 }} />;
+  return <MapDiv id="map" />;
 };
 
 export default KaKaoMap;
