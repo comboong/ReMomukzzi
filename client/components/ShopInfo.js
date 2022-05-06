@@ -2,9 +2,8 @@ import styled from "styled-components";
 import { useEffect } from "react";
 
 const ShopDetailInfo = styled.div`
-  margin: 30px 0px 30px 30px;
+  padding: 30px;
   min-height: 200px;
-  width: 60%;
 
   & > table > tbody {
     display: table-row-group;

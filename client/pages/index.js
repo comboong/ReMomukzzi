@@ -4,13 +4,19 @@ import ImageCarousel from "../components/ImageCarousel";
 import ShopInfo from "../components/ShopInfo";
 import KaKaoMap from "../components/KaKaoMap";
 
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import axios from "axios";
-import { Row, Col } from "antd";
+import { Image, Row, Col } from "antd";
+import { loadingAction, getShopInfo, firstGetAction } from "../reducers";
+import { useDispatch, useSelector } from "react-redux";
+import IntroImageSet from "../components/IntroImageSet";
+import MoreviewLoader from "../components/MoreviewLoader";
 
 const Home = () => {
-	const [loading, setLoading] = useState(false);
-	const [shopInfo, setShopInfo] = useState([]);
+	const dispatch = useDispatch();
+	const isLoading = useSelector(state => state.isLoading);
+	const shopInfo = useSelector(state => state.shopInfo);
+	const isFirstGet = useSelector(state => state.isFirstGet);
 
 	useEffect(() => {
 		function getLocation() {
@@ -44,8 +50,10 @@ const Home = () => {
 											)
 											.then(res => {
 												console.log(res.data.data.result);
-												setShopInfo(res.data.data.result);
-												setLoading(true);
+												dispatch(getShopInfo(res.data.data.result));
+
+												dispatch(loadingAction());
+												dispatch(firstGetAction());
 											});
 									}
 								});
@@ -64,25 +72,38 @@ const Home = () => {
 				alert("GPS를 지원하지 않습니다");
 			}
 		}
-		getLocation();
+		if (!isFirstGet) {
+			getLocation();
+		} else {
+			console.log("다시 불러오지 않음");
+		}
 	}, []);
 
 	return (
 		<>
-			{loading && (
+			{!isLoading ? (
 				<>
 					<Header />
-					<ImageCarousel imageInfo={shopInfo} />
 					<Row>
 						<Col cs={24} md={12}>
-							<ShopInfo shopInfo={shopInfo} />
+							<ImageCarousel imageInfo={shopInfo} />
+							<Row>
+								<Col cs={24} md={12}>
+									<ShopInfo shopInfo={shopInfo} />
+								</Col>
+								<Col cs={24} md={12}>
+									<KaKaoMap Info={shopInfo} />
+								</Col>
+							</Row>
 						</Col>
 						<Col cs={24} md={12}>
-							<KaKaoMap Info={shopInfo} />
+							<IntroImageSet imageInfo={shopInfo} />
 						</Col>
 					</Row>
 					<Footer />
 				</>
+			) : (
+				<MoreviewLoader />
 			)}
 		</>
 	);
