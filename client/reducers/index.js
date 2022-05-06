@@ -25,13 +25,6 @@ export const getShopInfo = (data) => {
   };
 };
 
-export const getShopDetailInfo = (data) => {
-  return {
-    type: "GET_SHOPDETAIL_INFO",
-    data,
-  };
-};
-
 // (이전 상태, 액션) => 다음 상태
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -49,11 +42,6 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isFirstGet: true,
-      };
-    case "GET_SHOPDETAIL_INFO":
-      return {
-        ...state,
-        shopDetailInfo: action.data,
       };
     default:
       return state;

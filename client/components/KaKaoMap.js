@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 
 const MapDiv = styled.div`
-  width: 90%;
-  height: 90%;
+  width: 400px;
+  height: 400px;
   padding: 30px;
 `;
 
-const KaKaoMap = ({ Info }) => {
+const KaKaoMap = ({ Info, detailXY }) => {
   useEffect(() => {
     const mapScript = document.createElement("script");
 
@@ -18,18 +18,21 @@ const KaKaoMap = ({ Info }) => {
 
     const onLoadKakaoMap = () => {
       window.kakao.maps.load(() => {
-        var locPosition = new kakao.maps.LatLng(
-          Info[0].shopinfo.shopinfo.y,
-          Info[0].shopinfo.shopinfo.x
-        ); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+        let X;
+        let Y;
+        if (detailXY) {
+          X = detailXY.y;
+          Y = detailXY.x;
+        } else {
+          X = Info[0].shopinfo.shopinfo.y;
+          Y = Info[0].shopinfo.shopinfo.x;
+        }
+        var locPosition = new kakao.maps.LatLng(X, Y); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 
         const container = document.getElementById("map");
 
         const options = {
-          center: new window.kakao.maps.LatLng(
-            Info[0].shopinfo.shopinfo.y,
-            Info[0].shopinfo.shopinfo.x
-          ),
+          center: new window.kakao.maps.LatLng(X, Y),
           level: 3,
         };
 
