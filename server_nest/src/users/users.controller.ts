@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, HttpCode, Patch, Post, Res } from '@nestjs/common';
-import { create } from 'domain';
-import { userInfo } from 'os';
+import { Body, Controller, Delete, Get, Patch, Post, Res, Req } from '@nestjs/common';
 import {UsersService} from './users.service';
-import {signinDto} from './dto/user.dto'
-import { Users } from './entity/users.entity';
+import {signinDto,userloginDto} from './dto/user.dto'
+import { Response, Request } from 'express';
+
 
 @Controller() //엔드포인트를 여기다 적어준다
 export class UsersController {
@@ -15,13 +14,22 @@ export class UsersController {
     }
 
     @Post('/login')
-    login(): string {
-        return this.usersService.login();
+    async login(@Body() user: userloginDto, @Res() res: Response): Promise<any> {
+        const jwt = await this.usersService.login(user);
+        res.setHeader('Authorization', 'Bearer '+jwt.accessToken);
+        return res.json({
+            message: "Login success!",
+            data: {
+                accessToken : jwt.accessToken
+            },
+        })
     }
 
-    @Get('/logout')
-    logout() : string {
-        return this.usersService.logout();
+    @Post('/logout')
+    logout(@Req() req: Request, @Res() res: Response): any {
+        res.clearCookie("bookmark");
+        res.clearCookie("refreshToken");
+        res.status(200).send({ message: "logout success" });
     }
 
     @Post('/users')
