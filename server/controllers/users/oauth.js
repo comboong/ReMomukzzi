@@ -120,10 +120,6 @@ module.exports = async (req, res) => {
             expiresIn: "2days",
           });
 
-          console.log(payload);
-
-          console.log(access_Token);
-
           const bookmarkInfo = await bookmark.findAll({
             where: {
               user_id: userInfo.dataValues.user_id,
