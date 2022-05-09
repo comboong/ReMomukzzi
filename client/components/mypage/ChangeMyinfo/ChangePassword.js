@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-// import axios from 'axios'
+import axios from "axios";
 import styled from "styled-components";
 import InputPassword from "./InputPassword";
 import Confirmpassword from "./Confirmpassword";
@@ -28,7 +28,7 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function Passwordchange() {
-	// const accessToken = localStorage.getItem("accessToken");
+	const accessToken = sessionStorage.getItem("accessToken");
 
 	const [passwordError, setPasswordErr] = useState("");
 	const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -41,57 +41,57 @@ function Passwordchange() {
 		password: "",
 	});
 
-	// const userInfoHandler = () => {
-	// 	if (!accessToken) {
-	// 		return
-	// 	} else {
-	// 		axios
-	// 			.get('https://localhost:4000/users', {
-	// 				headers: { authorization: `Bearer ${accessToken}` },
-	// 				'Content-Type': 'application/json',
-	// 			})
-	// 			.then(res => {
-	// 				setchangeInfo(res.data.data.userInfo)
-	// 				console.log('개인정보가져오기 성공')
-	// 			})
-	// 			.catch(err => {
-	// 				console.log('개인가져오기 에러', err)
-	// 			})
-	// 	}
-	// }
-	// useEffect(() => {
-	// 	userInfoHandler()
-	// }, [])
+	const userInfoHandler = () => {
+		if (!accessToken) {
+			return;
+		} else {
+			axios
+				.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
+					headers: { authorization: `Bearer ${accessToken}` },
+					"Content-Type": "application/json",
+				})
+				.then(res => {
+					setchangeInfo(res.data.data.userInfo);
+					console.log("개인정보가져오기 성공");
+				})
+				.catch(err => {
+					console.log("개인가져오기 에러", err);
+				});
+		}
+	};
+	useEffect(() => {
+		userInfoHandler();
+	}, []);
 
-	// const fixPasswordHandler = () => {
-	// 	const { password } = passwordInput
-	// 	if (passwordInput.confirmPassword === '' && passwordInput.password === '') {
-	// 		return setPasswordErr('비밀번호를 입력해주세요')
-	// 	}
-	// 	if (passwordInput.confirmPassword === passwordInput.password) {
-	// 		axios
-	// 			.patch(
-	// 				'https://localhost:4000/users',
-	// 				{ user_id: changeInfo.user_id, password },
-	// 				{
-	// 					headers: { authorization: `Bearer ${accessToken}` },
-	// 				}
-	// 			)
-	// 			.then(res => {
-	// 				if (changeInfo.password === passwordInput.password) {
-	// 					return alert('기존에 사용하는 비밀번호와 같습니다.')
-	// 				} else {
-	// 					console.log('패스워드 변경 완료', res)
-	// 					alert('패스워드가 변경되었습니다.')
-	// 					return window.location.replace('/mypage')
-	// 				}
-	// 			})
-	// 			.catch(err => {
-	// 				alert('패스워드 변경 에러입니다.')
-	// 				console.log('패스워드 패치 오류입니다.', err)
-	// 			})
-	// 	}
-	// }
+	const fixPasswordHandler = () => {
+		const { password } = passwordInput;
+		if (passwordInput.confirmPassword === "" && passwordInput.password === "") {
+			return setPasswordErr("비밀번호를 입력해주세요");
+		}
+		if (passwordInput.confirmPassword === passwordInput.password) {
+			axios
+				.patch(
+					`${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
+					{ user_id: changeInfo.user_id, password },
+					{
+						headers: { authorization: `Bearer ${accessToken}` },
+					}
+				)
+				.then(res => {
+					if (changeInfo.password === passwordInput.password) {
+						return alert("기존에 사용하는 비밀번호와 같습니다.");
+					} else {
+						console.log("패스워드 변경 완료", res);
+						alert("패스워드가 변경되었습니다.");
+						return window.location.replace("/mypage");
+					}
+				})
+				.catch(err => {
+					alert("패스워드 변경 에러입니다.");
+					console.log("패스워드 패치 오류입니다.", err);
+				});
+		}
+	};
 
 	const handlePasswordChange = e => {
 		const passwordInputValue = e.target.value.trim();
@@ -159,9 +159,9 @@ function Passwordchange() {
 				confirmPasswordError={confirmPasswordError}
 			/>
 			{/* <SubmitBtnDiv> */}
-			{/* <button className="submit" onClick={fixPasswordHandler}> */}
-			<button className="submit">수정</button>
-			{/* </button> */}
+			<button className="submit" onClick={fixPasswordHandler}>
+				수정
+			</button>
 			{/* </SubmitBtnDiv> */}
 		</div>
 	);

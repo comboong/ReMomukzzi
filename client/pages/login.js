@@ -1,17 +1,14 @@
-// /signup
-
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import Signup from "../components/Signup";
+import Loginmodal from "../components/Login/Loginmodal";
 
-const signup = () => {
+const Login = () => {
 	return (
 		<>
 			<Header />
-			<Signup />
+			<Loginmodal />
 			<Footer />
 		</>
 	);
 };
-
-export default signup;
+export default Login;

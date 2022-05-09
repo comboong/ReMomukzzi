@@ -1,6 +1,9 @@
+import React from "react";
 import styled from "styled-components";
+import MoreviewLoader from "../MoreviewLoader";
 import ChangeMyinfo from "./ChangeMyinfo/ChangeMyinfo";
 import Myreview from "./Myreview/Myreview";
+import Cookies from "js-cookie";
 
 const MypageContainer = styled.div`
 	padding: 10px;
@@ -60,20 +63,24 @@ background-position: 80px 50px; */
 const Myinfo = () => {
 	return (
 		<>
-			<MypageContainer>
-				<MypageLeftContainer>
-					<MypageTitle>내 정보</MypageTitle>
-					<MypageMyinfoContainer>
-						<ChangeMyinfo />
-					</MypageMyinfoContainer>
-				</MypageLeftContainer>
-				<MypageRightContainer>
-					<MypageTitle>내 리뷰</MypageTitle>
-					<MypageReviewContainer>
-						<Myreview />
-					</MypageReviewContainer>
-				</MypageRightContainer>
-			</MypageContainer>
+			{Cookies.get("accessToken") ? (
+				<MypageContainer>
+					<MypageLeftContainer>
+						<MypageTitle>내 정보</MypageTitle>
+						<MypageMyinfoContainer>
+							<ChangeMyinfo />
+						</MypageMyinfoContainer>
+					</MypageLeftContainer>
+					<MypageRightContainer>
+						<MypageTitle>내 리뷰</MypageTitle>
+						<MypageReviewContainer>
+							<Myreview />
+						</MypageReviewContainer>
+					</MypageRightContainer>
+				</MypageContainer>
+			) : (
+				<div>로그인을 해주세요.</div>
+			)}
 		</>
 	);
 };

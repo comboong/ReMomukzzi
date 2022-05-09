@@ -3,14 +3,15 @@ import styled from "styled-components";
 // import axios from "axios";
 
 const Container = styled.div`
-	margin: 0 auto;
-	width: 550px;
+	margin: auto;
+	/* width: 550px; */
 	font-weight: 700;
-	text-align: left;
+	/* text-align: left; */
+	height: 600px;
 	transform: translateY(20%);
-	border: 2px solid #ffba34;
-	background-color: white;
-	border-radius: 20px;
+	/* border: 2px solid #ffba34; */
+	/* background-color: white; */
+	/* border-radius: 20px; */
 `;
 const ContentContainer = styled.div`
 	padding: 10px;
@@ -106,7 +107,7 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function SignoutForm({ close }) {
-	// const accessToken = localStorage.getItem("accessToken");
+	const accessToken = sessionStorage.getItem("accessToken");
 
 	const [agreeChecked, setAgreeChecked] = useState(false);
 	const [fillText, setFillText] = useState("");
@@ -123,14 +124,14 @@ function SignoutForm({ close }) {
 			return;
 		}
 		axios
-			.delete(`${process.env.REACT_APP_API_URL}/users`, {
+			.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
 				headers: { authorization: `Bearer ${accessToken}` },
 				"Content-Type": "application/json",
 			})
 			.then(res => {
 				console.log("회원탈퇴성공");
-				localStorage.removeItem("accessToken");
-				localStorage.removeItem("email");
+				sessionStorage.removeItem("accessToken");
+				sessionStorage.removeItem("email");
 				alert("회원 탈퇴가 완료되었습니다.");
 				// openAlertHandler();
 				window.location.replace("/");

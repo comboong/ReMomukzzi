@@ -68,34 +68,33 @@ const Home = () => {
                             getRandomInt(0, res.data.data.result.length)
                           )
                         );
-
-                        dispatch(loadingAction());
-                        dispatch(firstGetAction());
-                      });
-                  }
-                });
-            }
-          },
-          function (error) {
-            console.error(error);
-          },
-          {
-            enableHighAccuracy: false,
-            maximumAge: 0,
-            timeout: Infinity,
-          }
-        );
-      } else {
-        alert("GPS를 지원하지 않습니다");
-      }
-    }
-    if (!isFirstGet) {
-      getLocation();
-    } else {
-      console.log("다시 불러오지 않음");
-    }
-  }, []);
-
+												dispatch(loadingAction());
+												dispatch(firstGetAction());
+											});
+									}
+								});
+						}
+					},
+					function (error) {
+						console.error(error);
+					},
+					{
+						enableHighAccuracy: false,
+						maximumAge: 0,
+						timeout: Infinity,
+					}
+				);
+			} else {
+				alert("GPS를 지원하지 않습니다");
+			}
+		}
+		if (!isFirstGet) {
+			getLocation();
+		} else {
+			console.log("다시 불러오지 않음");
+		}
+	}, []);
+                      
   return (
     <>
       {!isLoading ? (
