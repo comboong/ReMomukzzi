@@ -107,7 +107,7 @@ app.post("/bookmark", controllers.bookmark);
 
 //
 
-const HTTPS_PORT = process.env.HTTPS_PORT || 4000;
+const HTTPS_PORT = 443 || 4000;
 
 // 인증서 파일들이 존재하는 경우에만 https 프로토콜을 사용하는 서버를 실행합니다.
 // 만약 인증서 파일이 존재하지 않는경우, http 프로토콜을 사용하는 서버를 실행합니다.
@@ -120,6 +120,7 @@ if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
   db.sequelize.sync();
   server = https.createServer(credentials, app);
   server.listen(HTTPS_PORT, () => console.log(`server runnning ${HTTPS_PORT}`));
+  console.log(`server runing on ${HTTPS_PORT}`)
 } else {
   db.sequelize.sync();
   server = app.listen(HTTPS_PORT);
