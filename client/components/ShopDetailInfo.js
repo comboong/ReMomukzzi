@@ -1,7 +1,6 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 
-const ShopInfoDiv = styled.div`
+const ShopDetailInfoDiv = styled.div`
   padding: 30px;
   min-height: 200px;
 
@@ -38,35 +37,35 @@ const ShopInfoDiv = styled.div`
   }
 `;
 
-const ShopInfo = ({ shopInfo, randomInt }) => {
+const ShopDetailInfo = ({ data }) => {
   return (
-    <ShopInfoDiv>
+    <ShopDetailInfoDiv>
       <table>
         <tbody>
           <tr>
             <th>이름</th>
-            <td>{shopInfo[randomInt].shopinfo.shopinfo.place_name}</td>
+            <td>{data.shop_name}</td>
           </tr>
           <tr>
             <th>주소</th>
-            <td>{shopInfo[randomInt].shopinfo.shopinfo.road_address_name}</td>
+            <td>{data.location}</td>
           </tr>
           <tr>
             <th>음식 종류</th>
-            <td>{shopInfo[randomInt].shopinfo.shopinfo.category_name}</td>
+            <td>{data.genus}</td>
           </tr>
           <tr>
-            <th>전화번호</th>
-            <td>{shopInfo[randomInt].shopinfo.shopinfo.phone}</td>
+            <th>영업 시간</th>
+            <td>{data.work_time}</td>
           </tr>
           <tr>
             <th>메뉴</th>
             <td>
               <ul style={{ margin: 0, padding: 0 }}>
-                {shopInfo[randomInt].menulist.menulist.map((item, idx) => {
+                {data.menus.map((item, idx) => {
                   return (
                     <li key={idx}>
-                      {item[0]} : {item[1]}원
+                      {item.menu_name} : {item.price}원
                     </li>
                   );
                 })}
@@ -75,8 +74,8 @@ const ShopInfo = ({ shopInfo, randomInt }) => {
           </tr>
         </tbody>
       </table>
-    </ShopInfoDiv>
+    </ShopDetailInfoDiv>
   );
 };
 
-export default ShopInfo;
+export default ShopDetailInfo;

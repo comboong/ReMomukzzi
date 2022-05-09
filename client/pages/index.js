@@ -4,10 +4,15 @@ import ImageCarousel from "../components/ImageCarousel";
 import ShopInfo from "../components/ShopInfo";
 import KaKaoMap from "../components/KaKaoMap";
 
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import axios from "axios";
 import { Image, Row, Col } from "antd";
-import { loadingAction, getShopInfo, firstGetAction } from "../reducers";
+import {
+  loadingAction,
+  getShopInfo,
+  firstGetAction,
+  setRandomInt,
+} from "../reducers";
 import { useDispatch, useSelector } from "react-redux";
 import IntroImageSet from "../components/IntroImageSet";
 import MoreviewLoader from "../components/MoreviewLoader";
@@ -17,6 +22,13 @@ const Home = () => {
   const isLoading = useSelector((state) => state.isLoading);
   const shopInfo = useSelector((state) => state.shopInfo);
   const isFirstGet = useSelector((state) => state.isFirstGet);
+  const randomInt = useSelector((state) => state.randomInt);
+
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+  }
 
   useEffect(() => {
     function getLocation() {
@@ -51,6 +63,11 @@ const Home = () => {
                       .then((res) => {
                         console.log(res.data.data.result);
                         dispatch(getShopInfo(res.data.data.result));
+                        dispatch(
+                          setRandomInt(
+                            getRandomInt(0, res.data.data.result.length)
+                          )
+                        );
 
                         dispatch(loadingAction());
                         dispatch(firstGetAction());
@@ -86,18 +103,18 @@ const Home = () => {
           <Header />
           <Row>
             <Col cs={24} md={12}>
-              <ImageCarousel imageInfo={shopInfo} />
+              <ImageCarousel imageInfo={shopInfo} randomInt={randomInt} />
               <Row>
                 <Col cs={24} md={12}>
-                  <ShopInfo shopInfo={shopInfo} />
+                  <ShopInfo shopInfo={shopInfo} randomInt={randomInt} />
                 </Col>
                 <Col cs={24} md={12}>
-                  <KaKaoMap Info={shopInfo} />
+                  <KaKaoMap Info={shopInfo} randomInt={randomInt} />
                 </Col>
               </Row>
             </Col>
             <Col cs={24} md={12}>
-              <IntroImageSet imageInfo={shopInfo} />
+              <IntroImageSet imageInfo={shopInfo} randomInt={randomInt} />
             </Col>
           </Row>
           <Footer />
