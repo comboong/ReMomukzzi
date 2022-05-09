@@ -27,17 +27,17 @@ export default class MyDocument extends Document {
 		}
 	}
 
-	render() {
-		return (
-			<Html>
-				<Head>
-					<style />
-				</Head>
-				<body>
-					<Main />
-					<NextScript />
-				</body>
-			</Html>
-		);
-	}
+  render() {
+    return (
+      <Html>
+        <Head>
+          <style />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
 }

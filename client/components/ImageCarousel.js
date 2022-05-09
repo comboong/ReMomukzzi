@@ -1,12 +1,28 @@
 import styled from "styled-components";
 import Slider from "react-slick";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const SlideContainer = styled.div`
-  padding: 50px;
-  height: 30%;
+  height: 40%;
 `;
 
-const ImageCarousel = ({ imageInfo }) => {
+const StyledSlider = styled(Slider)`
+  .slick-slide div {
+    outline: none;
+  }
+`;
+
+const ImageContainer = styled.div`
+  margin: 0 16px;
+`;
+
+const Image = styled.img`
+  max-width: 100%;
+  object-fit: container;
+`;
+
+const ImageCarousel = ({ imageInfo, randomInt }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -15,23 +31,25 @@ const ImageCarousel = ({ imageInfo }) => {
     slidesToScroll: 1,
   };
 
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
+  }
+
   return (
     <SlideContainer>
-      <Slider {...settings}>
-        {/* <div>
-          <img src="https://t1.daumcdn.net/cfile/tistory/9926614F5F0661AC20" />
-        </div>
-        <div>
-          <img src="https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201903/08/52cf07ea-c8da-4574-b0e9-21e0e3b31118.jpg" />
-        </div> */}
-        {imageInfo[0].shoppic.photodatas.map((el) => {
+      <StyledSlider {...settings}>
+        {imageInfo[randomInt].shoppic.photodatas.map((el, idx) => {
           return (
-            <div>
-              <img src={el} />
+            <div key={idx}>
+              <ImageContainer>
+                <Image src={el} />
+              </ImageContainer>
             </div>
           );
         })}
-      </Slider>
+      </StyledSlider>
     </SlideContainer>
   );
 };
