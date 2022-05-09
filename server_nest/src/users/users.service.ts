@@ -33,10 +33,10 @@ export class UsersService {
 
     }
 
-    logout() : string { 
-
-
-        return 'logout function work!'
+    logout(req : any, res: any) : any { 
+        res.clearCookie("bookmark");
+        res.clearCookie("refreshToken");
+        res.status(200).send({ message: "logout success" });
     }
 
     async create_user(Users : signinDto) : Promise <String> {
@@ -50,7 +50,7 @@ export class UsersService {
         }else{
             await this.usersRepository.save(Users)
         
-            return 'create_user work!'
+            return '가입이 완료 되었습니다.'
         }
 
     }
@@ -67,7 +67,7 @@ export class UsersService {
         if(update){
         return '유저 정보가 변경되었습니다.'
         }else{
-        throw new HttpException('유저 정보가 변경되지 않았습니다.', HttpStatus.BAD_REQUEST)
+            throw new HttpException('유저 정보가 변경되지 않았습니다.', HttpStatus.BAD_REQUEST)
         }}
         catch(err){
             throw new HttpException('오류가 발생했습니다.', HttpStatus.BAD_REQUEST)
@@ -78,7 +78,23 @@ export class UsersService {
         return "get_userinfo work!"
     }
 
-    delete_user() : string {
-        return "delete_user work!"
+    async delete_user(header) : Promise <any> {
+        try{        
+
+        const token = header.rawHeaders[1].split(" ")[1]
+        console.log(token)
+        const verify = this.jwtService.verify(token, {secret: "1234"})
+        const targetuser = await this.usersRepository.findOne({user_id : verify.user_id})
+        if (!targetuser){
+            throw new HttpException('가입되지 않은 유저입니다.', HttpStatus.BAD_REQUEST)
+        }else{
+            await this.usersRepository.remove(targetuser)
+            return "회원 탈퇴가 진행되었습니다."
+        }
+
+        }catch(err){
+            console.log(err)
+            throw new HttpException('유효하지 않은 토큰입니다.', HttpStatus.BAD_REQUEST)
+        }
     }
 }

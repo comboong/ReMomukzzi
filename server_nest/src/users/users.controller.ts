@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Patch, Post, Res, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Patch, Post, Res, Req,  } from '@nestjs/common';
 import {UsersService} from './users.service';
 import {signinDto,userloginDto} from './dto/user.dto'
 import { Response, Request } from 'express';
@@ -27,9 +27,7 @@ export class UsersController {
 
     @Post('/logout')
     logout(@Req() req: Request, @Res() res: Response): any {
-        res.clearCookie("bookmark");
-        res.clearCookie("refreshToken");
-        res.status(200).send({ message: "logout success" });
+        return this.usersService.logout(req,res)
     }
 
     @Post('/users')
@@ -48,7 +46,7 @@ export class UsersController {
     }
 
     @Delete('/users')
-    delete_user(): string {
-        return this.usersService.delete_user();
+    async delete_user(@Req() header : Request ): Promise<any> {
+        return this.usersService.delete_user(header);
     }
 }
