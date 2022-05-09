@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const Input = styled.input`
 	width: 200px;
@@ -37,7 +38,7 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function ChangeName() {
-	const accessToken = localStorage.getItem("accessToken");
+	const accessToken = Cookies.get("accessToken");
 	const [changeInfo, setchangeInfo] = useState({
 		user_id: "",
 		nickname: "",
@@ -82,7 +83,6 @@ function ChangeName() {
 
 	useEffect(() => {
 		userInfoHandler();
-		const accessToken = localStorage.getItem("accessToken");
 	}, []);
 
 	const nicknameCheck = key => e => {

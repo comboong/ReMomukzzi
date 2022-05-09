@@ -4,6 +4,7 @@ import axios from "axios";
 import ChangeName from "./ChangeName";
 import ChangePassword from "./ChangePassword";
 import MoreviewLoader from "../../MoreviewLoader";
+import Cookies from "js-cookie";
 
 const MypageMyinfoName = styled.div`
 	z-index: 10;
@@ -31,7 +32,7 @@ const MypageFixToggleContainer = styled.form`
 `;
 
 function ChangeMyinfo() {
-	const accessToken = localStorage.getItem("accessToken");
+	const accessToken = Cookies.get("accessToken");
 
 	// const Oauth = localStorage.getItem("Oauth");
 	// console.log(Oauth);
@@ -103,15 +104,15 @@ function ChangeMyinfo() {
 							</div>
 						</MypageFixToggleContainer>
 					) : null}
-					{Oauth === "true" ? (
+					{/* {Oauth === "true" ? (
 						<MypageFixMyinfoToggleBtn disabled={true}>
 							소셜 계정은 비밀번호 수정을 하실 수 없습니다.
 						</MypageFixMyinfoToggleBtn>
-					) : (
-						<MypageFixMyinfoToggleBtn onClick={fixPasswordToggleHandler}>
-							비밀번호 수정
-						</MypageFixMyinfoToggleBtn>
-					)}
+					) : ( */}
+					<MypageFixMyinfoToggleBtn onClick={fixPasswordToggleHandler}>
+						비밀번호 수정
+					</MypageFixMyinfoToggleBtn>
+					{/* )} */}
 					{fixPasswordToggle ? (
 						<MypageFixToggleContainer onSubmit={e => e.preventDefault()}>
 							<div className="password-container">
@@ -123,7 +124,7 @@ function ChangeMyinfo() {
 						<button
 							className="submit"
 							onClick={() => {
-								window.location.replace("/signout");
+								location.replace("/signout");
 							}}
 						>
 							회원탈퇴

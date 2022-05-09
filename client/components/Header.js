@@ -27,6 +27,13 @@ const Header = () => {
 			),
 			key: "signup",
 		},
+		{
+			label: (
+				<Link href="/login">
+					<a>로그인</a>
+				</Link>
+			),
+		},
 	];
 
 	return <Menu mode="horizontal" items={menuItems} />;

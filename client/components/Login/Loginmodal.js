@@ -2,24 +2,26 @@ import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import Loginoauth from "./Loginoauth";
+import Cookies from "js-cookie";
 // import { useDispatch } from "react-redux";
 
 const ModalBackdrop = styled.div`
-	position: fixed;
+	/* position: fixed;
 	z-index: 999;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.4); */
 `;
 const LoginForm = styled.div`
 	text-align: center;
+	padding-top: 50px;
 	margin: 0 auto;
 	width: 550px;
 	height: 600px;
 	font-weight: 700;
-	transform: translateY(20%);
+	/* transform: translateY(20%); */
 	border-radius: 20px;
 	/* border: 1px solid #ffba34; */
 	background-color: white;
@@ -98,12 +100,11 @@ function Loginmodal({ setOpenModal, close }) {
 			.then(res => {
 				console.log(res);
 				console.log(res.data.data.accessToken);
-				localStorage.setItem("accessToken", res.data.data.accessToken);
-				localStorage.setItem("nickname", res.data.data.nickname);
+				Cookies.set("accessToken", res.data.data.accessToken);
+				Cookies.set("nickname", res.data.data.nickname);
 				if (res.data.data.accessToken) {
-					localStorage.setItem("accessToken", res.data.data.accessToken);
+					Cookies.set("accessToken", res.data.data.accessToken);
 				}
-
 				return window.location.replace("/");
 			})
 			.catch(err => {
