@@ -19,8 +19,8 @@ function getShuffledArray(arr, n) {
   return newArr;
 }
 
-const IntroImageSet = ({ imageInfo, randomInt }) => {
-  const imageInfoCut = getShuffledArray(imageInfo, randomInt).slice(0, 8);
+const IntroImageSet = ({ imageInfo }) => {
+  const imageInfoCut = imageInfo.slice(0, 8);
   return (
     <>
       {imageInfoCut.map((el) => {
