@@ -8,8 +8,19 @@ const IntroImage = styled.img`
   cursor: pointer;
 `;
 
-const IntroImageSet = ({ imageInfo }) => {
-  const imageInfoCut = imageInfo.slice(0, 9);
+function getShuffledArray(arr, n) {
+  let newArr = [...arr];
+  newArr.splice(n, 1);
+  for (let i = newArr.length - 1; i > 0; i--) {
+    const rand = Math.floor(Math.random() * (i + 1));
+    [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
+  }
+  console.log(newArr);
+  return newArr;
+}
+
+const IntroImageSet = ({ imageInfo, randomInt }) => {
+  const imageInfoCut = getShuffledArray(imageInfo, randomInt).slice(0, 8);
   return (
     <>
       {imageInfoCut.map((el) => {

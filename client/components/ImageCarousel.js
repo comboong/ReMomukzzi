@@ -22,7 +22,7 @@ const Image = styled.img`
   object-fit: container;
 `;
 
-const ImageCarousel = ({ imageInfo }) => {
+const ImageCarousel = ({ imageInfo, randomInt }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -40,7 +40,7 @@ const ImageCarousel = ({ imageInfo }) => {
   return (
     <SlideContainer>
       <StyledSlider {...settings}>
-        {imageInfo[0].shoppic.photodatas.map((el, idx) => {
+        {imageInfo[randomInt].shoppic.photodatas.map((el, idx) => {
           return (
             <div key={idx}>
               <ImageContainer>
