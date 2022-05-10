@@ -8,24 +8,13 @@ const IntroImage = styled.img`
   cursor: pointer;
 `;
 
-function getShuffledArray(arr, n) {
-  let newArr = [...arr];
-  newArr.splice(n, 1);
-  for (let i = newArr.length - 1; i > 0; i--) {
-    const rand = Math.floor(Math.random() * (i + 1));
-    [newArr[i], newArr[rand]] = [newArr[rand], newArr[i]];
-  }
-  console.log(newArr);
-  return newArr;
-}
-
 const IntroImageSet = ({ imageInfo }) => {
   const imageInfoCut = imageInfo.slice(0, 8);
   return (
     <>
       {imageInfoCut.map((el) => {
         return (
-          <React.Fragment key={el.shopinfo.shop_id}>
+          <React.Fragment key={el.shopinfo.shopinfo.id}>
             <Link
               href="/shopdetail/[id]"
               as={`/shopdetail/${el.shopinfo.shop_id}`}

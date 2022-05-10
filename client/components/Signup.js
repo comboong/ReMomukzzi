@@ -135,7 +135,7 @@ function Signup(props) {
 
 	const isPasswordValidate = () => {
 		if (
-			/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(
+			/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
 				password
 			)
 		) {
@@ -257,12 +257,12 @@ function Signup(props) {
 					</InputForm>
 
 					<InputForm>
-						<div>이름</div>
+						<div>닉네임</div>
 						<InputBox>
 							<Input type="text" onChange={e => setName(e.target.value)} />
 						</InputBox>
 						<ValidateMsg hide={hideNameFail}>
-							이름은 필수입력입니다.
+							닉네임은 필수입력입니다.
 						</ValidateMsg>
 					</InputForm>
 

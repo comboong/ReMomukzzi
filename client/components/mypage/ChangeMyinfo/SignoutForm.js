@@ -1,6 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
-// import axios from "axios";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 const Container = styled.div`
 	margin: auto;
@@ -107,7 +108,7 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function SignoutForm({ close }) {
-	const accessToken = sessionStorage.getItem("accessToken");
+	const accessToken = Cookies.get("accessToken");
 
 	const [agreeChecked, setAgreeChecked] = useState(false);
 	const [fillText, setFillText] = useState("");
@@ -130,8 +131,8 @@ function SignoutForm({ close }) {
 			})
 			.then(res => {
 				console.log("회원탈퇴성공");
-				sessionStorage.removeItem("accessToken");
-				sessionStorage.removeItem("email");
+				Cookies.remove("accessToken");
+				Cookies.remove("nickname");
 				alert("회원 탈퇴가 완료되었습니다.");
 				// openAlertHandler();
 				window.location.replace("/");

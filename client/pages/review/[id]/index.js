@@ -5,6 +5,9 @@ import React from "react";
 import { Input, Rate } from "antd";
 import styled from "styled-components";
 import { useState, useCallback } from "react";
+import Cookies from "js-cookie";
+import axios from "axios";
+import Link from "next/link";
 
 const ReviewContainer = styled.div`
   width: 40%;
@@ -114,24 +117,24 @@ const review = () => {
       reviewData.append("star", star);
       reviewData.append("comment", inputText);
       reviewData.append("shop_id", id);
-      for (var pair of reviewData.entries()) {
-        console.log(pair[0] + "," + pair[1]);
-      }
-      // uploadImage.map((item) => {
-      //   return reviewData.append("img", item);
-      // });
+      // for (var pair of reviewData.entries()) {
+      //   console.log(pair[0] + "," + pair[1]);
+      // }
+      uploadImage.map((item) => {
+        return reviewData.append("img", item);
+      });
 
-      // axios
-      //   .post(`${process.env.NEXT_PUBLIC_SERVER_URL}/reviews`, reviewData, {
-      //     headers: {
-      //       authorization: localStorage.getItem("accessToken"),
-      //     },
-      //   })
-      //   .then((res) => {
-      //     console.log(res);
-      //     alert("리뷰 작성이 완료되었습니다.");
-      //     window.location.replace(`/shopdetail/${match.params.shop_id}`);
-      //   });
+      axios
+        .post(`${process.env.NEXT_PUBLIC_SERVER_URL}/reviews`, reviewData, {
+          headers: {
+            authorization: Cookies.get("accessToken"),
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          alert("리뷰 작성이 완료되었습니다.");
+          router.back();
+        });
     } catch (e) {
       console.log(e);
     }
@@ -180,6 +183,7 @@ const review = () => {
           >
             취소
           </button>
+
           <button className="submit" onClick={uploadReview}>
             리뷰 올리기
           </button>
