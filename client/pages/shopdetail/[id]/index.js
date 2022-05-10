@@ -1,24 +1,13 @@
 import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import KaKaoMap from "../../../components/KaKaoMap";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-
-import { Rate, Image } from "antd";
-import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
+import ShopDetailInfo from "../../../components/ShopDetailInfo";
 import { getShopDetailInfo } from "../../../reducers";
-import styled from "styled-components";
 
-const customIcons = {
-  1: <FrownOutlined />,
-  2: <FrownOutlined />,
-  3: <MehOutlined />,
-  4: <SmileOutlined />,
-  5: <SmileOutlined />,
-};
+import Link from "next/link";
+import { Rate, Image, Row, Col, Button } from "antd";
+import axios from "axios";
+import styled from "styled-components";
 
 export const ShopImages = styled.div`
   width: 100%;
@@ -34,20 +23,6 @@ export const ShopImages = styled.div`
 `;
 
 const shopdetail = ({ data, id }) => {
-  // const router = useRouter();
-  // const { id } = router.query;
-  // const dispatch = useDispatch();
-  // const shopDetailInfo = useSelector((state) => state.shopDetailInfo);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/shops/${id}`)
-  //     .then((res) => {
-  //       dispatch(getShopDetailInfo(res.data.data.targetshop));
-  //       console.log(res.data.data.targetshop);
-  //     });
-  // }, []);
-
   return (
     <>
       <Header />
@@ -66,16 +41,25 @@ const shopdetail = ({ data, id }) => {
           );
         })}
       </ShopImages>
-
-      <KaKaoMap detailXY={{ x: data.x, y: data.y }} />
-      {/* <Rate
-        defaultValue={0}
-        character={({ index }) => customIcons[index + 1]}
-      /> */}
-      {/* 
-      <Link href="/review/[id]" as={`/review/${id}`}>
-        <a>이거 누르면 리뷰로 가짐</a>
-      </Link> */}
+      <div>
+        <Link
+          href={{
+            pathname: `/review/[id]`,
+            query: { shopName: data.shop_name, id: id },
+          }}
+          as={`/review/${id}`}
+        >
+          <a>리뷰</a>
+        </Link>
+      </div>
+      <Row>
+        <Col cs={24} md={12}>
+          <ShopDetailInfo data={data} />
+        </Col>
+        <Col cs={24} md={12}>
+          <KaKaoMap detailXY={{ x: data.x, y: data.y }} />
+        </Col>
+      </Row>
       <Footer />
     </>
   );

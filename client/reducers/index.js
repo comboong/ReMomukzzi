@@ -2,7 +2,8 @@ const initialState = {
   isLoading: true,
   isFirstGet: false,
   shopInfo: [],
-  shopDetailInfo: [],
+  randomInt: 0,
+  shuffleArr: [],
 };
 
 // action creator
@@ -25,6 +26,20 @@ export const getShopInfo = (data) => {
   };
 };
 
+export const setRandomInt = (data) => {
+  return {
+    type: "SET_RANDOM_INT",
+    data,
+  };
+};
+
+export const setShuffleArr = (data) => {
+  return {
+    type: "SET_SHUFFLE_ARR",
+    data,
+  };
+};
+
 // (이전 상태, 액션) => 다음 상태
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -42,6 +57,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         isFirstGet: true,
+      };
+    case "SET_RANDOM_INT":
+      return {
+        ...state,
+        randomInt: action.data,
+      };
+    case "SET_SHUFFLE_ARR":
+      return {
+        ...state,
+        shuffleArr: action.data,
       };
     default:
       return state;

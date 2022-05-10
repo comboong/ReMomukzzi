@@ -7,7 +7,7 @@ const MapDiv = styled.div`
   padding: 30px;
 `;
 
-const KaKaoMap = ({ Info, detailXY }) => {
+const KaKaoMap = ({ Info, randomInt, detailXY }) => {
   useEffect(() => {
     const mapScript = document.createElement("script");
 
@@ -24,8 +24,8 @@ const KaKaoMap = ({ Info, detailXY }) => {
           X = detailXY.y;
           Y = detailXY.x;
         } else {
-          X = Info[0].shopinfo.shopinfo.y;
-          Y = Info[0].shopinfo.shopinfo.x;
+          X = Info[randomInt].shopinfo.shopinfo.y;
+          Y = Info[randomInt].shopinfo.shopinfo.x;
         }
         var locPosition = new kakao.maps.LatLng(X, Y); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 
