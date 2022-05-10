@@ -1,11 +1,6 @@
 const {
   shop,
-  menu,
   shop_pic,
-  shop_tag,
-  tag,
-  review,
-  review_pic,
   user,
   bookmark,
 } = require("../../models");

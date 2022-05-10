@@ -3,7 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Loginoauth from "./Loginoauth";
 import { useDispatch } from "react-redux";
-import LoadingIndicator from "../Loading/LoadingIndicator";
+
 
 const Div = styled.div`
   margin: 0 auto;
@@ -16,7 +16,7 @@ function OauthLoading() {
   let code = new URL(window.location.href).searchParams.get("code");
 
   const REACT_APP_REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-  const REDIRECT_URI = "https://localhost:3000/oauthloding";
+  const REDIRECT_URI = "http://localhost:3000/oauthloading";
   const REACT_APP_GITHUB_CLIENT_ID = process.env.REACT_APP_GITHUB_CLIENT_ID;
   const REACT_APP_GITHUB_CLIENT_SECRET =
     process.env.REACT_APP_GITHUB_CLIENT_SECRET;
@@ -108,7 +108,6 @@ function OauthLoading() {
 
   return (
     <>
-      <LoadingIndicator />
     </>
   );
 }
