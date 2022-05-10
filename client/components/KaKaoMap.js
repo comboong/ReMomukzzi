@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const MapDiv = styled.div`
-  width: 400px;
-  height: 400px;
-  padding: 30px;
+  width: 300px;
+  height: 300px;
+  margin-top: 30px;
 `;
 
-const KaKaoMap = ({ Info, randomInt, detailXY }) => {
+const KaKaoMap = ({ Info, detailXY }) => {
   useEffect(() => {
     const mapScript = document.createElement("script");
 
@@ -24,8 +24,8 @@ const KaKaoMap = ({ Info, randomInt, detailXY }) => {
           X = detailXY.y;
           Y = detailXY.x;
         } else {
-          X = Info[randomInt].shopinfo.shopinfo.y;
-          Y = Info[randomInt].shopinfo.shopinfo.x;
+          X = Info.shopinfo.shopinfo.y;
+          Y = Info.shopinfo.shopinfo.x;
         }
         var locPosition = new kakao.maps.LatLng(X, Y); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 

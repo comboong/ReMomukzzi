@@ -43,10 +43,6 @@ const ShopDetailInfo = ({ data }) => {
       <table>
         <tbody>
           <tr>
-            <th>이름</th>
-            <td>{data.shop_name}</td>
-          </tr>
-          <tr>
             <th>주소</th>
             <td>{data.location}</td>
           </tr>
@@ -61,7 +57,7 @@ const ShopDetailInfo = ({ data }) => {
           <tr>
             <th>메뉴</th>
             <td>
-              <ul style={{ margin: 0, padding: 0 }}>
+              <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
                 {data.menus.map((item, idx) => {
                   return (
                     <li key={idx}>
