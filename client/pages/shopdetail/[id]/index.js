@@ -9,9 +9,9 @@ import { Rate, Image, Row, Col, Button } from "antd";
 import axios from "axios";
 import styled from "styled-components";
 
-export const ShopImages = styled.div`
+const ShopImages = styled.div`
   width: 100%;
-  height: 250px;
+  height: 200px;
   display: flex;
   flex-direction: row;
   overflow: auto;
@@ -22,26 +22,41 @@ export const ShopImages = styled.div`
   }
 `;
 
+const Photo = styled(Image)`
+  min-width: 300px;
+  max-width: 300px;
+  object-fit: fill;
+`;
+
+const ShopTitle = styled.div`
+  display: flex;
+`;
+
 const shopdetail = ({ data, id }) => {
   return (
     <>
       <Header />
       <ShopImages>
         {data.shop_pics.map((el, idx) => {
-          return (
-            <Image
-              key={idx}
-              src={el.pic_URL}
-              style={{
-                maxWidth: 300,
-                minWidth: 300,
-                objectFit: "fill",
-              }}
-            />
-          );
+          return <Photo key={idx} src={el.pic_URL} />;
         })}
       </ShopImages>
-      <div>
+      <ShopTitle>
+        <div>
+          <span
+            style={{
+              marginLeft: 30,
+              marginRight: 15,
+              fontSize: 24,
+              fontWeight: "bold",
+            }}
+          >
+            {data.shop_name}
+          </span>
+          <span style={{ fontSize: 24, fontWeight: "bold", color: "red" }}>
+            {!data.star_avg ? "0.0" : data.star_avg?.toFixed(1)}
+          </span>
+        </div>
         <Link
           href={{
             pathname: `/review/[id]`,
@@ -49,10 +64,13 @@ const shopdetail = ({ data, id }) => {
           }}
           as={`/review/${id}`}
         >
-          <a>리뷰</a>
+          <a>
+            <Button>리뷰</Button>
+          </a>
         </Link>
-      </div>
-      <Row>
+        <Button>즐겨찾기</Button>
+      </ShopTitle>
+      <Row align="middle" justify="center">
         <Col cs={24} md={12}>
           <ShopDetailInfo data={data} />
         </Col>

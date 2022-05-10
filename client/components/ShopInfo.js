@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 
 const ShopInfoDiv = styled.div`
   padding: 30px;
@@ -18,7 +17,7 @@ const ShopInfoDiv = styled.div`
   }
 
   & > table > tbody > tr > th {
-    width: 110px;
+    /* width: 110px; */
     font-size: 1rem;
     color: rgba(79, 79, 79, 0.6);
     line-height: 1.7;
@@ -38,32 +37,32 @@ const ShopInfoDiv = styled.div`
   }
 `;
 
-const ShopInfo = ({ shopInfo, randomInt }) => {
+const ShopInfo = ({ shopInfo }) => {
   return (
     <ShopInfoDiv>
       <table>
         <tbody>
           <tr>
             <th>이름</th>
-            <td>{shopInfo[randomInt].shopinfo.shopinfo.place_name}</td>
+            <td>{shopInfo.shopinfo.shopinfo.place_name}</td>
           </tr>
           <tr>
             <th>주소</th>
-            <td>{shopInfo[randomInt].shopinfo.shopinfo.road_address_name}</td>
+            <td>{shopInfo.shopinfo.shopinfo.road_address_name}</td>
           </tr>
           <tr>
             <th>음식 종류</th>
-            <td>{shopInfo[randomInt].shopinfo.shopinfo.category_name}</td>
+            <td>{shopInfo.shopinfo.shopinfo.category_name.split(">")[1]}</td>
           </tr>
           <tr>
             <th>전화번호</th>
-            <td>{shopInfo[randomInt].shopinfo.shopinfo.phone}</td>
+            <td>{shopInfo.shopinfo.shopinfo.phone}</td>
           </tr>
           <tr>
             <th>메뉴</th>
             <td>
-              <ul style={{ margin: 0, padding: 0 }}>
-                {shopInfo[randomInt].menulist.menulist.map((item, idx) => {
+              <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                {shopInfo.menulist.menulist.map((item, idx) => {
                   return (
                     <li key={idx}>
                       {item[0]} : {item[1]}원
