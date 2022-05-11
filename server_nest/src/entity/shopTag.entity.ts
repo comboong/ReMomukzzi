@@ -1,7 +1,7 @@
 import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm"
 
 @Entity()
-export class Shoptag {
+export class Shops {
     @PrimaryGeneratedColumn('increment')
     public id: number;
 
