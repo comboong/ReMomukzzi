@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn} from "typeorm"
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm"
 
 @Entity()
 export class Shops {
@@ -37,4 +37,7 @@ export class Shops {
 
     @Column()
     status : boolean;
+
+    @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
+    public createdAt: Date;
 }

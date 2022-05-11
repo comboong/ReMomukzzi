@@ -46,7 +46,7 @@ export class UsersController {
     }
 
     @Delete('/users')
-    async delete_user(@Req() header : Request ): Promise<any> {
+    delete_user(@Req() header : Request ): Promise<string> {
         return this.usersService.delete_user(header);
     }
 }
