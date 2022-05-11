@@ -1,29 +1,16 @@
 import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm"
 
 @Entity()
-export class Users {
+export class Shoptag {
     @PrimaryGeneratedColumn('increment')
-    id: number;
+    public id: number;
 
     @Column()
-    user_id : number;
+    public shop_id : number;
 
     @Column()
-    password : string;
+    public tag_id : string;
 
-    @Column()
-    email : string;
-
-    @Column()
-    nickname : string;
-
-    @Column({default: 0})
-    total_review : number;
-
-    @Column()
-    oauth : boolean;
-    
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     public createdAt: Date;
 }
-
