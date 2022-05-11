@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const ModalBackdrop = styled.div`
 	position: fixed;
@@ -80,6 +81,7 @@ const SignUpButton = styled.div`
 
 function Signup(props) {
 	// document.body.style.overflow = "hidden";
+	const router = useRouter();
 	const [userId, setUserId] = useState("");
 	const [password, setPassword] = useState("");
 	const [passwordRetype, setPasswordRetype] = useState("");
@@ -184,7 +186,7 @@ function Signup(props) {
 					} else if (response.data.message === "created") {
 						setHideIDCheckFail(true);
 						console.log(response.data);
-						window.location.replace("/");
+						router.push("/");
 					}
 				})
 				.catch(err => {

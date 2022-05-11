@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import InputPassword from "./InputPassword";
 import Confirmpassword from "./Confirmpassword";
+import { useRouter } from "next/router";
 
 const SubmitBtnDiv = styled.div`
 	margin-top: 30px;
@@ -28,6 +29,7 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function Passwordchange() {
+	const router = useRouter();
 	const accessToken = sessionStorage.getItem("accessToken");
 
 	const [passwordError, setPasswordErr] = useState("");
@@ -83,7 +85,7 @@ function Passwordchange() {
 					} else {
 						console.log("패스워드 변경 완료", res);
 						alert("패스워드가 변경되었습니다.");
-						return window.location.replace("/mypage");
+						return router.push("/mypage");
 					}
 				})
 				.catch(err => {

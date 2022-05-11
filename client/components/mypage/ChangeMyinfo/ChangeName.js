@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const Input = styled.input`
 	width: 200px;
@@ -38,6 +39,7 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function ChangeName() {
+	const router = useRouter();
 	const accessToken = Cookies.get("accessToken");
 	const [changeInfo, setchangeInfo] = useState({
 		user_id: "",
@@ -129,7 +131,7 @@ function ChangeName() {
 				alert("닉네임이 변경되었습니다.");
 				// openAlertHandler();
 				// fixNicknameToggleHandler()
-				return window.location.replace("/mypage");
+				return router.push("/mypage");
 			})
 			.catch(err => {
 				alert("닉네임 변경 에러입니다.");
