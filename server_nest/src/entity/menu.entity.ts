@@ -1,12 +1,10 @@
-import {Entity, Column, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn} from "typeorm"
+import {Entity, Column, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn, ManyToOne} from "typeorm"
+import { Shops } from "./shops.entity";
 
 @Entity()
 export class Menu {
     @PrimaryGeneratedColumn('increment')
     id: number;
-
-    @Column()
-    shop_id : number;
 
     @Column()
     menu_name : string;
@@ -19,4 +17,7 @@ export class Menu {
 
     @UpdateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)", onUpdate: "CURRENT_TIMESTAMP(6)" })
     public updatedAt: Date;
+
+    @ManyToOne(()=> Shops,(shop) => shop.id,{ nullable: false, onDelete: 'CASCADE' } )
+    shop : Shops
 }
