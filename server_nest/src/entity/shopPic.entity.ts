@@ -1,4 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn} from "typeorm"
+import {Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,ManyToOne} from "typeorm"
+import { Shops } from "./shops.entity";
 
 @Entity()
 export class Shop_pic {
@@ -6,11 +7,11 @@ export class Shop_pic {
     id: number;
 
     @Column()
-    shop_id : number;
-
-    @Column()
     pic_URL : string;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
     public createdAt: Date;
+
+    @ManyToOne(()=> Shops,(shop) => shop.id,{ nullable: false, onDelete: 'CASCADE' } )
+    shop : Shops
 }
