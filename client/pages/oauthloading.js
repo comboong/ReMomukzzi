@@ -1,16 +1,13 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import Myinfo from "../components/mypage/Myinfo";
-import Loginmodal from "../components/Login/Loginmodal";
-import Oauthlogin from "../components/Login/OauthLoading"
+import OauthCheck from "../components/Login/OauthCheck";
+import { useRouter } from "next/router";
 
-const Mypage = () => {
-	return (
-		<>
-			<Header />
-			<Oauthlogin />
-			<Footer />
-		</>
-	);
+const oauthloading = () => {
+  const router = useRouter();
+
+  return (
+    <>
+      <OauthCheck code={router.asPath.split("=")[1]} />
+    </>
+  );
 };
-export default Mypage;
+export default oauthloading;
