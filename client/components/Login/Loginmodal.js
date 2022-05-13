@@ -64,7 +64,6 @@ function Loginmodal({ setOpenModal, close }) {
 	const handleInputValue = key => e => {
 		setLoginInfo({ ...loginInfo, [key]: e.target.value.toLowerCase() });
 	};
-	console.log(loginInfo);
 
 	const onClickLogin = () => {
 		const { user_id, password } = loginInfo;
@@ -85,9 +84,6 @@ function Loginmodal({ setOpenModal, close }) {
 			.then(res => {
 				Cookies.set("accessToken", res.data.data.accessToken);
 				Cookies.set("nickname", res.data.data.nickname);
-				if (res.data.data.accessToken) {
-					Cookies.set("accessToken", res.data.data.accessToken);
-				}
 				return router.push("/");
 			})
 			.catch(err => {

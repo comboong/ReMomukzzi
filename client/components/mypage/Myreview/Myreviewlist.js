@@ -187,12 +187,6 @@ const Myreviewlist = ({ comment, shop_name, createdAt, star, pic, id }) => {
 							<BtnWrapper>
 								<BtnOne>
 									<Myreviewdelete id={id} />
-									{/* <Icon
-										size={28}
-										icon={ic_cancel_outline}
-										className="delete-button"
-										onClick={handleDeleteCommentModal}
-									/> */}
 								</BtnOne>
 							</BtnWrapper>
 						</BtnBox>

@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import MoreviewLoader from "../MoreviewLoader";
 import ChangeMyinfo from "./ChangeMyinfo/ChangeMyinfo";
 import Myreview from "./Myreview/Myreview";
 import Cookies from "js-cookie";
@@ -10,7 +9,6 @@ const MypageContainer = styled.div`
 	font-size: 14px;
 	word-break: keep-all;
 	min-height: 81vh;
-	/* border: 1px solid black; */
 	overflow: auto;
 `;
 const MypageLeftContainer = styled.div`
@@ -48,16 +46,10 @@ const MypageMyinfoContainer = styled.div`
 	-webkit-box-direction: normal;
 	-ms-flex-direction: column;
 	flex-direction: column;
-	/* border: 3px solid rgb(39, 51, 67); */
-	/* border-radius: 10px; */
 	padding: 5px;
 	margin-bottom: 15px;
 	overflow: auto;
-	/* border-right-style: solid; */
-	border-right-width: 5px;
-	border-right-color: #ffba34;
-	/* background-image: url('${MypageImg}');
-background-position: 80px 50px; */
+	padding-left: 100px;
 `;
 
 const Myinfo = () => {
