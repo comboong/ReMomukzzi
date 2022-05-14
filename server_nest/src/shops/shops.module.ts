@@ -2,8 +2,10 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule} from '@nestjs/typeorm'
 import { Users } from '../entity/users.entity';
-import { UsersController } from './users.controller';
-import { UsersService } from './users.service';
+import { ShopsController } from './shops.controller';
+import { ShopsService } from './shops.service';
+
+
 
 @Module({
     imports : [
@@ -12,10 +14,10 @@ import { UsersService } from './users.service';
             secret: '1234',
             signOptions: {expiresIn: '12h'},
         })
-    ],
-    exports : [TypeOrmModule],
-    controllers: [UsersController],
-    providers: [UsersService],
+],
+exports : [TypeOrmModule],
+controllers: [ShopsController],
+providers: [ShopsService],
 })
 
-export class UsersModule {}
+export class ShopsModule {}

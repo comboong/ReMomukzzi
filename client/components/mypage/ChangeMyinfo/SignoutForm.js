@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
 	margin: auto;
@@ -108,6 +109,7 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function SignoutForm({ close }) {
+	const router = useRouter();
 	const accessToken = Cookies.get("accessToken");
 
 	const [agreeChecked, setAgreeChecked] = useState(false);
@@ -135,7 +137,7 @@ function SignoutForm({ close }) {
 				Cookies.remove("nickname");
 				alert("회원 탈퇴가 완료되었습니다.");
 				// openAlertHandler();
-				window.location.replace("/");
+				router.push("/");
 			})
 			.catch(err => {
 				alert("잘못된 요청입니다");
@@ -185,10 +187,7 @@ function SignoutForm({ close }) {
 									탈퇴하기
 								</button>
 							)}
-							<button
-								className="cancel"
-								onClick={() => window.location.replace("/")}
-							>
+							<button className="cancel" onClick={() => router.push("/")}>
 								취소 (홈으로)
 							</button>
 						</SubmitBtnDiv>

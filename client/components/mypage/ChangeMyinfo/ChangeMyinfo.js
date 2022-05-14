@@ -5,6 +5,7 @@ import ChangeName from "./ChangeName";
 import ChangePassword from "./ChangePassword";
 import MoreviewLoader from "../../MoreviewLoader";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const MypageMyinfoName = styled.div`
 	z-index: 10;
@@ -32,6 +33,7 @@ const MypageFixToggleContainer = styled.form`
 `;
 
 function ChangeMyinfo() {
+	const router = useRouter();
 	const accessToken = Cookies.get("accessToken");
 
 	// const Oauth = localStorage.getItem("Oauth");
@@ -48,14 +50,9 @@ function ChangeMyinfo() {
 		setFixPasswordToggle(!fixPasswordToggle);
 	};
 
-	// useEffect(() => {
-	// 	// console.log(localStorage);
-	// 	const accessToken = localStorage.getItem("accessToken");
-	// });
-
 	const userInfoHandler = () => {
 		if (!accessToken) {
-			window.location.replace("/");
+			router.push("/");
 		} else {
 			setLoading(true);
 			axios
