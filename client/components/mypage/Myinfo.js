@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import ChangeMyinfo from "./ChangeMyinfo/ChangeMyinfo";
 import Myreview from "./Myreview/Myreview";
@@ -50,8 +49,6 @@ const MypageMyinfoContainer = styled.div`
 	margin-bottom: 15px;
 	overflow: auto;
 	padding-left: 100px;
-	border-right: 2px solid #ffba34;
-	height: 550px;
 `;
 
 const Myinfo = () => {
