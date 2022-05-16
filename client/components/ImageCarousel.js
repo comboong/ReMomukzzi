@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const StyledSlider = styled(Slider)`
-  height: 40%;
+  height: 330px;
   margin: 30px;
 
   .slick-list {

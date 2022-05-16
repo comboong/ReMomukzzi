@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { useCallback } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { FavoriteAction } from "../reducers";
 
 const HeaderContainer = styled.div`
   margin: 0 auto;
@@ -15,6 +17,7 @@ const HeaderContainer = styled.div`
     align-items: center;
     background-color: #f1c83e;
     padding: 9px 12px;
+    min-width: 800px;
   }
 
   .navbar_logo {
@@ -82,6 +85,7 @@ const HeaderContainer = styled.div`
 
 const Header = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const handleLogOut = useCallback(() => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -92,6 +96,11 @@ const Header = () => {
         .then((res) => {
           Cookies.remove("accessToken");
           Cookies.remove("nickname");
+          Cookies.remove("email");
+          Cookies.remove("Oauth");
+
+          localStorage.setItem("visited", JSON.stringify([]));
+
           console.log(res);
           router.push("/");
         });
@@ -119,6 +128,13 @@ const Header = () => {
             <li onClick={handleLogOut}>
               <div>로그아웃</div>
             </li>
+            <li
+              onClick={() => {
+                dispatch(FavoriteAction(true));
+              }}
+            >
+              <div>즐겨찾기</div>
+            </li>
           </ul>
         ) : (
           <ul className="navbar_menu">
@@ -131,6 +147,13 @@ const Header = () => {
               <Link href="/signup">
                 <a>회원가입</a>
               </Link>
+            </li>
+            <li
+              onClick={() => {
+                dispatch(FavoriteAction(true));
+              }}
+            >
+              <div>즐겨찾기</div>
             </li>
           </ul>
         )}
