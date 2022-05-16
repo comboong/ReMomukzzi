@@ -50,7 +50,6 @@ function ChangeName() {
 	const [validation, setValidation] = useState({
 		nickname: false,
 	});
-
 	const isValidForNickname = validation.nickname;
 
 	const handleInputValue = key => e => {
@@ -120,12 +119,13 @@ function ChangeName() {
 			})
 			.then(res => {
 				alert("닉네임이 변경되었습니다.");
-				return location.replace("/mypage");
+				return location.replace("/");
 			})
 			.catch(err => {
 				alert("닉네임 변경 에러입니다.");
 			});
 	};
+
 	return (
 		<div>
 			<div>

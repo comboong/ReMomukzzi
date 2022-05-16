@@ -66,6 +66,7 @@ function ChangeMyinfo() {
 	const [fixNameToggle, setFixNameToggle] = useState(false);
 	const [fixPasswordToggle, setFixPasswordToggle] = useState(false);
 	const [loading, setLoading] = useState(true);
+	const [newNick, setNewNick] = useState();
 	const fixNameToggleHandler = () => {
 		setFixNameToggle(!fixNameToggle);
 	};
@@ -86,6 +87,7 @@ function ChangeMyinfo() {
 				.then(res => {
 					setUserInfo(res);
 					setLoading(false);
+					setNewNick(res.data.data.nickname);
 				})
 				.catch(err => {
 					alert("잘못된 요청입니다.");
