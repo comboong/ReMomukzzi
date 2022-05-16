@@ -34,8 +34,7 @@ const IconBox = styled.span`
 `;
 
 function Loginouath() {
-  const REDIRECT_URI = "http://localhost:3000/oauthloading";
-  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_REACT_APP_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_REACT_APP_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&response_type=code`;
   const GITHUB_LOGIN_URL = `https://github.com/login/oauth/authorize?client_id=${process.env.NEXT_PUBLIC_REACT_APP_GITHUB_CLIENT_ID}`;
 
   return (
