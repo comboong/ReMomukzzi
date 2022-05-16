@@ -4,6 +4,7 @@ import styled from "styled-components";
 import InputPassword from "./InputPassword";
 import Confirmpassword from "./Confirmpassword";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const SubmitBtnDiv = styled.div`
 	margin-top: 30px;
@@ -18,19 +19,17 @@ const SubmitBtnDiv = styled.div`
 		border: none;
 		color: white;
 		cursor: pointer;
-		height: 50px;
+		height: 40px;
 	}
 	.cancel {
 		margin-left: auto;
 		margin-right: 5px;
 	}
-	.submit {
-	}
 `;
 
 function Passwordchange() {
 	const router = useRouter();
-	const accessToken = sessionStorage.getItem("accessToken");
+	const accessToken = Cookies.get("accessToken");
 
 	const [passwordError, setPasswordErr] = useState("");
 	const [confirmPasswordError, setConfirmPasswordError] = useState("");
@@ -54,10 +53,9 @@ function Passwordchange() {
 				})
 				.then(res => {
 					setchangeInfo(res.data.data.userInfo);
-					console.log("개인정보가져오기 성공");
 				})
 				.catch(err => {
-					console.log("개인가져오기 에러", err);
+					alert("잘못된 요청입니다.");
 				});
 		}
 	};
@@ -83,14 +81,12 @@ function Passwordchange() {
 					if (changeInfo.password === passwordInput.password) {
 						return alert("기존에 사용하는 비밀번호와 같습니다.");
 					} else {
-						console.log("패스워드 변경 완료", res);
 						alert("패스워드가 변경되었습니다.");
-						return router.push("/mypage");
+						return location.replace("/mypage");
 					}
 				})
 				.catch(err => {
 					alert("패스워드 변경 에러입니다.");
-					console.log("패스워드 패치 오류입니다.", err);
 				});
 		}
 	};
@@ -107,7 +103,7 @@ function Passwordchange() {
 	const handleValidation = e => {
 		const passwordInputValue = e.target.value.trim();
 		const passwordInputFieldName = e.target.name;
-		//for password
+
 		if (passwordInputFieldName === "password") {
 			const lowercaseRegExp = /(?=.*?[a-z])/;
 			const digitsRegExp = /(?=.*?[0-9])/;
@@ -131,7 +127,7 @@ function Passwordchange() {
 			}
 			setPasswordErr(errMsg);
 		}
-		// for confirm password
+
 		if (
 			passwordInputFieldName === "confirmPassword" ||
 			(passwordInputFieldName === "password" &&
@@ -146,8 +142,7 @@ function Passwordchange() {
 	};
 
 	return (
-		<div>
-			{/* <PasswordTitle>비밀번호</PasswordTitle> */}
+		<>
 			<InputPassword
 				handlePasswordChange={handlePasswordChange}
 				handleValidation={handleValidation}
@@ -160,12 +155,10 @@ function Passwordchange() {
 				confirmPasswordValue={passwordInput.confirmPassword}
 				confirmPasswordError={confirmPasswordError}
 			/>
-			{/* <SubmitBtnDiv> */}
-			<button className="submit" onClick={fixPasswordHandler}>
-				수정
-			</button>
-			{/* </SubmitBtnDiv> */}
-		</div>
+			<SubmitBtnDiv>
+				<button onClick={fixPasswordHandler}>수정</button>
+			</SubmitBtnDiv>
+		</>
 	);
 }
 export default Passwordchange;

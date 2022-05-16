@@ -3,6 +3,7 @@ import styled from "styled-components";
 const ShopInfoDiv = styled.div`
   padding: 30px;
   min-height: 200px;
+  min-width: 470px;
 
   & > table > tbody {
     display: table-row-group;
@@ -17,7 +18,7 @@ const ShopInfoDiv = styled.div`
   }
 
   & > table > tbody > tr > th {
-    /* width: 110px; */
+    width: 110px;
     font-size: 1rem;
     color: rgba(79, 79, 79, 0.6);
     line-height: 1.7;
@@ -56,7 +57,11 @@ const ShopInfo = ({ shopInfo }) => {
           </tr>
           <tr>
             <th>전화번호</th>
-            <td>{shopInfo.shopinfo.shopinfo.phone}</td>
+            <td>
+              {!shopInfo.shopinfo.shopinfo.phone
+                ? "정보 없음"
+                : shopInfo.shopinfo.shopinfo.phone}
+            </td>
           </tr>
           <tr>
             <th>메뉴</th>
