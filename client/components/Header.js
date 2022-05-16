@@ -17,7 +17,37 @@ const HeaderContainer = styled.div`
     align-items: center;
     background-color: #f1c83e;
     padding: 9px 12px;
-    min-width: 800px;
+    min-width: 564px;
+
+    @media only screen and (max-width: 804px) {
+      .navlist {
+        margin: 15px 20px;
+      }
+    }
+
+    @media only screen and (max-width: 725px) {
+      .navlist {
+        margin: 15px 15px;
+      }
+    }
+
+    @media only screen and (max-width: 684px) {
+      .navlist {
+        margin: 15px 10px;
+      }
+    }
+
+    @media only screen and (max-width: 642px) {
+      .navlist {
+        margin: 15px 5px;
+      }
+    }
+
+    @media only screen and (max-width: 602px) {
+      .navlist {
+        margin: 15px 0px;
+      }
+    }
   }
 
   .navbar_logo {
@@ -32,6 +62,7 @@ const HeaderContainer = styled.div`
     display: flex;
     list-style: none;
     font-size: 20px;
+    margin: 0px;
   }
 
   .navbar_menu li {
@@ -117,41 +148,43 @@ const Header = () => {
         </div>
         {Cookies.get("accessToken") ? (
           <ul className="navbar_menu">
-            <li>
+            <li className="navlist">
               <div>{Cookies.get("nickname")}님</div>
             </li>
-            <li>
+            <li className="navlist">
               <Link href="/mypage" className="navbar_link">
-                마이페이지
+                <div>마이페이지</div>
               </Link>
             </li>
-            <li onClick={handleLogOut}>
+            <li onClick={handleLogOut} className="navlist">
               <div>로그아웃</div>
             </li>
             <li
               onClick={() => {
                 dispatch(FavoriteAction(true));
               }}
+              className="navlist"
             >
               <div>즐겨찾기</div>
             </li>
           </ul>
         ) : (
           <ul className="navbar_menu">
-            <li>
+            <li className="navlist">
               <Link href="/login">
-                <a>로그인</a>
+                <div>로그인</div>
               </Link>
             </li>
-            <li>
+            <li className="navlist">
               <Link href="/signup">
-                <a>회원가입</a>
+                <div>회원가입</div>
               </Link>
             </li>
             <li
               onClick={() => {
                 dispatch(FavoriteAction(true));
               }}
+              className="navlist"
             >
               <div>즐겨찾기</div>
             </li>

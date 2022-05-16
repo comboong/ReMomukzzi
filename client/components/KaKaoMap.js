@@ -21,7 +21,8 @@ const KaKaoMap = () => {
 
         const container = document.getElementById("map");
         container.style.width = "400px";
-        container.style.height = "400px";
+        container.style.height = "350px";
+        container.style.margin = "auto";
 
         const options = {
           center: new window.kakao.maps.LatLng(mapXY.x, mapXY.y),
