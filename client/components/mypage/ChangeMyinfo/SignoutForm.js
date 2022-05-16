@@ -9,6 +9,7 @@ const Container = styled.div`
 	font-weight: 700;
 	height: 600px;
 	transform: translateY(20%);
+	min-width: 800px;
 `;
 const ContentContainer = styled.div`
 	padding: 10px;
@@ -140,6 +141,11 @@ function SignoutForm({ close }) {
 		<>
 			<Container>
 				<ContentContainer>
+					<img
+						src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"
+						style={{ cursor: "pointer" }}
+						onClick={() => location.replace("/")}
+					></img>
 					<Title>탈퇴 안내</Title>
 					<ContentText>
 						회원탈퇴를 신청하기 전에 안내사항입니다. <br />

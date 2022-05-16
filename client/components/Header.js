@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Menu } from "antd";
 import Cookies from "js-cookie";
 import styled from "styled-components";
-import { useCallback } from "react";
+import { useCallback, useState, useEffect } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
@@ -194,42 +194,4 @@ const Header = () => {
     </HeaderContainer>
   );
 };
-// const Header = () => {
-// 	const menuItems = [
-// 		{
-// 			label: (
-// 				<Link href="/">
-// 					<a>Home</a>
-// 				</Link>
-// 			),
-// 			key: "home",
-// 		},
-// 		{
-// 			label: (
-// 				<Link href="/mypage">
-// 					<a>마이페이지</a>
-// 				</Link>
-// 			),
-// 			key: "mypage",
-// 		},
-// 		{
-// 			label: (
-// 				<Link href="/signup">
-// 					<a>회원가입</a>
-// 				</Link>
-// 			),
-// 			key: "signup",
-// 		},
-// 		{
-// 			label: (
-// 				<Link href="/login">
-// 					<a>로그인</a>
-// 				</Link>
-// 			),
-// 		},
-// 	];
-
-// 	return <Menu mode="horizontal" items={menuItems} />;
-// };
-
 export default Header;

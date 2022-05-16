@@ -92,7 +92,6 @@ const ContentWrapper = styled.div`
 	position: relative;
 	width: auto;
 	height: auto;
-	cursor: pointer;
 `;
 const Content = styled.div`
 	flex-wrap: wrap;

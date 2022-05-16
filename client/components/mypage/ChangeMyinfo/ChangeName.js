@@ -8,7 +8,8 @@ const Input = styled.input`
 	border-style: none;
 	height: 39px;
 	padding-left: 5px;
-	font-size: 13px;
+	margin-top: 10px;
+	font-size: 20px;
 	border-bottom: solid 2px gainsboro;
 	:focus {
 		outline: none;
@@ -49,7 +50,6 @@ function ChangeName() {
 	const [validation, setValidation] = useState({
 		nickname: false,
 	});
-
 	const isValidForNickname = validation.nickname;
 
 	const handleInputValue = key => e => {
@@ -119,12 +119,13 @@ function ChangeName() {
 			})
 			.then(res => {
 				alert("닉네임이 변경되었습니다.");
-				return location.replace("/mypage");
+				return location.replace("/");
 			})
 			.catch(err => {
 				alert("닉네임 변경 에러입니다.");
 			});
 	};
+
 	return (
 		<div>
 			<div>

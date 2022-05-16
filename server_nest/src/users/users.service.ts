@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
-import { Users } from './entity/users.entity';
+import { Users } from '../entity/users.entity';
 import {InjectRepository} from '@nestjs/typeorm'
 import {Repository} from 'typeorm'
 import { signinDto, userloginDto } from './dto/user.dto';

@@ -1,5 +1,4 @@
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Myinfo from "../components/mypage/Myinfo";
 import FavoriteModal from "../components/FavoriteModal";
 

@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 
 const MypageMyinfoName = styled.div`
 	z-index: 10;
-	font-size: 2rem;
+	font-size: 25px;
 	font-weight: bolder;
 	margin-top: 20px;
 	margin-bottom: 5px;
@@ -18,6 +18,15 @@ const MypageFixMyinfoToggleBtn = styled.span`
 	margin: 5px 0 5px 0;
 	opacity: 0.5;
 	cursor: pointer;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+	font-size: 20px;
+	margin-top: 30px;
+`;
+const MypageFixMyinfoOauth = styled.span`
+	margin: 5px 0 5px 0;
+	opacity: 0.5;
 	width: -webkit-fit-content;
 	width: -moz-fit-content;
 	width: fit-content;
@@ -51,13 +60,13 @@ const SubmitBtnDiv = styled.div`
 function ChangeMyinfo() {
 	const router = useRouter();
 	const accessToken = Cookies.get("accessToken");
-
 	const Oauth = Cookies.get("Oauth");
 
 	const [userInfo, setUserInfo] = useState("");
 	const [fixNameToggle, setFixNameToggle] = useState(false);
 	const [fixPasswordToggle, setFixPasswordToggle] = useState(false);
 	const [loading, setLoading] = useState(true);
+	const [newNick, setNewNick] = useState();
 	const fixNameToggleHandler = () => {
 		setFixNameToggle(!fixNameToggle);
 	};
@@ -78,6 +87,7 @@ function ChangeMyinfo() {
 				.then(res => {
 					setUserInfo(res);
 					setLoading(false);
+					setNewNick(res.data.data.nickname);
 				})
 				.catch(err => {
 					alert("잘못된 요청입니다.");
@@ -101,11 +111,9 @@ function ChangeMyinfo() {
 					<MypageMyinfoName>
 						이메일: {userInfo && userInfo.data.data.userInfo.email}
 					</MypageMyinfoName>
-					<div>
-						<MypageFixMyinfoToggleBtn onClick={fixNameToggleHandler}>
-							닉네임 수정
-						</MypageFixMyinfoToggleBtn>
-					</div>
+					<MypageFixMyinfoToggleBtn onClick={fixNameToggleHandler}>
+						닉네임 수정
+					</MypageFixMyinfoToggleBtn>
 					{fixNameToggle ? (
 						<MypageFixToggleContainer onSubmit={e => e.preventDefault()}>
 							<div className="nickname-container">
@@ -114,9 +122,9 @@ function ChangeMyinfo() {
 						</MypageFixToggleContainer>
 					) : null}
 					{Oauth === "true" ? (
-						<MypageFixMyinfoToggleBtn disabled={true}>
+						<MypageFixMyinfoOauth disabled={true}>
 							소셜 계정은 비밀번호 수정을 하실 수 없습니다.
-						</MypageFixMyinfoToggleBtn>
+						</MypageFixMyinfoOauth>
 					) : (
 						<MypageFixMyinfoToggleBtn onClick={fixPasswordToggleHandler}>
 							비밀번호 수정
@@ -130,14 +138,18 @@ function ChangeMyinfo() {
 						</MypageFixToggleContainer>
 					) : null}
 					<SubmitBtnDiv>
-						<button
-							className="submit"
-							onClick={() => {
-								router.push("/signout");
-							}}
-						>
-							회원탈퇴
-						</button>
+						{Oauth === "true" ? (
+							<></>
+						) : (
+							<button
+								className="submit"
+								onClick={() => {
+									router.push("/signout");
+								}}
+							>
+								회원탈퇴
+							</button>
+						)}
 					</SubmitBtnDiv>
 				</>
 			)}
