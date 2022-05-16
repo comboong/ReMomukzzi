@@ -3,7 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import Loginoauth from "./Loginoauth";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 
 const LoginForm = styled.div`
 	text-align: center;
@@ -39,9 +38,14 @@ const LoginButton = styled.div`
 	line-height: 40px;
 `;
 const InputBox = styled.div`
+<<<<<<< HEAD
 	width: 430px;
 	border: solid 2px gainsboro;
 	margin-bottom: 20px;
+=======
+  width: 430px;
+  border: solid 2px gainsboro;
+>>>>>>> add6d09cc2fa77093e2df1f85825ba0b4e4c4b7d
 `;
 const Input = styled.input`
 	width: 390px;
@@ -57,8 +61,7 @@ const LoginText = styled.div`
 	font-size: 20px;
 `;
 
-function Loginmodal({ setOpenModal, close }) {
-	const router = useRouter();
+function Loginmodal() {
 	const [loginInfo, setLoginInfo] = useState({
 		user_id: "",
 		password: "",
@@ -71,10 +74,13 @@ function Loginmodal({ setOpenModal, close }) {
 	const onClickLogin = () => {
 		const { user_id, password } = loginInfo;
 		if (user_id === "") {
+			console.log("아이디를 입력하세요");
 			return;
 		} else if (password === "") {
+			console.log("비밀번호를 입력하세요");
 			return;
 		}
+		console.log("click login");
 		axios
 			.post(
 				`${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
@@ -85,17 +91,18 @@ function Loginmodal({ setOpenModal, close }) {
 				{ "Content-Type": "application/json", withCredentials: true }
 			)
 			.then(res => {
+				console.log(res);
+				console.log(res.data.data.accessToken);
 				Cookies.set("accessToken", res.data.data.accessToken);
 				Cookies.set("nickname", res.data.data.nickname);
-				return router.push("/");
+
+				return window.location.replace("/");
 			})
 			.catch(err => {
+				console.log(err);
+				console.log("로그인실패");
 				alert("아이디와 비밀번호를 확인해 주세요.");
 			});
-	};
-
-	const enterLogin = e => {
-		if (e.key === "Enter") return onClickLogin();
 	};
 
 	return (

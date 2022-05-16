@@ -9,7 +9,7 @@ const IntroImage = styled.img`
 `;
 
 const IntroImageSet = ({ imageInfo }) => {
-  const imageInfoCut = imageInfo.slice(0, 8);
+  const imageInfoCut = imageInfo.slice(0, 4);
   return (
     <>
       {imageInfoCut.map((el) => {
