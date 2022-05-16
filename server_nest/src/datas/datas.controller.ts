@@ -6,7 +6,7 @@ export class DataController {
     constructor(private readonly datasService: DatasService) {}
 
     @Post('/getdata')
-    getdata(@Body() body, @Res() res) {
-        return this.datasService.getdata(body);
+    async getdata(@Body() body, @Res() res) {
+        return res.json(await this.datasService.getdata(body));
     }
 }
