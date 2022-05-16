@@ -13,14 +13,18 @@ import {
   firstGetAction,
   setRandomInt,
   setShuffleArr,
+  setMapXY,
 } from "../reducers";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import IntroImageSet from "../components/IntroImageSet";
 import MoreviewLoader from "../components/MoreviewLoader";
+import FavoriteModal from "../components/FavoriteModal";
 
 const Home = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.isLoading);
+  const isFavoriteOn = useSelector((state) => state.isFavoriteOn);
   const shopInfo = useSelector((state) => state.shopInfo);
   const isFirstGet = useSelector((state) => state.isFirstGet);
   const randomInt = useSelector((state) => state.randomInt);
@@ -46,6 +50,12 @@ const Home = () => {
     let n = getRandomInt(0, shopInfo.length);
     dispatch(setRandomInt(n));
     dispatch(setShuffleArr(getShuffledArray(shopInfo, n)));
+    dispatch(
+      setMapXY({
+        x: shopInfo[n].shopinfo.shopinfo.y,
+        y: shopInfo[n].shopinfo.shopinfo.x,
+      })
+    );
   });
 
   useEffect(() => {
@@ -69,7 +79,6 @@ const Home = () => {
                   return temp;
                 })
                 .then((res) => {
-                  console.log(res)
                   if (res.length === 45) {
                     axios
                       .post(
@@ -81,9 +90,15 @@ const Home = () => {
                       )
                       .then((res) => {
                         let n = getRandomInt(0, res.data.data.result.length);
-                        console.log(res.data.data.result);
+
                         dispatch(getShopInfo(res.data.data.result));
                         dispatch(setRandomInt(n));
+                        dispatch(
+                          setMapXY({
+                            x: res.data.data.result[n].shopinfo.shopinfo.y,
+                            y: res.data.data.result[n].shopinfo.shopinfo.x,
+                          })
+                        );
                         dispatch(
                           setShuffleArr(
                             getShuffledArray(res.data.data.result, n)
@@ -112,7 +127,15 @@ const Home = () => {
     if (!isFirstGet) {
       getLocation();
     } else {
-      console.log("다시 불러오지 않음");
+      dispatch(
+        setMapXY({
+          x: shopInfo[randomInt].shopinfo.shopinfo.y,
+          y: shopInfo[randomInt].shopinfo.shopinfo.x,
+        })
+      );
+    }
+    if (localStorage.getItem("visited") === null) {
+      localStorage.setItem("visited", JSON.stringify([]));
     }
   }, []);
 
@@ -121,17 +144,18 @@ const Home = () => {
       {!isLoading ? (
         <>
           <Header />
+          {isFavoriteOn && <FavoriteModal />}
           <Button onClick={handleReset}>다른메뉴추천받기</Button>
           <Row>
             <Col cs={24} md={16}>
               <ImageCarousel imageInfo={shopInfo[randomInt]} />
               <Row>
-                <Col cs={24} md={12}>
+                <Col lg={24} xl={12}>
                   <ShopInfo shopInfo={shopInfo[randomInt]} />
                 </Col>
-                <Col cs={24} md={12}>
-                  <div>
-                    <KaKaoMap Info={shopInfo[randomInt]} />
+                <Col lg={24} xl={12}>
+                  <div style={{ alignContent: "center" }}>
+                    <KaKaoMap />
                   </div>
                 </Col>
               </Row>

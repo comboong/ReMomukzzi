@@ -3,8 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import Loginoauth from "./Loginoauth";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
-// import { useDispatch } from "react-redux";
 
 const ModalBackdrop = styled.div`
   /* position: fixed;
@@ -67,9 +65,7 @@ const Input = styled.input`
   }
 `;
 
-function Loginmodal({ setOpenModal, close }) {
-  // document.body.style.overflow = 'hidden'
-  const router = useRouter();
+function Loginmodal() {
   const [loginInfo, setLoginInfo] = useState({
     user_id: "",
     password: "",
@@ -78,7 +74,6 @@ function Loginmodal({ setOpenModal, close }) {
   const handleInputValue = (key) => (e) => {
     setLoginInfo({ ...loginInfo, [key]: e.target.value.toLowerCase() });
   };
-  console.log(loginInfo);
 
   const onClickLogin = () => {
     const { user_id, password } = loginInfo;
@@ -104,10 +99,8 @@ function Loginmodal({ setOpenModal, close }) {
         console.log(res.data.data.accessToken);
         Cookies.set("accessToken", res.data.data.accessToken);
         Cookies.set("nickname", res.data.data.nickname);
-        if (res.data.data.accessToken) {
-          Cookies.set("accessToken", res.data.data.accessToken);
-        }
-        return router.push("/");
+
+        return window.location.replace("/");
       })
       .catch((err) => {
         console.log(err);
@@ -120,23 +113,10 @@ function Loginmodal({ setOpenModal, close }) {
     if (e.key === "Enter") return onClickLogin();
   };
 
-  // const dispatch = useDispatch();
   return (
-    <ModalBackdrop
-      onClick={() => {
-        // dispatch({ type: "login modal" });
-      }}
-    >
+    <ModalBackdrop>
       <LoginForm onClick={(e) => e.stopPropagation()}>
         <Div>
-          {/* <button
-						onClick={() => {
-							setOpenModal(false)
-						}}
-					>
-						X
-					</button> */}
-
           <InputForm>
             <h4>아이디</h4>
             <InputBox>
@@ -164,14 +144,6 @@ function Loginmodal({ setOpenModal, close }) {
           <LoginButton onClick={onClickLogin}>로그인</LoginButton>
           <hr />
           <Loginoauth />
-          {/* <button
-						onClick={() => {
-							setOpenModal(false)
-						}}
-						id="cancelBtn"
-					>∂
-						Cancel
-					</button> */}
         </Div>
       </LoginForm>
     </ModalBackdrop>

@@ -2,12 +2,19 @@ import Header from "../../../components/Header";
 import Footer from "../../../components/Footer";
 import KaKaoMap from "../../../components/KaKaoMap";
 import ShopDetailInfo from "../../../components/ShopDetailInfo";
-import { getShopDetailInfo } from "../../../reducers";
+import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
+import { StarOutlined, StarFilled } from "@ant-design/icons";
 
 import Link from "next/link";
-import { Rate, Image, Row, Col, Button } from "antd";
+import { Image, Row, Col, Button } from "antd";
 import axios from "axios";
 import styled from "styled-components";
+import { setMapXY } from "../../../reducers";
+import { useState, useCallback, useEffect } from "react";
+import ShopReviews from "../../../components/ShopReviews";
+import { useRouter } from "next/router";
+import FavoriteModal from "../../../components/FavoriteModal";
 
 const ShopImages = styled.div`
   width: 100%;
@@ -33,9 +40,81 @@ const ShopTitle = styled.div`
 `;
 
 const shopdetail = ({ data, id }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  const isFavoriteOn = useSelector((state) => state.isFavoriteOn);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleFavorite = useCallback(() => {
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/bookmark`,
+        {
+          headers: {
+            Authorization: Cookies.get("accessToken"),
+          },
+          shop_id: id,
+          bookmark: isFavorite,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        if (
+          res.data.message === "add success" ||
+          res.data.message === "remove success"
+        ) {
+        }
+        setIsFavorite(!isFavorite);
+      });
+  });
+
+  useEffect(() => {
+    dispatch(setMapXY({ x: data.y, y: data.x }));
+
+    const visited = JSON.parse(localStorage.getItem("visited"));
+
+    if (visited.filter((el) => el.id === Number(id)).length === 0) {
+      visited.unshift({
+        shop_pic: data.shop_pics[0]?.pic_URL,
+        shop_name: data.shop_name,
+        location: data.location,
+        genus: data.genus,
+        id: data.id,
+        star_avg: data.star_avg,
+      });
+      localStorage.setItem("visited", JSON.stringify(visited));
+    }
+
+    if (Cookies.get("accessToken")) {
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/bookmark`,
+          {
+            headers: {
+              authorization: Cookies.get("accessToken"),
+            },
+          },
+          {
+            withCredentials: true,
+          }
+        )
+        .then((res) => {
+          if (
+            res.data.bookmark.filter((el) => el.id === Number(id)).length === 1
+          ) {
+            setIsFavorite(true);
+          }
+        });
+    }
+  }, []);
+
   return (
     <>
       <Header />
+      {isFavoriteOn && <FavoriteModal />}
       <ShopImages>
         {data.shop_pics.map((el, idx) => {
           return <Photo key={idx} src={el.pic_URL} />;
@@ -57,27 +136,47 @@ const shopdetail = ({ data, id }) => {
             {!data.star_avg ? "0.0" : data.star_avg?.toFixed(1)}
           </span>
         </div>
-        <Link
-          href={{
-            pathname: `/review/[id]`,
-            query: { shopName: data.shop_name, id: id },
-          }}
-          as={`/review/${id}`}
-        >
-          <a>
-            <Button>리뷰</Button>
-          </a>
-        </Link>
-        <Button>즐겨찾기</Button>
+
+        {Cookies.get("accessToken") ? (
+          <Link
+            href={{
+              pathname: `/review/[id]`,
+              query: { shopName: data.shop_name, id: id },
+            }}
+            as={`/review/${id}`}
+          >
+            <a>
+              <Button>리뷰</Button>
+            </a>
+          </Link>
+        ) : (
+          <Link href="/login">
+            <a>
+              <Button onClick={() => alert("로그인이 필요합니다.")}>
+                리뷰
+              </Button>
+            </a>
+          </Link>
+        )}
+
+        {!isFavorite ? (
+          <StarOutlined onClick={handleFavorite} style={{ fontSize: 30 }} />
+        ) : (
+          <StarFilled
+            onClick={handleFavorite}
+            style={{ fontSize: 30, color: "#f1c83e" }}
+          />
+        )}
       </ShopTitle>
       <Row align="middle" justify="center">
         <Col cs={24} md={12}>
           <ShopDetailInfo data={data} />
         </Col>
         <Col cs={24} md={12}>
-          <KaKaoMap detailXY={{ x: data.x, y: data.y }} />
+          <KaKaoMap />
         </Col>
       </Row>
+      <ShopReviews data={data.reviews} />
       <Footer />
     </>
   );
@@ -87,10 +186,9 @@ export async function getServerSideProps({ params }) {
   const res = await axios.get(
     `${process.env.NEXT_PUBLIC_SERVER_URL}/shops/${params.id}`
   );
+
   const data = res.data.data.targetshop;
   const id = params.id;
-
-  console.log(data);
 
   return { props: { data, id } };
 }

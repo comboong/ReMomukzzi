@@ -1,8 +1,10 @@
 const initialState = {
   isLoading: true,
   isFirstGet: false,
+  isFavoriteOn: false,
   shopInfo: [],
   randomInt: 0,
+  mapXY: {},
   shuffleArr: [],
 };
 
@@ -16,6 +18,13 @@ export const loadingAction = () => {
 export const firstGetAction = () => {
   return {
     type: "FIRST_GET",
+  };
+};
+
+export const FavoriteAction = (data) => {
+  return {
+    type: "FAVORITE_ON_OFF",
+    data,
   };
 };
 
@@ -40,6 +49,13 @@ export const setShuffleArr = (data) => {
   };
 };
 
+export const setMapXY = (data) => {
+  return {
+    type: "SET_MAP_XY",
+    data,
+  };
+};
+
 // (이전 상태, 액션) => 다음 상태
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -52,6 +68,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         shopInfo: action.data,
+      };
+    case "FAVORITE_ON_OFF":
+      return {
+        ...state,
+        isFavoriteOn: action.data,
       };
     case "FIRST_GET":
       return {
@@ -67,6 +88,11 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         shuffleArr: action.data,
+      };
+    case "SET_MAP_XY":
+      return {
+        ...state,
+        mapXY: action.data,
       };
     default:
       return state;

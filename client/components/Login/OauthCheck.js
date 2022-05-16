@@ -64,6 +64,7 @@ function OauthCheck({ code }) {
             Cookies.set("accessToken", res.data.data.accessToken);
             Cookies.set("nickname", res.data.data.nickname);
             Cookies.set("Oauth", res.data.data.oauth);
+            Cookies.set("bookmark", res.data.data.bookmark);
 
             router.push("/");
           }
