@@ -7,14 +7,12 @@ import Cookies from "js-cookie";
 function OauthCheck({ code }) {
   const router = useRouter();
 
-  const REDIRECT_URI = "http://localhost:3000/oauthloading";
-
   const kakaocode = (code) => {
     if (code.length !== 20) {
       // KAKAO
       axios
         .post(
-          `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.NEXT_PUBLIC_REACT_APP_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${code}`,
+          `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.NEXT_PUBLIC_REACT_APP_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&code=${code}`,
           { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         )
         .then((res) => {
