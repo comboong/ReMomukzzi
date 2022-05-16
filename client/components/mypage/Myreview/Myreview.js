@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Myreviewlist from "./Myreviewlist";
 import Emptyreview from "./Emptyreview";
-import MoreviewLoader from "../../MoreviewLoader";
+import MoreviewBtn from "./MoreviewBtn";
 import Cookies from "js-cookie";
 
 const ReviewContainer = styled.div`
@@ -11,12 +11,14 @@ const ReviewContainer = styled.div`
 	padding: 0 5px 0 5px;
 	margin-bottom: 10px;
 	word-break: keep-all;
+	min-height: 700px;
 `;
 const MoreMyreviewBtn = styled.button`
 	margin: 5px 5px;
 	width: 98%;
 	border: none;
 	background-color: white;
+	cursor: pointer;
 `;
 
 function Myreview() {
@@ -47,7 +49,7 @@ function Myreview() {
 	let newUserReview = [...userReview];
 
 	const [isLoaded, setIsLoaded] = useState(false);
-	const [reviewCount, setReviewCount] = useState(4);
+	const [reviewCount, setReviewCount] = useState(3);
 
 	const handleReviewMore = async () => {
 		setIsLoaded(true);
@@ -75,7 +77,7 @@ function Myreview() {
 				<Emptyreview />
 			)}
 			{isLoaded ? (
-				<MoreviewLoader />
+				<MoreviewBtn />
 			) : (
 				<MoreMyreviewBtn onClick={handleReviewMore}>
 					{reviewCount < newUserReview.length ? "더 보기" : " "}

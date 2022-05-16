@@ -38,7 +38,9 @@ const Myreviewdelete = ({ id }) => {
 				});
 		}
 	};
-	return <BsTrash size="22" onClick={deleteModal} />;
+	return (
+		<BsTrash style={{ cursor: "pointer" }} size="22" onClick={deleteModal} />
+	);
 };
 
 export default Myreviewdelete;

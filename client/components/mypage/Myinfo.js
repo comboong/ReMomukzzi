@@ -17,12 +17,13 @@ const MypageLeftContainer = styled.div`
 `;
 const MypageTitle = styled.div`
 	margin-bottom: 5px;
-	font-size: 100%;
+	font-size: 30px;
 	font-weight: bolder;
 	text-align: center;
 `;
 const MypageRightContainer = styled.div`
 	width: 100%;
+	min-width: 800px;
 `;
 const MypageReviewContainer = styled.div`
 	display: -webkit-box;
@@ -36,7 +37,7 @@ const MypageReviewContainer = styled.div`
 	border-radius: 10px;
 	padding: 5px;
 	overflow: auto;
-	height: 550px;
+	height: auto;
 `;
 const MypageMyinfoContainer = styled.div`
 	display: -webkit-box;
@@ -48,9 +49,8 @@ const MypageMyinfoContainer = styled.div`
 	flex-direction: column;
 	padding: 5px;
 	margin-bottom: 15px;
-	overflow: auto;
 	padding-left: 100px;
-	height: 550px;
+	height: auto;
 `;
 
 const Myinfo = () => {
