@@ -3,16 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-const ModalBackdrop = styled.div`
-	position: fixed;
-	z-index: 999;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: rgba(0, 0, 0, 0.4);
-`;
-
 const SignUpForm = styled.div`
 	margin: 0 auto;
 	padding-top: 50px;
@@ -20,25 +10,19 @@ const SignUpForm = styled.div`
 	height: 600px;
 	font-weight: 700;
 	text-align: left;
-	/* transform: translateY(20%); */
 	border-radius: 5px;
 	background-color: white;
-	/* border: 1px solid black; */
 `;
-
 const Div = styled.div`
 	margin: 0 auto;
 	padding-top: 20px;
 	width: 440px;
 	height: 70%;
-	/* border: 1px solid black; */
-
 	& > img {
 		width: 300px;
 		margin-left: 75px;
 	}
 `;
-
 const InputForm = styled.div`
 	margin: 0 auto;
 	margin: 5px;
@@ -47,7 +31,6 @@ const ValidateMsg = styled.div`
 	display: ${props => (props.hide ? "none" : "")};
 	margin: 5px;
 `;
-
 const Input = styled.input`
 	width: 390px;
 	border-style: none;
@@ -58,19 +41,17 @@ const Input = styled.input`
 		outline: none;
 	}
 `;
-
 const InputBox = styled.div`
 	width: 430px;
 	height: 40px;
 	border: solid 1px gainsboro;
 	border-radius: 5px;
+	margin-bottom: 20px;
 `;
-
 const SignUpButton = styled.div`
 	width: 430px;
 	height: 45px;
 	margin: 30px auto 0 auto;
-
 	border-radius: 5px;
 	text-align: center;
 	background-color: #ffba34;
@@ -78,9 +59,11 @@ const SignUpButton = styled.div`
 	cursor: pointer;
 	line-height: 40px;
 `;
+const SignupText = styled.div`
+	font-size: 20px;
+`;
 
 function Signup(props) {
-	// document.body.style.overflow = "hidden";
 	const router = useRouter();
 	const [userId, setUserId] = useState("");
 	const [password, setPassword] = useState("");
@@ -182,10 +165,8 @@ function Signup(props) {
 				.then(response => {
 					if (response.data.message === "exist") {
 						setHideIDCheckFail(false);
-						console.log(response.data);
 					} else if (response.data.message === "created") {
 						setHideIDCheckFail(true);
-						console.log(response.data);
 						router.push("/");
 					}
 				})
@@ -196,17 +177,16 @@ function Signup(props) {
 	};
 
 	return (
-		// <ModalBackdrop
-		// 	onClick={() => {
-		// 		dispatch({ type: "signup modal" });
-		// 	}}
-		// >
 		<>
 			<SignUpForm onClick={e => e.stopPropagation()}>
 				<Div>
-					{/* <img src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"></img> */}
+					<img
+						style={{ cursor: "pointer" }}
+						onClick={() => location.replace("/")}
+						src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"
+					></img>
 					<InputForm>
-						<div>아이디</div>
+						<SignupText>아이디</SignupText>
 						<InputBox>
 							<Input type="text" onChange={e => setUserId(e.target.value)} />
 						</InputBox>
@@ -220,9 +200,8 @@ function Signup(props) {
 							중복된 아이디 입니다.
 						</ValidateMsg>
 					</InputForm>
-
 					<InputForm>
-						<div>Email</div>
+						<SignupText>이메일</SignupText>
 						<InputBox>
 							<Input type="text" onChange={e => setEmail(e.target.value)} />
 						</InputBox>
@@ -230,9 +209,8 @@ function Signup(props) {
 							올바른 이메일 형식을 입력해주세요
 						</ValidateMsg>
 					</InputForm>
-
 					<InputForm>
-						<div>비밀번호</div>
+						<SignupText>비밀번호</SignupText>
 						<InputBox>
 							<Input
 								type="password"
@@ -240,9 +218,8 @@ function Signup(props) {
 							/>
 						</InputBox>
 					</InputForm>
-
 					<InputForm>
-						<div>비밀번호 확인</div>
+						<SignupText>비밀번호 확인</SignupText>
 						<InputBox>
 							<Input
 								type="password"
@@ -257,9 +234,8 @@ function Signup(props) {
 							합니다.
 						</ValidateMsg>
 					</InputForm>
-
 					<InputForm>
-						<div>닉네임</div>
+						<SignupText>닉네임</SignupText>
 						<InputBox>
 							<Input type="text" onChange={e => setName(e.target.value)} />
 						</InputBox>
@@ -267,12 +243,10 @@ function Signup(props) {
 							닉네임은 필수입력입니다.
 						</ValidateMsg>
 					</InputForm>
-
 					<SignUpButton onClick={submit}>가입하기</SignUpButton>
 				</Div>
 			</SignUpForm>
 		</>
-		// </ModalBackdrop>
 	);
 }
 

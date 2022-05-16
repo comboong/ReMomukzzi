@@ -27,7 +27,6 @@ const InputForm = styled.div`
 	margin: 0 auto;
 	margin: 5px;
 `;
-
 const LoginButton = styled.div`
 	width: 430px;
 	height: 45px;
@@ -42,6 +41,7 @@ const LoginButton = styled.div`
 const InputBox = styled.div`
 	width: 430px;
 	border: solid 2px gainsboro;
+	margin-bottom: 20px;
 `;
 const Input = styled.input`
 	width: 390px;
@@ -52,6 +52,9 @@ const Input = styled.input`
 	:focus {
 		outline: none;
 	}
+`;
+const LoginText = styled.div`
+	font-size: 20px;
 `;
 
 function Loginmodal({ setOpenModal, close }) {
@@ -64,7 +67,6 @@ function Loginmodal({ setOpenModal, close }) {
 	const handleInputValue = key => e => {
 		setLoginInfo({ ...loginInfo, [key]: e.target.value.toLowerCase() });
 	};
-	console.log(loginInfo);
 
 	const onClickLogin = () => {
 		const { user_id, password } = loginInfo;
@@ -85,9 +87,6 @@ function Loginmodal({ setOpenModal, close }) {
 			.then(res => {
 				Cookies.set("accessToken", res.data.data.accessToken);
 				Cookies.set("nickname", res.data.data.nickname);
-				if (res.data.data.accessToken) {
-					Cookies.set("accessToken", res.data.data.accessToken);
-				}
 				return router.push("/");
 			})
 			.catch(err => {
@@ -103,8 +102,13 @@ function Loginmodal({ setOpenModal, close }) {
 		<>
 			<LoginForm onClick={e => e.stopPropagation()}>
 				<Div>
+					<img
+						style={{ cursor: "pointer" }}
+						onClick={() => location.replace("/")}
+						src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"
+					></img>
 					<InputForm>
-						<h4>아이디</h4>
+						<LoginText>아이디</LoginText>
 						<InputBox>
 							<Input
 								type="text"
@@ -116,7 +120,7 @@ function Loginmodal({ setOpenModal, close }) {
 						</InputBox>
 					</InputForm>
 					<InputForm>
-						<h4>비밀번호</h4>
+						<LoginText>비밀번호</LoginText>
 						<InputBox>
 							<Input
 								type="password"

@@ -14,8 +14,9 @@ const Input = styled.input`
 	border-style: none;
 	height: 39px;
 	padding-left: 5px;
-	font-size: 13px;
+	font-size: 20px;
 	border-bottom: solid 2px gainsboro;
+	margin-top: 10px;
 	:focus {
 		outline: none;
 	}
