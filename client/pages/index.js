@@ -21,6 +21,36 @@ import IntroImageSet from "../components/IntroImageSet";
 import MoreviewLoader from "../components/MoreviewLoader";
 import FavoriteModal from "../components/FavoriteModal";
 
+const Title = styled.div`
+  display: flex;
+  padding: 20px 0px 20px 0px;
+  font-size: 24px;
+  justify-content: center;
+  align-items: center;
+  min-width: 550px;
+  & > span {
+    padding: 0px 20px 0px 20px;
+    font-size: 32px;
+    font-weight: bold;
+  }
+`;
+
+const RandomButton = styled.div`
+  text-align: center;
+  min-width: 550px;
+
+  & > button {
+    width: 200px;
+    height: 50px;
+    background: #ffba34;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+`;
+
 const Home = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.isLoading);
@@ -145,22 +175,39 @@ const Home = () => {
         <>
           <Header />
           {isFavoriteOn && <FavoriteModal />}
-          <Button onClick={handleReset}>다른메뉴추천받기</Button>
+
           <Row>
-            <Col cs={24} md={16}>
+            <Col lg={24} xl={16}>
+              <Title>
+                오늘은
+                <span
+                  style={{
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    fontSize: 32,
+                    fontWeight: "bold",
+                  }}
+                >
+                  {shopInfo[randomInt].shopinfo.shopinfo.place_name}
+                </span>
+                어떠세요?
+              </Title>
+              <RandomButton>
+                <button onClick={handleReset}>다른메뉴 추천받기</button>
+              </RandomButton>
               <ImageCarousel imageInfo={shopInfo[randomInt]} />
               <Row>
-                <Col lg={24} xl={12}>
+                <Col xs={24} md={12}>
                   <ShopInfo shopInfo={shopInfo[randomInt]} />
                 </Col>
-                <Col lg={24} xl={12}>
-                  <div style={{ alignContent: "center" }}>
+                <Col xs={24} md={12}>
+                  <div>
                     <KaKaoMap />
                   </div>
                 </Col>
               </Row>
             </Col>
-            <Col cs={24} md={8}>
+            <Col lg={24} xl={8}>
               <IntroImageSet imageInfo={shuffleArr} />
             </Col>
           </Row>
