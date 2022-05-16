@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-// import axios from "axios";
+import axios from "axios";
 import Myreviewlist from "./Myreviewlist";
 import Emptyreview from "./Emptyreview";
 import MoreviewLoader from "../../MoreviewLoader";
+import Cookies from "js-cookie";
 
 const ReviewContainer = styled.div`
-	/* border-bottom: 2px solid grey; */
 	font-size: 14px;
 	padding: 0 5px 0 5px;
 	margin-bottom: 10px;
@@ -21,30 +21,28 @@ const MoreMyreviewBtn = styled.button`
 
 function Myreview() {
 	const [userReview, setUserReview] = useState([]);
+	const accessToken = Cookies.get("accessToken");
 
-	// const accessToken = localStorage.getItem("accessToken");
-
-	// const getReviewHandler = () => {
-	//   if (!accessToken) {
-	//     return;
-	//   } else {
-	//     axios
-	//       .get(`${process.env.REACT_APP_API_URL}/users`, {
-	//         headers: { authorization: `Bearer ${accessToken}` },
-	//         "Content-Type": "application/json",
-	//       })
-	//       .then((res) => {
-	//         setUserReview(res.data.data.userInfo.reviews);
-	//         console.log("개인정보가져오기 성공");
-	//       })
-	//       .catch((err) => {
-	//         console.log("개인가져오기 에러", err);
-	//       });
-	//   }
-	// };
-	// useEffect(() => {
-	//   getReviewHandler();
-	// }, []);
+	const getReviewHandler = () => {
+		if (!accessToken) {
+			return;
+		} else {
+			axios
+				.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
+					headers: { authorization: `Bearer ${accessToken}` },
+					"Content-Type": "application/json",
+				})
+				.then(res => {
+					setUserReview(res.data.data.userInfo.reviews);
+				})
+				.catch(err => {
+					alert("잘못된 요청입니다.");
+				});
+		}
+	};
+	useEffect(() => {
+		getReviewHandler();
+	}, []);
 
 	let newUserReview = [...userReview];
 
@@ -57,10 +55,7 @@ function Myreview() {
 		setReviewCount(reviewCount + 4);
 		setIsLoaded(false);
 	};
-	useEffect(() => {
-		console.log(reviewCount);
-	}, [reviewCount]);
-	console.log(newUserReview);
+
 	return (
 		<ReviewContainer>
 			{newUserReview.length !== 0 ? (

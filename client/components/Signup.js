@@ -3,16 +3,6 @@ import axios from "axios";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-const ModalBackdrop = styled.div`
-	position: fixed;
-	z-index: 999;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: rgba(0, 0, 0, 0.4);
-`;
-
 const SignUpForm = styled.div`
 	margin: 0 auto;
 	padding-top: 50px;
@@ -20,10 +10,8 @@ const SignUpForm = styled.div`
 	height: 600px;
 	font-weight: 700;
 	text-align: left;
-	/* transform: translateY(20%); */
 	border-radius: 5px;
 	background-color: white;
-	/* border: 1px solid black; */
 `;
 
 const Div = styled.div`
@@ -31,7 +19,6 @@ const Div = styled.div`
 	padding-top: 20px;
 	width: 440px;
 	height: 70%;
-	/* border: 1px solid black; */
 
 	& > img {
 		width: 300px;
@@ -80,7 +67,6 @@ const SignUpButton = styled.div`
 `;
 
 function Signup(props) {
-	// document.body.style.overflow = "hidden";
 	const router = useRouter();
 	const [userId, setUserId] = useState("");
 	const [password, setPassword] = useState("");
@@ -182,10 +168,8 @@ function Signup(props) {
 				.then(response => {
 					if (response.data.message === "exist") {
 						setHideIDCheckFail(false);
-						console.log(response.data);
 					} else if (response.data.message === "created") {
 						setHideIDCheckFail(true);
-						console.log(response.data);
 						router.push("/");
 					}
 				})
@@ -196,15 +180,9 @@ function Signup(props) {
 	};
 
 	return (
-		// <ModalBackdrop
-		// 	onClick={() => {
-		// 		dispatch({ type: "signup modal" });
-		// 	}}
-		// >
 		<>
 			<SignUpForm onClick={e => e.stopPropagation()}>
 				<Div>
-					{/* <img src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"></img> */}
 					<InputForm>
 						<div>아이디</div>
 						<InputBox>
@@ -272,7 +250,6 @@ function Signup(props) {
 				</Div>
 			</SignUpForm>
 		</>
-		// </ModalBackdrop>
 	);
 }
 

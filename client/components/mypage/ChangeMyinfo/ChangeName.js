@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 
 const Input = styled.input`
 	width: 200px;
@@ -18,7 +17,7 @@ const Input = styled.input`
 const NameText = styled.div`
 	font-size: 20px;
 `;
-const SubmitBtnDiv = styled.div`
+const SubmitBtnDiv = styled.span`
 	margin-top: 30px;
 	width: 100%;
 	height: 100px;
@@ -31,7 +30,7 @@ const SubmitBtnDiv = styled.div`
 		border: none;
 		color: white;
 		cursor: pointer;
-		height: 50px;
+		height: 40px;
 	}
 	.cancel {
 		margin-left: 7px;
@@ -39,7 +38,6 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function ChangeName() {
-	const router = useRouter();
 	const accessToken = Cookies.get("accessToken");
 	const [changeInfo, setchangeInfo] = useState({
 		user_id: "",
@@ -71,14 +69,12 @@ function ChangeName() {
 				.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
 					headers: { authorization: `Bearer ${accessToken}` },
 					"Content-Type": "application/json",
-					withCredentials: true,
 				})
 				.then(res => {
 					setchangeInfo(res.data.data.userInfo);
-					console.log("개인정보가져오기 성공");
 				})
 				.catch(err => {
-					console.log("개인가져오기 에러", err);
+					alert("잘못된 요청입니다.");
 				});
 		}
 	};
@@ -105,13 +101,10 @@ function ChangeName() {
 				nickname,
 			})
 			.then(res => {
-				console.log("닉네임 사용가능", res);
 				setValidation({ ...validation, nickname: true });
-				console.log("validation", validation);
 				setMessage({ ...message, nickname: "사용 가능한 닉네임입니다." });
 			})
 			.catch(err => {
-				console.log("닉네임 중복", err);
 				setValidation({ ...validation, nickname: false });
 				setMessage({ ...message, nickname: "사용 불가능한 닉네임입니다." });
 			});
@@ -119,29 +112,21 @@ function ChangeName() {
 
 	const fixNicknameHandler = () => {
 		const { nickname } = changeInfo;
-		console.log("userid", changeInfo.user_id);
 		axios
 			.patch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
 				user_id: changeInfo.user_id,
 				nickname,
 			})
 			.then(res => {
-				console.log("닉네임 패치", res);
-				console.log("유저정보변경");
 				alert("닉네임이 변경되었습니다.");
-				// openAlertHandler();
-				// fixNicknameToggleHandler()
-				return router.push("/mypage");
+				return location.replace("/mypage");
 			})
 			.catch(err => {
 				alert("닉네임 변경 에러입니다.");
-				// openWarningAlertHandler();
-				console.log("닉네임 패치오류", err);
 			});
 	};
 	return (
 		<div>
-			{/* <NameText>닉네임</NameText> */}
 			<div>
 				<Input
 					onChange={handleInputValue("nickname")}
@@ -149,7 +134,16 @@ function ChangeName() {
 					onBlur={nicknameCheck("nickname")}
 				/>
 				<span>
-					{/* <SubmitBtnDiv> */}
+					{message.nickname ===
+					"닉네임은 특수문자를 제외한 2 ~ 6 글자이어야 합니다." ? (
+						<NameText>{message.nickname}</NameText>
+					) : message.nickname === "사용 가능한 닉네임입니다." ? (
+						<NameText>{message.nickname}</NameText>
+					) : (
+						<NameText>{message.nickname}</NameText>
+					)}
+				</span>
+				<SubmitBtnDiv>
 					<button className="submit" onClick={nicknameCheck("nickname")}>
 						중복확인
 					</button>
@@ -162,16 +156,7 @@ function ChangeName() {
 							수정
 						</button>
 					)}
-					{/* </SubmitBtnDiv> */}
-				</span>
-				{message.nickname ===
-				"닉네임은 특수문자를 제외한 2 ~ 6 글자이어야 합니다." ? (
-					<NameText>{message.nickname}</NameText>
-				) : message.nickname === "사용 가능한 닉네임입니다." ? (
-					<NameText>{message.nickname}</NameText>
-				) : (
-					<NameText>{message.nickname}</NameText>
-				)}
+				</SubmitBtnDiv>
 			</div>
 		</div>
 	);
