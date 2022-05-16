@@ -36,6 +36,7 @@ const MypageReviewContainer = styled.div`
 	border-radius: 10px;
 	padding: 5px;
 	overflow: auto;
+	height: 550px;
 `;
 const MypageMyinfoContainer = styled.div`
 	display: -webkit-box;
@@ -49,6 +50,7 @@ const MypageMyinfoContainer = styled.div`
 	margin-bottom: 15px;
 	overflow: auto;
 	padding-left: 100px;
+	height: 550px;
 `;
 
 const Myinfo = () => {
