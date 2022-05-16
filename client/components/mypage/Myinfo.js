@@ -50,6 +50,8 @@ const MypageMyinfoContainer = styled.div`
 	margin-bottom: 15px;
 	overflow: auto;
 	padding-left: 100px;
+	border-right: 2px solid #ffba34;
+	height: 550px;
 `;
 
 const Myinfo = () => {
