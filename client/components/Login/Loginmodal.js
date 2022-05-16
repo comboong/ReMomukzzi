@@ -4,15 +4,6 @@ import styled from "styled-components";
 import Loginoauth from "./Loginoauth";
 import Cookies from "js-cookie";
 
-const ModalBackdrop = styled.div`
-  /* position: fixed;
-	z-index: 999;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: rgba(0, 0, 0, 0.4); */
-`;
 const LoginForm = styled.div`
   text-align: center;
   padding-top: 50px;
@@ -20,9 +11,7 @@ const LoginForm = styled.div`
   width: 550px;
   height: 600px;
   font-weight: 700;
-  /* transform: translateY(20%); */
   border-radius: 20px;
-  /* border: 1px solid #ffba34; */
   background-color: white;
   padding-bottom: 50px;
 `;
@@ -30,7 +19,6 @@ const Div = styled.div`
   margin: 0 auto;
   width: 440px;
   border-radius: 20px;
-  /* border: 1px solid #ffba34; */
   transform: translateY(20%);
   background-color: white;
 `;
@@ -109,8 +97,33 @@ function Loginmodal() {
       });
   };
 
-  const enterLogin = (e) => {
-    if (e.key === "Enter") return onClickLogin();
+  const onClickLogin = () => {
+    const { user_id, password } = loginInfo;
+    if (user_id === "") {
+      return;
+    } else if (password === "") {
+      return;
+    }
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
+        {
+          user_id,
+          password,
+        },
+        { "Content-Type": "application/json", withCredentials: true }
+      )
+      .then((res) => {
+        Cookies.set("accessToken", res.data.data.accessToken);
+        Cookies.set("nickname", res.data.data.nickname);
+        if (res.data.data.accessToken) {
+          Cookies.set("accessToken", res.data.data.accessToken);
+        }
+        return router.push("/");
+      })
+      .catch((err) => {
+        alert("아이디와 비밀번호를 확인해 주세요.");
+      });
   };
 
   return (
