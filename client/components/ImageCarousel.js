@@ -6,6 +6,7 @@ import { useEffect } from "react";
 const StyledSlider = styled(Slider)`
   height: 330px;
   margin: 30px;
+  min-width: 550px;
 
   .slick-list {
     width: 100%;
@@ -18,7 +19,6 @@ const StyledSlider = styled(Slider)`
     //슬라이더  컨텐츠
     width: 400px;
     height: 300px;
-    cursor: pointer;
     object-fit: fill;
     margin: 0 auto;
   }

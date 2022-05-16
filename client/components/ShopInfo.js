@@ -5,6 +5,10 @@ const ShopInfoDiv = styled.div`
   min-height: 200px;
   min-width: 470px;
 
+  & > table {
+    margin: auto;
+  }
+
   & > table > tbody {
     display: table-row-group;
     vertical-align: middle;
@@ -44,10 +48,6 @@ const ShopInfo = ({ shopInfo }) => {
       <table>
         <tbody>
           <tr>
-            <th>이름</th>
-            <td>{shopInfo.shopinfo.shopinfo.place_name}</td>
-          </tr>
-          <tr>
             <th>주소</th>
             <td>{shopInfo.shopinfo.shopinfo.road_address_name}</td>
           </tr>
@@ -67,10 +67,11 @@ const ShopInfo = ({ shopInfo }) => {
             <th>메뉴</th>
             <td>
               <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
-                {shopInfo.menulist.menulist.map((item, idx) => {
+                {shopInfo.menulist.menulist.slice(0, 8).map((item, idx) => {
                   return (
                     <li key={idx}>
-                      {item[0]} : {item[1]}원
+                      {item[0]} : {item[1]}
+                      {item[1] !== "가격 정보 없음" ? "원" : ""}
                     </li>
                   );
                 })}
