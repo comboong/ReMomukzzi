@@ -19,31 +19,31 @@ const HeaderContainer = styled.div`
     padding: 9px 12px;
     min-width: 564px;
 
-    @media only screen and (max-width: 804px) {
+    @media (max-width: 804px) {
       .navlist {
         margin: 15px 20px;
       }
     }
 
-    @media only screen and (max-width: 725px) {
+    @media (max-width: 725px) {
       .navlist {
         margin: 15px 15px;
       }
     }
 
-    @media only screen and (max-width: 684px) {
+    @media (max-width: 684px) {
       .navlist {
         margin: 15px 10px;
       }
     }
 
-    @media only screen and (max-width: 642px) {
+    @media (max-width: 642px) {
       .navlist {
         margin: 15px 5px;
       }
     }
 
-    @media only screen and (max-width: 602px) {
+    @media (max-width: 602px) {
       .navlist {
         margin: 15px 0px;
       }
