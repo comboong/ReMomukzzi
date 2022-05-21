@@ -9,21 +9,30 @@ const MypageContainer = styled.div`
 	word-break: keep-all;
 	min-height: 81vh;
 	overflow: auto;
+	min-width: 900px;
 `;
 const MypageLeftContainer = styled.div`
 	width: 50%;
-	float: left;
-	box-sizing: border-box;
+	/* float: left; */
+	/* box-sizing: border-box; */
+	margin: 0 auto;
 `;
 const MypageTitle = styled.div`
-	margin-bottom: 5px;
-	font-size: 30px;
-	font-weight: bolder;
+	background-color: #f0c83d;
+	font-size: 20px;
+	padding: 3px 0;
+	width: 200px;
 	text-align: center;
+	color: white;
+	border-radius: 20px;
+	margin-top: 30px;
+	margin-bottom: 40px;
+	margin-left: auto;
+	margin-right: auto;
 `;
 const MypageRightContainer = styled.div`
-	width: 100%;
-	min-width: 800px;
+	/* width: 100%; */
+	margin: 0 auto;
 `;
 const MypageReviewContainer = styled.div`
 	display: -webkit-box;
@@ -34,10 +43,13 @@ const MypageReviewContainer = styled.div`
 	-ms-flex-direction: column;
 	flex-direction: column;
 	border: 3px solid white;
-	border-radius: 10px;
+	/* border-radius: 10px;
 	padding: 5px;
-	overflow: auto;
-	height: auto;
+	overflow: auto; */
+	/* margin-left: 400px; */
+	margin-right: 400px;
+	width: 50%;
+	margin: 0 auto;
 `;
 const MypageMyinfoContainer = styled.div`
 	display: -webkit-box;
@@ -49,8 +61,7 @@ const MypageMyinfoContainer = styled.div`
 	flex-direction: column;
 	padding: 5px;
 	margin-bottom: 15px;
-	padding-left: 100px;
-	height: auto;
+	/* margin-left: 400px; */
 `;
 
 const Myinfo = () => {
@@ -58,14 +69,13 @@ const Myinfo = () => {
 		<>
 			{Cookies.get("accessToken") ? (
 				<MypageContainer>
+					<MypageTitle>마이페이지</MypageTitle>
 					<MypageLeftContainer>
-						<MypageTitle>내 정보</MypageTitle>
 						<MypageMyinfoContainer>
 							<ChangeMyinfo />
 						</MypageMyinfoContainer>
 					</MypageLeftContainer>
 					<MypageRightContainer>
-						<MypageTitle>내 리뷰</MypageTitle>
 						<MypageReviewContainer>
 							<Myreview />
 						</MypageReviewContainer>

@@ -8,7 +8,7 @@ const Container = styled.div`
 	margin: auto;
 	font-weight: 700;
 	height: 600px;
-	transform: translateY(20%);
+	transform: translateY(10%);
 	min-width: 800px;
 `;
 const ContentContainer = styled.div`
@@ -142,9 +142,9 @@ function SignoutForm({ close }) {
 			<Container>
 				<ContentContainer>
 					<img
-						src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"
-						style={{ cursor: "pointer" }}
+						style={{ cursor: "pointer", width: "300px", height: "250px" }}
 						onClick={() => location.replace("/")}
+						src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
 					></img>
 					<Title>탈퇴 안내</Title>
 					<ContentText>
