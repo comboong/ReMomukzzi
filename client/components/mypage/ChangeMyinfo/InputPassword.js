@@ -23,6 +23,8 @@ const Input = styled.input`
 `;
 const PasswordText = styled.div`
 	font-size: 20px;
+	margin-left: 40px;
+	margin-top: 10px;
 `;
 
 function PasswordInputField({

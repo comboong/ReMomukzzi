@@ -7,7 +7,7 @@ const SignUpForm = styled.div`
 	margin: 0 auto;
 	padding-top: 50px;
 	width: 550px;
-	height: 600px;
+	height: 500px;
 	font-weight: 700;
 	text-align: left;
 	border-radius: 5px;
@@ -181,9 +181,9 @@ function Signup(props) {
 			<SignUpForm onClick={e => e.stopPropagation()}>
 				<Div>
 					<img
-						style={{ cursor: "pointer" }}
+						style={{ cursor: "pointer", width: "300px", height: "250px" }}
 						onClick={() => location.replace("/")}
-						src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"
+						src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
 					></img>
 					<InputForm>
 						<SignupText>아이디</SignupText>

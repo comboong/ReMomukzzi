@@ -18,9 +18,6 @@ const LoginForm = styled.div`
 const Div = styled.div`
 	margin: 0 auto;
 	width: 440px;
-	border-radius: 20px;
-	transform: translateY(20%);
-	background-color: white;
 `;
 const InputForm = styled.div`
 	margin: 0 auto;
@@ -98,12 +95,12 @@ function Loginmodal() {
 
 	return (
 		<>
-			<LoginForm onClick={e => e.stopPropagation()}>
+			<LoginForm>
 				<Div>
 					<img
-						style={{ cursor: "pointer" }}
+						style={{ cursor: "pointer", width: "300px", height: "250px" }}
 						onClick={() => location.replace("/")}
-						src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"
+						src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
 					></img>
 					<InputForm>
 						<LoginText>아이디</LoginText>

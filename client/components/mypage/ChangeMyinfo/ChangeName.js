@@ -1,29 +1,79 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Cookies from "js-cookie";
 
+const NameTilte = styled.div`
+	text-align: left;
+	font-size: 20px;
+	margin-bottom: 10px;
+	margin-left: 3px;
+`;
+const WrongName = styled.div`
+	font-size: 20px;
+	color: red;
+	margin-top: 10px;
+`;
+const ModalBackdrop = styled.div`
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.4);
+`;
+const ChangeNameForm = styled.div`
+	text-align: center;
+	margin: 0 auto;
+	width: 500px;
+	height: 500px;
+	font-weight: 700;
+	transform: translateY(40%);
+	background-color: white;
+	padding-bottom: 50px;
+	border: 3px solid #ffba34;
+`;
+const Div = styled.div`
+	margin: 0 auto;
+	width: 440px;
+	border-radius: 20px;
+	transform: translateY(-40%);
+	background-color: white;
+`;
+const InputForm = styled.div`
+	margin: 0 auto;
+	margin: 5px;
+`;
 const Input = styled.input`
-	width: 200px;
+	width: 390px;
 	border-style: none;
 	height: 39px;
 	padding-left: 5px;
-	margin-top: 10px;
-	font-size: 20px;
-	border-bottom: solid 2px gainsboro;
+	font-size: 13px;
 	:focus {
 		outline: none;
 	}
 `;
+const InputBox = styled.div`
+	width: 420px;
+	border: solid 2px gainsboro;
+`;
+
 const NameText = styled.div`
 	font-size: 20px;
+	color: #00bf00;
+	margin-top: 10px;
 `;
+const InfoNameText = styled.div`
+	font-size: 20px;
+	margin-top: 10px;
+`;
+
 const SubmitBtnDiv = styled.span`
-	margin-top: 30px;
-	width: 100%;
-	height: 100px;
-	margin-right: 10px;
-	display: flex;
+	float: right;
+	margin-top: 50px;
+	margin-right: 15px;
 	& > button {
 		padding: 6px 6px;
 		background-color: #ffba34;
@@ -37,9 +87,16 @@ const SubmitBtnDiv = styled.span`
 		margin-left: 7px;
 	}
 `;
+const CancelBtnDiv = styled.span`
+	float: right;
+	margin-top: 15px;
+	margin-right: 20px;
+	cursor: pointer;
+`;
 
-function ChangeName() {
+function ChangeName({ setModalOpen }) {
 	const accessToken = Cookies.get("accessToken");
+	const modalRef = useRef();
 	const [changeInfo, setchangeInfo] = useState({
 		user_id: "",
 		nickname: "",
@@ -127,39 +184,65 @@ function ChangeName() {
 	};
 
 	return (
-		<div>
-			<div>
-				<Input
-					onChange={handleInputValue("nickname")}
-					placeholder="닉네임"
-					onBlur={nicknameCheck("nickname")}
-				/>
-				<span>
-					{message.nickname ===
-					"닉네임은 특수문자를 제외한 2 ~ 6 글자이어야 합니다." ? (
-						<NameText>{message.nickname}</NameText>
-					) : message.nickname === "사용 가능한 닉네임입니다." ? (
-						<NameText>{message.nickname}</NameText>
-					) : (
-						<NameText>{message.nickname}</NameText>
-					)}
-				</span>
-				<SubmitBtnDiv>
-					<button className="submit" onClick={nicknameCheck("nickname")}>
-						중복확인
-					</button>
-					{isValidForNickname ? (
-						<button className="cancel" onClick={fixNicknameHandler}>
-							수정
+		<ModalBackdrop
+			ref={modalRef}
+			onClick={e => {
+				if (modalRef.current === e.target) {
+					setModalOpen(false);
+				}
+			}}
+		>
+			<ChangeNameForm>
+				<img
+					style={{ cursor: "pointer", width: "300px", height: "250px" }}
+					onClick={() => location.replace("/")}
+					src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
+				></img>
+				<CancelBtnDiv
+					onClick={() => {
+						setModalOpen(false);
+					}}
+				>
+					x
+				</CancelBtnDiv>
+				<Div>
+					<InputForm>
+						<NameTilte>닉네임 수정</NameTilte>
+						<InputBox>
+							<Input
+								onChange={handleInputValue("nickname")}
+								placeholder="닉네임"
+								onBlur={nicknameCheck("nickname")}
+							/>
+						</InputBox>
+						<NameTilte>
+							{message.nickname ===
+							"닉네임은 특수문자를 제외한 2 ~ 6 글자이어야 합니다." ? (
+								<InfoNameText>{message.nickname}</InfoNameText>
+							) : message.nickname === "사용 가능한 닉네임입니다." ? (
+								<NameText>{message.nickname}</NameText>
+							) : (
+								<WrongName>{message.nickname}</WrongName>
+							)}
+						</NameTilte>
+					</InputForm>
+					<SubmitBtnDiv>
+						<button className="submit" onClick={nicknameCheck("nickname")}>
+							중복확인
 						</button>
-					) : (
-						<button className="cancel" disabled={true}>
-							수정
-						</button>
-					)}
-				</SubmitBtnDiv>
-			</div>
-		</div>
+						{isValidForNickname ? (
+							<button className="cancel" onClick={fixNicknameHandler}>
+								수정
+							</button>
+						) : (
+							<button className="cancel" disabled={true}>
+								수정
+							</button>
+						)}
+					</SubmitBtnDiv>
+				</Div>
+			</ChangeNameForm>
+		</ModalBackdrop>
 	);
 }
 export default ChangeName;
