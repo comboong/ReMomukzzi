@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Menu } from "antd";
 import Cookies from "js-cookie";
 import styled from "styled-components";
 import { useCallback, useState, useEffect } from "react";
@@ -123,6 +122,7 @@ const HeaderContainer = styled.div`
 const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const [nick, setNick] = useState(Cookies.get("nickname"));
 
   const handleLogOut = useCallback(() => {
     if (window.confirm("로그아웃 하시겠습니까?")) {
@@ -144,6 +144,10 @@ const Header = () => {
     }
   });
 
+  useEffect(() => {
+    setNick(Cookies.get("nickname"));
+  }, [nick]);
+
   return (
     <HeaderContainer>
       <nav className="navbar">
@@ -158,7 +162,7 @@ const Header = () => {
         {Cookies.get("accessToken") ? (
           <ul className="navbar_menu">
             <li className="navlist">
-              <div>{Cookies.get("nickname")}님</div>
+              <div>{nick}님</div>
             </li>
             <li className="navlist">
               <Link href="/mypage" className="navbar_link">
