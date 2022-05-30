@@ -16,7 +16,7 @@ const CommentWrapper = styled.div`
 	height: auto;
 	border-radius: 20px;
 	margin-bottom: 5%;
-	box-shadow: 4px 4px 4px rgb(85, 85, 85);
+	/* box-shadow: 4px 4px 4px rgb(85, 85, 85); */
 	transition: all 0.1s ease-in-out;
 	&:hover {
 		color: black;
@@ -30,7 +30,6 @@ const CommentWrapper = styled.div`
 	}
 `;
 const Comment = styled.div`
-	font-family: mypagefont;
 	position: relative;
 	display: grid;
 	width: 100%;

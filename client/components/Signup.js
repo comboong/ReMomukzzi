@@ -4,14 +4,14 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 
 const SignUpForm = styled.div`
-  margin: 0 auto;
-  padding-top: 50px;
-  width: 550px;
-  height: 600px;
-  font-weight: 700;
-  text-align: left;
-  border-radius: 5px;
-  background-color: white;
+	margin: 0 auto;
+	padding-top: 50px;
+	width: 550px;
+	height: 500px;
+	font-weight: 700;
+	text-align: left;
+	border-radius: 5px;
+	background-color: white;
 `;
 const Div = styled.div`
   margin: 0 auto;
@@ -176,83 +176,78 @@ function Signup(props) {
     }
   };
 
-  return (
-    <>
-      <SignUpForm onClick={(e) => e.stopPropagation()}>
-        <Div>
-          <img
-            style={{
-              cursor: "pointer",
-              width: 300,
-              height: 200,
-              objectFit: "cover",
-            }}
-            onClick={() => location.replace("/")}
-            src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
-          ></img>
-          <InputForm>
-            <SignupText>아이디</SignupText>
-            <InputBox>
-              <Input type="text" onChange={(e) => setUserId(e.target.value)} />
-            </InputBox>
-            <ValidateMsg hide={hideLengthFail}>
-              아이디는 네 글 자 이상이여야 합니다.
-            </ValidateMsg>
-            <ValidateMsg hide={hideIDFail}>
-              아이디는 영어 또는 숫자만 가능합니다.
-            </ValidateMsg>
-            <ValidateMsg hide={hideIDCheckFail}>
-              중복된 아이디 입니다.
-            </ValidateMsg>
-          </InputForm>
-          <InputForm>
-            <SignupText>이메일</SignupText>
-            <InputBox>
-              <Input type="text" onChange={(e) => setEmail(e.target.value)} />
-            </InputBox>
-            <ValidateMsg hide={hideEmailFail}>
-              올바른 이메일 형식을 입력해주세요
-            </ValidateMsg>
-          </InputForm>
-          <InputForm>
-            <SignupText>비밀번호</SignupText>
-            <InputBox>
-              <Input
-                type="password"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </InputBox>
-          </InputForm>
-          <InputForm>
-            <SignupText>비밀번호 확인</SignupText>
-            <InputBox>
-              <Input
-                type="password"
-                onChange={(e) => setPasswordRetype(e.target.value)}
-              />
-            </InputBox>
-            <ValidateMsg hide={hidePasswordEquelFail}>
-              비밀번호가 일치하지 않습니다.
-            </ValidateMsg>
-            <ValidateMsg hide={hidePasswordFail}>
-              비밀번호는 최소 8자 이상, 알파벳과 숫자 및 특수문자를 포함해야
-              합니다.
-            </ValidateMsg>
-          </InputForm>
-          <InputForm>
-            <SignupText>닉네임</SignupText>
-            <InputBox>
-              <Input type="text" onChange={(e) => setName(e.target.value)} />
-            </InputBox>
-            <ValidateMsg hide={hideNameFail}>
-              닉네임은 필수입력입니다.
-            </ValidateMsg>
-          </InputForm>
-          <SignUpButton onClick={submit}>가입하기</SignUpButton>
-        </Div>
-      </SignUpForm>
-    </>
-  );
+	return (
+		<>
+			<SignUpForm onClick={e => e.stopPropagation()}>
+				<Div>
+					<img
+						style={{ cursor: "pointer", width: "300px", height: "250px" }}
+						onClick={() => location.replace("/")}
+						src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
+					></img>
+					<InputForm>
+						<SignupText>아이디</SignupText>
+						<InputBox>
+							<Input type="text" onChange={e => setUserId(e.target.value)} />
+						</InputBox>
+						<ValidateMsg hide={hideLengthFail}>
+							아이디는 네 글 자 이상이여야 합니다.
+						</ValidateMsg>
+						<ValidateMsg hide={hideIDFail}>
+							아이디는 영어 또는 숫자만 가능합니다.
+						</ValidateMsg>
+						<ValidateMsg hide={hideIDCheckFail}>
+							중복된 아이디 입니다.
+						</ValidateMsg>
+					</InputForm>
+					<InputForm>
+						<SignupText>이메일</SignupText>
+						<InputBox>
+							<Input type="text" onChange={e => setEmail(e.target.value)} />
+						</InputBox>
+						<ValidateMsg hide={hideEmailFail}>
+							올바른 이메일 형식을 입력해주세요
+						</ValidateMsg>
+					</InputForm>
+					<InputForm>
+						<SignupText>비밀번호</SignupText>
+						<InputBox>
+							<Input
+								type="password"
+								onChange={e => setPassword(e.target.value)}
+							/>
+						</InputBox>
+					</InputForm>
+					<InputForm>
+						<SignupText>비밀번호 확인</SignupText>
+						<InputBox>
+							<Input
+								type="password"
+								onChange={e => setPasswordRetype(e.target.value)}
+							/>
+						</InputBox>
+						<ValidateMsg hide={hidePasswordEquelFail}>
+							비밀번호가 일치하지 않습니다.
+						</ValidateMsg>
+						<ValidateMsg hide={hidePasswordFail}>
+							비밀번호는 최소 8자 이상, 알파벳과 숫자 및 특수문자를 포함해야
+							합니다.
+						</ValidateMsg>
+					</InputForm>
+					<InputForm>
+						<SignupText>닉네임</SignupText>
+						<InputBox>
+							<Input type="text" onChange={e => setName(e.target.value)} />
+						</InputBox>
+						<ValidateMsg hide={hideNameFail}>
+							닉네임은 필수입력입니다.
+						</ValidateMsg>
+					</InputForm>
+					<SignUpButton onClick={submit}>가입하기</SignUpButton>
+				</Div>
+			</SignUpForm>
+		</>
+	);
 }
 
 export default Signup;
