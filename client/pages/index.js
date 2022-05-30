@@ -6,7 +6,7 @@ import KaKaoMap from "../components/KaKaoMap";
 
 import { useCallback, useEffect } from "react";
 import axios from "axios";
-import { Image, Row, Col, Button } from "antd";
+import { Row, Col } from "antd";
 import {
   loadingAction,
   getShopInfo,

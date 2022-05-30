@@ -17,35 +17,41 @@ const HeaderContainer = styled.div`
     align-items: center;
     background-color: #f1c83e;
     padding: 9px 12px;
-    min-width: 564px;
+    min-width: 680px;
 
-    @media (max-width: 804px) {
+    @media (max-width: 960px) {
       .navlist {
         margin: 15px 20px;
       }
     }
 
-    @media (max-width: 725px) {
+    @media (max-width: 881px) {
       .navlist {
         margin: 15px 15px;
       }
     }
 
-    @media (max-width: 684px) {
+    @media (max-width: 840px) {
       .navlist {
         margin: 15px 10px;
       }
     }
 
-    @media (max-width: 642px) {
+    @media (max-width: 800px) {
       .navlist {
         margin: 15px 5px;
       }
     }
 
-    @media (max-width: 602px) {
+    @media (max-width: 761px) {
       .navlist {
         margin: 15px 0px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .navbar_menu {
+        padding-left: 0px;
       }
     }
   }
@@ -143,7 +149,10 @@ const Header = () => {
       <nav className="navbar">
         <div className="navbar_logo">
           <Link href="/">
-            <a>로고 들어갈 부분</a>
+            <img
+              src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
+              style={{ width: 250, height: 100, objectFit: "cover" }}
+            />
           </Link>
         </div>
         {Cookies.get("accessToken") ? (

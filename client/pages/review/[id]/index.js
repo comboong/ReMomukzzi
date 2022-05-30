@@ -10,8 +10,22 @@ import axios from "axios";
 import Link from "next/link";
 
 const ReviewContainer = styled.div`
-  width: 40%;
+  width: 50%;
+  height: 700px;
+  padding-top: 100px;
   margin: 0 auto;
+  @media (max-width: 992px) {
+    width: 60%;
+    height: 700px;
+    padding-top: 100px;
+    margin: 0 auto;
+  }
+  @media (max-width: 660px) {
+    width: 70%;
+    height: 700px;
+    padding-top: 100px;
+    margin: 0 auto;
+  }
 `;
 const TextArea = styled(Input.TextArea)`
   height: 120px;
@@ -154,9 +168,10 @@ const review = () => {
           maxLength={200}
           placeholder="이 곳에 리뷰를 작성해 주세요"
           onChange={handleInputText}
+          style={{ marginTop: 20 }}
         />
 
-        <div style={{ marginTop: 10, fontWeight: "bold" }}>사진 업로드</div>
+        <div style={{ marginTop: 20, fontWeight: "bold" }}>사진 업로드</div>
         <ReviewThumbnail>
           {thumbnailImage.map((item, idx) => {
             return (
