@@ -4,6 +4,14 @@ const ShopDetailInfoDiv = styled.div`
   padding: 30px;
   min-height: 200px;
 
+  & > table {
+    margin-left: auto;
+    margin-right: 0;
+
+    @media (max-width: 992px) {
+      margin: auto;
+    }
+  }
   & > table > tbody {
     display: table-row-group;
     vertical-align: middle;

@@ -17,21 +17,21 @@ const FooterContainer = styled.footer`
     margin-left: 200px;
     text-decoration: none;
 
-    @media only screen and (max-width: 1200px) {
+    @media (max-width: 1200px) {
       list-style-type: none;
       flex: 1 1 auto;
       text-decoration: none;
       margin-left: 50px;
     }
 
-    @media only screen and (max-width: 1044px) {
+    @media (max-width: 1044px) {
       list-style-type: none;
       flex: 1 1 auto;
       text-decoration: none;
       margin-left: 0px;
     }
 
-    @media only screen and (max-width: 701px) {
+    @media (max-width: 701px) {
       list-style-type: none;
       flex: 1 1 auto;
       text-decoration: none;
