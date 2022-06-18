@@ -17,6 +17,7 @@ import { Bookmark } from './entity/bookmark.entity';
 import {UsersModule} from './users/users.module';
 import { DatasModule } from './datas/datas.module';
 import { PuppeteerModule } from 'nest-puppeteer';
+import { ShopsModule } from './shops/shops.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -28,7 +29,7 @@ import { PuppeteerModule } from 'nest-puppeteer';
     database: 'Remomukzzi',
     entities: [Users,Shops,Articles,Menu,Review,Shop_pic,Tag,Review_pic,Bookmark],
     synchronize: false,
-  }),UsersModule,DatasModule
+  }),UsersModule,DatasModule,ShopsModule
   ],
   controllers: [],
   providers: [],
