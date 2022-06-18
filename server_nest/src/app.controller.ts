@@ -20,8 +20,6 @@ export class AppController {
     return this.appService.logout();
   }
 
-  
-
   @Patch('/users')
   patch_userinfo(): string {
     return this.appService.patch_userinfo();

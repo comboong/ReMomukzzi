@@ -4,7 +4,7 @@ import KaKaoMap from "../../../components/KaKaoMap";
 import ShopDetailInfo from "../../../components/ShopDetailInfo";
 import { useDispatch, useSelector } from "react-redux";
 import Cookies from "js-cookie";
-import { StarOutlined, StarFilled } from "@ant-design/icons";
+import { StarOutlined, StarFilled, MessageOutlined } from "@ant-design/icons";
 
 import Link from "next/link";
 import { Image, Row, Col, Button } from "antd";
@@ -21,22 +21,33 @@ const ShopImages = styled.div`
   height: 200px;
   display: flex;
   flex-direction: row;
-  overflow: auto;
-  margin: 0 auto;
-  border-bottom: 1px solid gainsboro;
   ::-webkit-scrollbar {
     display: none;
   }
-`;
 
-const Photo = styled(Image)`
-  min-width: 300px;
-  max-width: 300px;
-  object-fit: fill;
+  & > div {
+    width: 20%;
+    height: 100%;
+  }
+
+  & > div > img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
 `;
 
 const ShopTitle = styled.div`
   display: flex;
+  width: 100%;
+  padding-top: 30px;
+  justify-content: center;
+`;
+
+const ShopAndMapContainer = styled.div`
+  width: 100%;
+  padding-top: 50px;
+  margin: 0 auto;
 `;
 
 const shopdetail = ({ data, id }) => {
@@ -117,47 +128,55 @@ const shopdetail = ({ data, id }) => {
       {isFavoriteOn && <FavoriteModal />}
       <ShopImages>
         {data.shop_pics.map((el, idx) => {
-          return <Photo key={idx} src={el.pic_URL} />;
+          return (
+            <div>
+              <img key={idx} src={el.pic_URL} />
+            </div>
+          );
         })}
       </ShopImages>
       <ShopTitle>
-        <div>
-          <span
-            style={{
-              marginLeft: 30,
-              marginRight: 15,
-              fontSize: 24,
-              fontWeight: "bold",
-            }}
-          >
-            {data.shop_name}
-          </span>
-          <span style={{ fontSize: 24, fontWeight: "bold", color: "red" }}>
-            {!data.star_avg ? "0.0" : data.star_avg?.toFixed(1)}
-          </span>
-        </div>
+        <span
+          style={{
+            marginLeft: 30,
+            marginRight: 15,
+            fontSize: 24,
+            fontWeight: "bold",
+          }}
+        >
+          {data.shop_name}
+        </span>
+        <span
+          style={{
+            fontSize: 24,
+            fontWeight: "bold",
+            color: "red",
+            marginRight: 50,
+          }}
+        >
+          {!data.star_avg ? "0.0" : data.star_avg?.toFixed(1)}
+        </span>
 
-        {Cookies.get("accessToken") ? (
-          <Link
-            href={{
-              pathname: `/review/[id]`,
-              query: { shopName: data.shop_name, id: id },
-            }}
-            as={`/review/${id}`}
-          >
-            <a>
-              <Button>리뷰</Button>
-            </a>
-          </Link>
-        ) : (
-          <Link href="/login">
-            <a>
-              <Button onClick={() => alert("로그인이 필요합니다.")}>
-                리뷰
-              </Button>
-            </a>
-          </Link>
-        )}
+        <span style={{ marginRight: 10 }}>
+          {Cookies.get("accessToken") ? (
+            <Link
+              href={{
+                pathname: `/review/[id]`,
+                query: { shopName: data.shop_name, id: id },
+              }}
+              as={`/review/${id}`}
+            >
+              <MessageOutlined style={{ fontSize: 30, cursor: "pointer" }} />
+            </Link>
+          ) : (
+            <Link href="/login">
+              <MessageOutlined
+                style={{ fontSize: 30, cursor: "pointer" }}
+                onClick={() => alert("로그인이 필요합니다.")}
+              />
+            </Link>
+          )}
+        </span>
 
         {!isFavorite ? (
           <StarOutlined onClick={handleFavorite} style={{ fontSize: 30 }} />
@@ -168,14 +187,16 @@ const shopdetail = ({ data, id }) => {
           />
         )}
       </ShopTitle>
-      <Row align="middle" justify="center">
-        <Col cs={24} md={12}>
-          <ShopDetailInfo data={data} />
-        </Col>
-        <Col cs={24} md={12}>
-          <KaKaoMap />
-        </Col>
-      </Row>
+      <ShopAndMapContainer>
+        <Row>
+          <Col xs={24} lg={12}>
+            <ShopDetailInfo data={data} />
+          </Col>
+          <Col xs={24} lg={12}>
+            <KaKaoMap />
+          </Col>
+        </Row>
+      </ShopAndMapContainer>
       <ShopReviews data={data.reviews} />
       <Footer />
     </>

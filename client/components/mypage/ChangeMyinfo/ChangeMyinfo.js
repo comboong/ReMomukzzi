@@ -9,44 +9,39 @@ import { useRouter } from "next/router";
 
 const MypageMyinfoName = styled.div`
 	z-index: 10;
-	font-size: 25px;
-	font-weight: bolder;
-	margin-top: 20px;
-	margin-bottom: 5px;
+	font-size: 20px;
+	word-spacing: 50px;
+	margin: 0 auto;
+	padding-top: 50px;
+	:after {
+		content: "";
+		display: block;
+		width: 350px;
+		border-bottom: 1px solid #bcbcbc;
+	}
 `;
 const MypageFixMyinfoToggleBtn = styled.span`
-	margin: 5px 0 5px 0;
+	margin: 0 auto;
 	opacity: 0.5;
 	cursor: pointer;
 	width: -webkit-fit-content;
 	width: -moz-fit-content;
 	width: fit-content;
 	font-size: 20px;
-	margin-top: 30px;
+	padding-top: 20px;
 `;
 const MypageFixMyinfoOauth = styled.span`
-	margin: 5px 0 5px 0;
+	margin: 0 auto;
 	opacity: 0.5;
-	width: -webkit-fit-content;
-	width: -moz-fit-content;
-	width: fit-content;
+	padding-top: 20px;
 	font-size: 20px;
 `;
-const MypageFixToggleContainer = styled.form`
-	padding: 5px;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	-webkit-box-pack: start;
-	-ms-flex-pack: start;
-	justify-content: flex-start;
-`;
 const SubmitBtnDiv = styled.div`
-	margin-top: 30px;
-	width: 100%;
+	padding-top: 30px;
 	height: 100px;
 	margin-right: 10px;
 	display: flex;
+	margin: 0 auto;
 	& > button {
 		padding: 6px 6px;
 		background-color: #ffba34;
@@ -61,18 +56,11 @@ function ChangeMyinfo() {
 	const router = useRouter();
 	const accessToken = Cookies.get("accessToken");
 	const Oauth = Cookies.get("Oauth");
-
+	const [modalOpen, setModalOpen] = useState(false);
+	const [modalPassword, setModalPassword] = useState(false);
 	const [userInfo, setUserInfo] = useState("");
-	const [fixNameToggle, setFixNameToggle] = useState(false);
-	const [fixPasswordToggle, setFixPasswordToggle] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const [newNick, setNewNick] = useState();
-	const fixNameToggleHandler = () => {
-		setFixNameToggle(!fixNameToggle);
-	};
-	const fixPasswordToggleHandler = () => {
-		setFixPasswordToggle(!fixPasswordToggle);
-	};
 
 	const userInfoHandler = () => {
 		if (!accessToken) {
@@ -104,39 +92,50 @@ function ChangeMyinfo() {
 				<MoreviewLoader />
 			) : (
 				<>
-					<MypageMyinfoName>오늘 뭐먹지?</MypageMyinfoName>
 					<MypageMyinfoName>
-						닉네임: {userInfo && userInfo.data.data.userInfo.nickname} 님
+						닉네임 {userInfo && userInfo.data.data.userInfo.nickname}
 					</MypageMyinfoName>
 					<MypageMyinfoName>
-						이메일: {userInfo && userInfo.data.data.userInfo.email}
+						이메일 {userInfo && userInfo.data.data.userInfo.email}
 					</MypageMyinfoName>
-					<MypageFixMyinfoToggleBtn onClick={fixNameToggleHandler}>
+					<MypageFixMyinfoToggleBtn
+						onClick={() => {
+							setModalOpen(true);
+						}}
+					>
 						닉네임 수정
 					</MypageFixMyinfoToggleBtn>
-					{fixNameToggle ? (
-						<MypageFixToggleContainer onSubmit={e => e.preventDefault()}>
-							<div className="nickname-container">
-								<ChangeName />
-							</div>
-						</MypageFixToggleContainer>
-					) : null}
+					{modalOpen && (
+						<ChangeName
+							setModalOpen={setModalOpen}
+							close={() => {
+								setModalOpen(false);
+							}}
+						/>
+					)}
 					{Oauth === "true" ? (
 						<MypageFixMyinfoOauth disabled={true}>
 							소셜 계정은 비밀번호 수정을 하실 수 없습니다.
 						</MypageFixMyinfoOauth>
 					) : (
-						<MypageFixMyinfoToggleBtn onClick={fixPasswordToggleHandler}>
-							비밀번호 수정
-						</MypageFixMyinfoToggleBtn>
+						<>
+							<MypageFixMyinfoToggleBtn
+								onClick={() => {
+									setModalPassword(true);
+								}}
+							>
+								비밀번호 수정
+							</MypageFixMyinfoToggleBtn>
+							{modalPassword && (
+								<ChangePassword
+									setModalPassword={setModalPassword}
+									close={() => {
+										setModalPassword(false);
+									}}
+								/>
+							)}
+						</>
 					)}
-					{fixPasswordToggle ? (
-						<MypageFixToggleContainer onSubmit={e => e.preventDefault()}>
-							<div className="password-container">
-								<ChangePassword />
-							</div>
-						</MypageFixToggleContainer>
-					) : null}
 					<SubmitBtnDiv>
 						{Oauth === "true" ? (
 							<></>

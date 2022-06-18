@@ -6,6 +6,19 @@ import Emptyreview from "./Emptyreview";
 import MoreviewBtn from "./MoreviewBtn";
 import Cookies from "js-cookie";
 
+const MypageTitle = styled.div`
+	background-color: #f0c83d;
+	font-size: 20px;
+	padding: 3px 0;
+	width: 200px;
+	text-align: center;
+	color: white;
+	border-radius: 20px;
+	margin-top: 30px;
+	margin-bottom: 40px;
+	margin-left: auto;
+	margin-right: auto;
+`;
 const ReviewContainer = styled.div`
 	font-size: 14px;
 	padding: 0 5px 0 5px;
@@ -60,6 +73,7 @@ function Myreview() {
 
 	return (
 		<ReviewContainer>
+			<MypageTitle>내리뷰</MypageTitle>
 			{newUserReview.length !== 0 ? (
 				newUserReview.slice(0, reviewCount).map((el, i) => {
 					return (
@@ -74,7 +88,9 @@ function Myreview() {
 					);
 				})
 			) : (
-				<Emptyreview />
+				<>
+					<Emptyreview />
+				</>
 			)}
 			{isLoaded ? (
 				<MoreviewBtn />

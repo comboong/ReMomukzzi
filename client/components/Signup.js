@@ -7,183 +7,183 @@ const SignUpForm = styled.div`
 	margin: 0 auto;
 	padding-top: 50px;
 	width: 550px;
-	height: 600px;
+	height: 500px;
 	font-weight: 700;
 	text-align: left;
 	border-radius: 5px;
 	background-color: white;
 `;
 const Div = styled.div`
-	margin: 0 auto;
-	padding-top: 20px;
-	width: 440px;
-	height: 70%;
-	& > img {
-		width: 300px;
-		margin-left: 75px;
-	}
+  margin: 0 auto;
+  padding-top: 20px;
+  width: 440px;
+  height: 70%;
+  & > img {
+    width: 300px;
+    margin-left: 75px;
+  }
 `;
 const InputForm = styled.div`
-	margin: 0 auto;
-	margin: 5px;
+  margin: 0 auto;
+  margin: 5px;
 `;
 const ValidateMsg = styled.div`
-	display: ${props => (props.hide ? "none" : "")};
-	margin: 5px;
+  display: ${(props) => (props.hide ? "none" : "")};
+  margin: 5px;
 `;
 const Input = styled.input`
-	width: 390px;
-	border-style: none;
-	height: 35px;
-	margin-left: 5px;
-	font-size: 13px;
-	:focus {
-		outline: none;
-	}
+  width: 390px;
+  border-style: none;
+  height: 35px;
+  margin-left: 5px;
+  font-size: 13px;
+  :focus {
+    outline: none;
+  }
 `;
 const InputBox = styled.div`
-	width: 430px;
-	height: 40px;
-	border: solid 1px gainsboro;
-	border-radius: 5px;
-	margin-bottom: 20px;
+  width: 430px;
+  height: 40px;
+  border: solid 1px gainsboro;
+  border-radius: 5px;
+  margin-bottom: 20px;
 `;
 const SignUpButton = styled.div`
-	width: 430px;
-	height: 45px;
-	margin: 30px auto 0 auto;
-	border-radius: 5px;
-	text-align: center;
-	background-color: #ffba34;
-	color: white;
-	cursor: pointer;
-	line-height: 40px;
+  width: 430px;
+  height: 45px;
+  margin: 30px auto 0 auto;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #ffba34;
+  color: white;
+  cursor: pointer;
+  line-height: 40px;
 `;
 const SignupText = styled.div`
-	font-size: 20px;
+  font-size: 20px;
 `;
 
 function Signup(props) {
-	const router = useRouter();
-	const [userId, setUserId] = useState("");
-	const [password, setPassword] = useState("");
-	const [passwordRetype, setPasswordRetype] = useState("");
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
+  const router = useRouter();
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordRetype, setPasswordRetype] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
-	const [hideLengthFail, setHideLengthFail] = useState(true);
-	const [hideIDFail, setHideIDFail] = useState(true);
-	const [hideIDCheckFail, setHideIDCheckFail] = useState(true);
-	const [hideEmailFail, setHideEmailFail] = useState(true);
-	const [hidePasswordEquelFail, setHidePasswordEquelFail] = useState(true);
-	const [hidePasswordFail, setHidePasswordFail] = useState(true);
-	const [hideNameFail, setHideNameFail] = useState(true);
+  const [hideLengthFail, setHideLengthFail] = useState(true);
+  const [hideIDFail, setHideIDFail] = useState(true);
+  const [hideIDCheckFail, setHideIDCheckFail] = useState(true);
+  const [hideEmailFail, setHideEmailFail] = useState(true);
+  const [hidePasswordEquelFail, setHidePasswordEquelFail] = useState(true);
+  const [hidePasswordFail, setHidePasswordFail] = useState(true);
+  const [hideNameFail, setHideNameFail] = useState(true);
 
-	const isMoreThan4Length = () => {
-		if (userId.length < 4) {
-			setHideLengthFail(() => false);
-			return false;
-		} else {
-			setHideLengthFail(() => true);
-			return true;
-		}
-	};
+  const isMoreThan4Length = () => {
+    if (userId.length < 4) {
+      setHideLengthFail(() => false);
+      return false;
+    } else {
+      setHideLengthFail(() => true);
+      return true;
+    }
+  };
 
-	const onlyNumberAndEnglish = () => {
-		if (/^[A-Za-z][A-Za-z0-9]*$/.test(userId)) {
-			setHideIDFail(() => true);
-			return true;
-		} else {
-			setHideIDFail(() => false);
-			return false;
-		}
-	};
+  const onlyNumberAndEnglish = () => {
+    if (/^[A-Za-z][A-Za-z0-9]*$/.test(userId)) {
+      setHideIDFail(() => true);
+      return true;
+    } else {
+      setHideIDFail(() => false);
+      return false;
+    }
+  };
 
-	const isEmailValidate = () => {
-		if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+$/.test(email)) {
-			setHideEmailFail(true);
-			return true;
-		} else {
-			setHideEmailFail(false);
-			return false;
-		}
-	};
-	const isPasswordEquel = () => {
-		if (password === passwordRetype) {
-			setHidePasswordEquelFail(true);
-			return true;
-		} else {
-			setHidePasswordEquelFail(false);
-			return false;
-		}
-	};
+  const isEmailValidate = () => {
+    if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+$/.test(email)) {
+      setHideEmailFail(true);
+      return true;
+    } else {
+      setHideEmailFail(false);
+      return false;
+    }
+  };
+  const isPasswordEquel = () => {
+    if (password === passwordRetype) {
+      setHidePasswordEquelFail(true);
+      return true;
+    } else {
+      setHidePasswordEquelFail(false);
+      return false;
+    }
+  };
 
-	const isPasswordValidate = () => {
-		if (
-			/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
-				password
-			)
-		) {
-			setHidePasswordFail(true);
-			return true;
-		} else {
-			setHidePasswordFail(false);
-			return false;
-		}
-	};
+  const isPasswordValidate = () => {
+    if (
+      /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
+        password
+      )
+    ) {
+      setHidePasswordFail(true);
+      return true;
+    } else {
+      setHidePasswordFail(false);
+      return false;
+    }
+  };
 
-	const nameCheck = () => {
-		if (name === "") {
-			setHideNameFail(false);
-			return false;
-		} else {
-			setHideNameFail(true);
-			return true;
-		}
-	};
+  const nameCheck = () => {
+    if (name === "") {
+      setHideNameFail(false);
+      return false;
+    } else {
+      setHideNameFail(true);
+      return true;
+    }
+  };
 
-	const submit = () => {
-		if (
-			isMoreThan4Length() &&
-			onlyNumberAndEnglish() &&
-			isEmailValidate() &&
-			isPasswordEquel() &&
-			isPasswordValidate() &&
-			nameCheck()
-		) {
-			axios
-				.post(
-					`${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
-					{
-						userid: userId,
-						password: password,
-						nickname: name,
-						email: email,
-					},
-					{ withCredentials: true }
-				)
-				.then(response => {
-					if (response.data.message === "exist") {
-						setHideIDCheckFail(false);
-					} else if (response.data.message === "created") {
-						setHideIDCheckFail(true);
-						router.push("/");
-					}
-				})
-				.catch(err => {
-					throw err;
-				});
-		}
-	};
+  const submit = () => {
+    if (
+      isMoreThan4Length() &&
+      onlyNumberAndEnglish() &&
+      isEmailValidate() &&
+      isPasswordEquel() &&
+      isPasswordValidate() &&
+      nameCheck()
+    ) {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
+          {
+            userid: userId,
+            password: password,
+            nickname: name,
+            email: email,
+          },
+          { withCredentials: true }
+        )
+        .then((response) => {
+          if (response.data.message === "exist") {
+            setHideIDCheckFail(false);
+          } else if (response.data.message === "created") {
+            setHideIDCheckFail(true);
+            router.push("/");
+          }
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }
+  };
 
 	return (
 		<>
 			<SignUpForm onClick={e => e.stopPropagation()}>
 				<Div>
 					<img
-						style={{ cursor: "pointer" }}
+						style={{ cursor: "pointer", width: "300px", height: "250px" }}
 						onClick={() => location.replace("/")}
-						src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"
+						src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
 					></img>
 					<InputForm>
 						<SignupText>아이디</SignupText>
