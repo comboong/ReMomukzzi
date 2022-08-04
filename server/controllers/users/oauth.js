@@ -1,7 +1,6 @@
 const { user, bookmark, shop, shop_pic } = require("../../models");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { slice } = require("cheerio/lib/api/traversing");
 
 module.exports = async (req, res) => {
   console.log("oauth login!!!!!!!!!!!!!!");

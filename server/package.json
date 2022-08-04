@@ -32,7 +32,8 @@
     "puppeteer-core": "^13.5.2",
     "sanitize-html": "^2.7.0",
     "sequelize": "^6.17.0",
-    "shortid": "^2.2.16"
+    "shortid": "^2.2.16",
+    "waait": "^1.0.5"
   },
   "devDependencies": {
     "sequelize-cli": "^6.4.1"
