@@ -2,8 +2,6 @@ const { shop, shop_pic, menu } = require("../../models");
 const cheerio = require("cheerio");
 const puppeteer = require("puppeteer");
 const { scrollPageToBottom } = require("puppeteer-autoscroll-down");
-const { data } = require("cheerio/lib/api/attributes");
-const axios = require("axios");
 
 process.setMaxListeners(0);
 
