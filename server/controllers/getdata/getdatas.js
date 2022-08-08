@@ -40,7 +40,7 @@ module.exports = async (req, res) => {
   }
 
   async function doCrawling(shopinfo){
-    const browser = await puppeteer.launch({args:['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote']});
+    const browser = await puppeteer.launch({args:['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'],headless:false});
     const page = await browser.newPage();
     
     for (i of shopinfo){
@@ -50,7 +50,7 @@ module.exports = async (req, res) => {
     
     let pagesCount = await browser.pages()
     
-    await wait(5000);
+    await wait(8000);
     
     for (let i=0; i<pagesCount.length-2; i++){
 
