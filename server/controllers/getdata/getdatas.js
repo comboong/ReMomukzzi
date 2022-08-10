@@ -38,13 +38,12 @@ module.exports = async (req, res) => {
       }
     }
   }
-  function cutArrBy5(arr){
 
-  }
+
   async function doCrawling(shopinfo){
     const browser = await puppeteer.launch({args:['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote']});
-  
-    for (i of shopinfo){
+    let crwalingArr = shopinfo.slice(0,10)
+    for (i of crwalingArr){
       const page = await browser.newPage();
       page.setDefaultNavigationTimeout(0); 
       page.setExtraHTTPHeaders({
@@ -58,7 +57,6 @@ module.exports = async (req, res) => {
     }
     
     let pagesCount = await browser.pages()
-    console.log(pagesCount.length)
     
     await wait(8000);
     
@@ -118,7 +116,7 @@ module.exports = async (req, res) => {
       }
 
       let shopRetrun = {
-        shopInfo : shopinfo[i-1],
+        shopInfo : crwalingArr[i-1],
         shopPics :  photodatas,
         shopMenus : menulist
       }
@@ -189,6 +187,7 @@ module.exports = async (req, res) => {
     }finally{
       res.status(200).json(answer)
     }
+
   }
 
   main ()
