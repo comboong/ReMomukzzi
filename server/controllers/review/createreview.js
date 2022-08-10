@@ -1,7 +1,6 @@
 const { review, shop, user,review_pic } = require('../../models');
 const Sequelize = require('sequelize');
 const jwt = require("jsonwebtoken");
-const { end } = require('cheerio/lib/api/traversing');
 
 module.exports = async (req, res) => {
     console.log('create review')

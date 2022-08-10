@@ -16,7 +16,7 @@ const CommentWrapper = styled.div`
 	height: auto;
 	border-radius: 20px;
 	margin-bottom: 5%;
-	box-shadow: 4px 4px 4px rgb(85, 85, 85);
+	/* box-shadow: 4px 4px 4px rgb(85, 85, 85); */
 	transition: all 0.1s ease-in-out;
 	&:hover {
 		color: black;
@@ -30,7 +30,6 @@ const CommentWrapper = styled.div`
 	}
 `;
 const Comment = styled.div`
-	font-family: mypagefont;
 	position: relative;
 	display: grid;
 	width: 100%;
@@ -92,7 +91,6 @@ const ContentWrapper = styled.div`
 	position: relative;
 	width: auto;
 	height: auto;
-	cursor: pointer;
 `;
 const Content = styled.div`
 	flex-wrap: wrap;
@@ -187,12 +185,6 @@ const Myreviewlist = ({ comment, shop_name, createdAt, star, pic, id }) => {
 							<BtnWrapper>
 								<BtnOne>
 									<Myreviewdelete id={id} />
-									{/* <Icon
-										size={28}
-										icon={ic_cancel_outline}
-										className="delete-button"
-										onClick={handleDeleteCommentModal}
-									/> */}
 								</BtnOne>
 							</BtnWrapper>
 						</BtnBox>

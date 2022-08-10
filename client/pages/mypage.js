@@ -1,13 +1,15 @@
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Myinfo from "../components/mypage/Myinfo";
-import Loginmodal from "../components/Login/Loginmodal";
+import FavoriteModal from "../components/FavoriteModal";
+import Footer from "../components/Footer";
+import { useSelector } from "react-redux";
 
 const Mypage = () => {
+	const isFavoriteOn = useSelector(state => state.isFavoriteOn);
 	return (
 		<>
 			<Header />
-			{/* <Loginmodal /> */}
+			{isFavoriteOn && <FavoriteModal />}
 			<Myinfo />
 			<Footer />
 		</>

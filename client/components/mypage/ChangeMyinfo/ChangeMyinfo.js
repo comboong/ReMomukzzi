@@ -9,46 +9,58 @@ import { useRouter } from "next/router";
 
 const MypageMyinfoName = styled.div`
 	z-index: 10;
-	font-size: 2rem;
-	font-weight: bolder;
-	margin-top: 20px;
-	margin-bottom: 5px;
+	font-size: 20px;
+	word-spacing: 50px;
+	margin: 0 auto;
+	padding-top: 50px;
+	:after {
+		content: "";
+		display: block;
+		width: 350px;
+		border-bottom: 1px solid #bcbcbc;
+	}
 `;
 const MypageFixMyinfoToggleBtn = styled.span`
-	margin: 5px 0 5px 0;
+	margin: 0 auto;
 	opacity: 0.5;
 	cursor: pointer;
 	width: -webkit-fit-content;
 	width: -moz-fit-content;
 	width: fit-content;
+	font-size: 20px;
+	padding-top: 20px;
 `;
-const MypageFixToggleContainer = styled.form`
-	padding: 5px;
-	display: -webkit-box;
-	display: -ms-flexbox;
+const MypageFixMyinfoOauth = styled.span`
+	margin: 0 auto;
+	opacity: 0.5;
+	padding-top: 20px;
+	font-size: 20px;
+`;
+const SubmitBtnDiv = styled.div`
+	padding-top: 30px;
+	height: 100px;
+	margin-right: 10px;
 	display: flex;
-	-webkit-box-pack: start;
-	-ms-flex-pack: start;
-	justify-content: flex-start;
+	margin: 0 auto;
+	& > button {
+		padding: 6px 6px;
+		background-color: #ffba34;
+		border-radius: 4px;
+		border: none;
+		color: white;
+		cursor: pointer;
+		height: 40px;
+	}
 `;
-
 function ChangeMyinfo() {
 	const router = useRouter();
 	const accessToken = Cookies.get("accessToken");
-
-	// const Oauth = localStorage.getItem("Oauth");
-	// console.log(Oauth);
-
+	const Oauth = Cookies.get("Oauth");
+	const [modalOpen, setModalOpen] = useState(false);
+	const [modalPassword, setModalPassword] = useState(false);
 	const [userInfo, setUserInfo] = useState("");
-	const [fixNameToggle, setFixNameToggle] = useState(false);
-	const [fixPasswordToggle, setFixPasswordToggle] = useState(false);
 	const [loading, setLoading] = useState(true);
-	const fixNameToggleHandler = () => {
-		setFixNameToggle(!fixNameToggle);
-	};
-	const fixPasswordToggleHandler = () => {
-		setFixPasswordToggle(!fixPasswordToggle);
-	};
+	const [newNick, setNewNick] = useState();
 
 	const userInfoHandler = () => {
 		if (!accessToken) {
@@ -61,14 +73,12 @@ function ChangeMyinfo() {
 					"Content-Type": "application/json",
 				})
 				.then(res => {
-					console.log(res);
-					console.log(res.data.data);
 					setUserInfo(res);
 					setLoading(false);
-					console.log("개인정보가져오기 성공");
+					setNewNick(res.data.data.nickname);
 				})
 				.catch(err => {
-					console.log("개인가져오기 에러", err);
+					alert("잘못된 요청입니다.");
 				});
 		}
 	};
@@ -81,53 +91,66 @@ function ChangeMyinfo() {
 			{loading ? (
 				<MoreviewLoader />
 			) : (
-				<div>
-					<MypageMyinfoName>오늘 뭐먹지?</MypageMyinfoName>
+				<>
 					<MypageMyinfoName>
-						닉네임: {userInfo && userInfo.data.data.userInfo.nickname} 님
+						닉네임 {userInfo && userInfo.data.data.userInfo.nickname}
 					</MypageMyinfoName>
 					<MypageMyinfoName>
-						이메일: {userInfo && userInfo.data.data.userInfo.email}
+						이메일 {userInfo && userInfo.data.data.userInfo.email}
 					</MypageMyinfoName>
-					<div>
-						<MypageFixMyinfoToggleBtn onClick={fixNameToggleHandler}>
-							닉네임 수정
-						</MypageFixMyinfoToggleBtn>
-					</div>
-					{fixNameToggle ? (
-						<MypageFixToggleContainer onSubmit={e => e.preventDefault()}>
-							<div className="nickname-container">
-								<ChangeName />
-							</div>
-						</MypageFixToggleContainer>
-					) : null}
-					{/* {Oauth === "true" ? (
-						<MypageFixMyinfoToggleBtn disabled={true}>
-							소셜 계정은 비밀번호 수정을 하실 수 없습니다.
-						</MypageFixMyinfoToggleBtn>
-					) : ( */}
-					<MypageFixMyinfoToggleBtn onClick={fixPasswordToggleHandler}>
-						비밀번호 수정
+					<MypageFixMyinfoToggleBtn
+						onClick={() => {
+							setModalOpen(true);
+						}}
+					>
+						닉네임 수정
 					</MypageFixMyinfoToggleBtn>
-					{/* )} */}
-					{fixPasswordToggle ? (
-						<MypageFixToggleContainer onSubmit={e => e.preventDefault()}>
-							<div className="password-container">
-								<ChangePassword />
-							</div>
-						</MypageFixToggleContainer>
-					) : null}
-					<div>
-						<button
-							className="submit"
-							onClick={() => {
-								location.replace("/signout");
+					{modalOpen && (
+						<ChangeName
+							setModalOpen={setModalOpen}
+							close={() => {
+								setModalOpen(false);
 							}}
-						>
-							회원탈퇴
-						</button>
-					</div>
-				</div>
+						/>
+					)}
+					{Oauth === "true" ? (
+						<MypageFixMyinfoOauth disabled={true}>
+							소셜 계정은 비밀번호 수정을 하실 수 없습니다.
+						</MypageFixMyinfoOauth>
+					) : (
+						<>
+							<MypageFixMyinfoToggleBtn
+								onClick={() => {
+									setModalPassword(true);
+								}}
+							>
+								비밀번호 수정
+							</MypageFixMyinfoToggleBtn>
+							{modalPassword && (
+								<ChangePassword
+									setModalPassword={setModalPassword}
+									close={() => {
+										setModalPassword(false);
+									}}
+								/>
+							)}
+						</>
+					)}
+					<SubmitBtnDiv>
+						{Oauth === "true" ? (
+							<></>
+						) : (
+							<button
+								className="submit"
+								onClick={() => {
+									router.push("/signout");
+								}}
+							>
+								회원탈퇴
+							</button>
+						)}
+					</SubmitBtnDiv>
+				</>
 			)}
 		</>
 	);

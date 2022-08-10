@@ -3,210 +3,190 @@ import axios from "axios";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 
-const ModalBackdrop = styled.div`
-	position: fixed;
-	z-index: 999;
-	top: 0;
-	left: 0;
-	bottom: 0;
-	right: 0;
-	background-color: rgba(0, 0, 0, 0.4);
-`;
-
 const SignUpForm = styled.div`
 	margin: 0 auto;
 	padding-top: 50px;
 	width: 550px;
-	height: 600px;
+	height: 500px;
 	font-weight: 700;
 	text-align: left;
-	/* transform: translateY(20%); */
 	border-radius: 5px;
 	background-color: white;
-	/* border: 1px solid black; */
 `;
-
 const Div = styled.div`
-	margin: 0 auto;
-	padding-top: 20px;
-	width: 440px;
-	height: 70%;
-	/* border: 1px solid black; */
-
-	& > img {
-		width: 300px;
-		margin-left: 75px;
-	}
+  margin: 0 auto;
+  padding-top: 20px;
+  width: 440px;
+  height: 70%;
+  & > img {
+    width: 300px;
+    margin-left: 75px;
+  }
 `;
-
 const InputForm = styled.div`
-	margin: 0 auto;
-	margin: 5px;
+  margin: 0 auto;
+  margin: 5px;
 `;
 const ValidateMsg = styled.div`
-	display: ${props => (props.hide ? "none" : "")};
-	margin: 5px;
+  display: ${(props) => (props.hide ? "none" : "")};
+  margin: 5px;
 `;
-
 const Input = styled.input`
-	width: 390px;
-	border-style: none;
-	height: 35px;
-	margin-left: 5px;
-	font-size: 13px;
-	:focus {
-		outline: none;
-	}
+  width: 390px;
+  border-style: none;
+  height: 35px;
+  margin-left: 5px;
+  font-size: 13px;
+  :focus {
+    outline: none;
+  }
 `;
-
 const InputBox = styled.div`
-	width: 430px;
-	height: 40px;
-	border: solid 1px gainsboro;
-	border-radius: 5px;
+  width: 430px;
+  height: 40px;
+  border: solid 1px gainsboro;
+  border-radius: 5px;
+  margin-bottom: 20px;
 `;
-
 const SignUpButton = styled.div`
-	width: 430px;
-	height: 45px;
-	margin: 30px auto 0 auto;
-
-	border-radius: 5px;
-	text-align: center;
-	background-color: #ffba34;
-	color: white;
-	cursor: pointer;
-	line-height: 40px;
+  width: 430px;
+  height: 45px;
+  margin: 30px auto 0 auto;
+  border-radius: 5px;
+  text-align: center;
+  background-color: #ffba34;
+  color: white;
+  cursor: pointer;
+  line-height: 40px;
+`;
+const SignupText = styled.div`
+  font-size: 20px;
 `;
 
 function Signup(props) {
-	// document.body.style.overflow = "hidden";
-	const router = useRouter();
-	const [userId, setUserId] = useState("");
-	const [password, setPassword] = useState("");
-	const [passwordRetype, setPasswordRetype] = useState("");
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
+  const router = useRouter();
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordRetype, setPasswordRetype] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
-	const [hideLengthFail, setHideLengthFail] = useState(true);
-	const [hideIDFail, setHideIDFail] = useState(true);
-	const [hideIDCheckFail, setHideIDCheckFail] = useState(true);
-	const [hideEmailFail, setHideEmailFail] = useState(true);
-	const [hidePasswordEquelFail, setHidePasswordEquelFail] = useState(true);
-	const [hidePasswordFail, setHidePasswordFail] = useState(true);
-	const [hideNameFail, setHideNameFail] = useState(true);
+  const [hideLengthFail, setHideLengthFail] = useState(true);
+  const [hideIDFail, setHideIDFail] = useState(true);
+  const [hideIDCheckFail, setHideIDCheckFail] = useState(true);
+  const [hideEmailFail, setHideEmailFail] = useState(true);
+  const [hidePasswordEquelFail, setHidePasswordEquelFail] = useState(true);
+  const [hidePasswordFail, setHidePasswordFail] = useState(true);
+  const [hideNameFail, setHideNameFail] = useState(true);
 
-	const isMoreThan4Length = () => {
-		if (userId.length < 4) {
-			setHideLengthFail(() => false);
-			return false;
-		} else {
-			setHideLengthFail(() => true);
-			return true;
-		}
-	};
+  const isMoreThan4Length = () => {
+    if (userId.length < 4) {
+      setHideLengthFail(() => false);
+      return false;
+    } else {
+      setHideLengthFail(() => true);
+      return true;
+    }
+  };
 
-	const onlyNumberAndEnglish = () => {
-		if (/^[A-Za-z][A-Za-z0-9]*$/.test(userId)) {
-			setHideIDFail(() => true);
-			return true;
-		} else {
-			setHideIDFail(() => false);
-			return false;
-		}
-	};
+  const onlyNumberAndEnglish = () => {
+    if (/^[A-Za-z][A-Za-z0-9]*$/.test(userId)) {
+      setHideIDFail(() => true);
+      return true;
+    } else {
+      setHideIDFail(() => false);
+      return false;
+    }
+  };
 
-	const isEmailValidate = () => {
-		if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+$/.test(email)) {
-			setHideEmailFail(true);
-			return true;
-		} else {
-			setHideEmailFail(false);
-			return false;
-		}
-	};
-	const isPasswordEquel = () => {
-		if (password === passwordRetype) {
-			setHidePasswordEquelFail(true);
-			return true;
-		} else {
-			setHidePasswordEquelFail(false);
-			return false;
-		}
-	};
+  const isEmailValidate = () => {
+    if (/^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-z]+$/.test(email)) {
+      setHideEmailFail(true);
+      return true;
+    } else {
+      setHideEmailFail(false);
+      return false;
+    }
+  };
+  const isPasswordEquel = () => {
+    if (password === passwordRetype) {
+      setHidePasswordEquelFail(true);
+      return true;
+    } else {
+      setHidePasswordEquelFail(false);
+      return false;
+    }
+  };
 
-	const isPasswordValidate = () => {
-		if (
-			/^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
-				password
-			)
-		) {
-			setHidePasswordFail(true);
-			return true;
-		} else {
-			setHidePasswordFail(false);
-			return false;
-		}
-	};
+  const isPasswordValidate = () => {
+    if (
+      /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$/.test(
+        password
+      )
+    ) {
+      setHidePasswordFail(true);
+      return true;
+    } else {
+      setHidePasswordFail(false);
+      return false;
+    }
+  };
 
-	const nameCheck = () => {
-		if (name === "") {
-			setHideNameFail(false);
-			return false;
-		} else {
-			setHideNameFail(true);
-			return true;
-		}
-	};
+  const nameCheck = () => {
+    if (name === "") {
+      setHideNameFail(false);
+      return false;
+    } else {
+      setHideNameFail(true);
+      return true;
+    }
+  };
 
-	const submit = () => {
-		if (
-			isMoreThan4Length() &&
-			onlyNumberAndEnglish() &&
-			isEmailValidate() &&
-			isPasswordEquel() &&
-			isPasswordValidate() &&
-			nameCheck()
-		) {
-			axios
-				.post(
-					`${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
-					{
-						userid: userId,
-						password: password,
-						nickname: name,
-						email: email,
-					},
-					{ withCredentials: true }
-				)
-				.then(response => {
-					if (response.data.message === "exist") {
-						setHideIDCheckFail(false);
-						console.log(response.data);
-					} else if (response.data.message === "created") {
-						setHideIDCheckFail(true);
-						console.log(response.data);
-						router.push("/");
-					}
-				})
-				.catch(err => {
-					throw err;
-				});
-		}
-	};
+  const submit = () => {
+    if (
+      isMoreThan4Length() &&
+      onlyNumberAndEnglish() &&
+      isEmailValidate() &&
+      isPasswordEquel() &&
+      isPasswordValidate() &&
+      nameCheck()
+    ) {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
+          {
+            userid: userId,
+            password: password,
+            nickname: name,
+            email: email,
+          },
+          { withCredentials: true }
+        )
+        .then((response) => {
+          if (response.data.message === "exist") {
+            setHideIDCheckFail(false);
+          } else if (response.data.message === "created") {
+            setHideIDCheckFail(true);
+            router.push("/");
+          }
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }
+  };
 
 	return (
-		// <ModalBackdrop
-		// 	onClick={() => {
-		// 		dispatch({ type: "signup modal" });
-		// 	}}
-		// >
 		<>
 			<SignUpForm onClick={e => e.stopPropagation()}>
 				<Div>
-					{/* <img src="https://cdn.discordapp.com/attachments/947685049682247701/961421667157016686/logo-removebg-preview.png"></img> */}
+					<img
+						style={{ cursor: "pointer", width: "300px", height: "250px" }}
+						onClick={() => location.replace("/")}
+						src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
+					></img>
 					<InputForm>
-						<div>아이디</div>
+						<SignupText>아이디</SignupText>
 						<InputBox>
 							<Input type="text" onChange={e => setUserId(e.target.value)} />
 						</InputBox>
@@ -220,9 +200,8 @@ function Signup(props) {
 							중복된 아이디 입니다.
 						</ValidateMsg>
 					</InputForm>
-
 					<InputForm>
-						<div>Email</div>
+						<SignupText>이메일</SignupText>
 						<InputBox>
 							<Input type="text" onChange={e => setEmail(e.target.value)} />
 						</InputBox>
@@ -230,9 +209,8 @@ function Signup(props) {
 							올바른 이메일 형식을 입력해주세요
 						</ValidateMsg>
 					</InputForm>
-
 					<InputForm>
-						<div>비밀번호</div>
+						<SignupText>비밀번호</SignupText>
 						<InputBox>
 							<Input
 								type="password"
@@ -240,9 +218,8 @@ function Signup(props) {
 							/>
 						</InputBox>
 					</InputForm>
-
 					<InputForm>
-						<div>비밀번호 확인</div>
+						<SignupText>비밀번호 확인</SignupText>
 						<InputBox>
 							<Input
 								type="password"
@@ -257,9 +234,8 @@ function Signup(props) {
 							합니다.
 						</ValidateMsg>
 					</InputForm>
-
 					<InputForm>
-						<div>닉네임</div>
+						<SignupText>닉네임</SignupText>
 						<InputBox>
 							<Input type="text" onChange={e => setName(e.target.value)} />
 						</InputBox>
@@ -267,12 +243,10 @@ function Signup(props) {
 							닉네임은 필수입력입니다.
 						</ValidateMsg>
 					</InputForm>
-
 					<SignUpButton onClick={submit}>가입하기</SignUpButton>
 				</Div>
 			</SignUpForm>
 		</>
-		// </ModalBackdrop>
 	);
 }
 

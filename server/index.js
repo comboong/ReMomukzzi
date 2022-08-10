@@ -41,7 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   cors({
-    origin: ["https://localhost:3000"],
+    origin: ["https://localhost:3000","localhost"],
     credentials: true,
     methods: ["GET", "POST", "OPTIONS", "PATCH", "DELETE"],
   })
@@ -113,17 +113,20 @@ const HTTPS_PORT = 443 || 4000;
 // 만약 인증서 파일이 존재하지 않는경우, http 프로토콜을 사용하는 서버를 실행합니다.
 // 파일 존재여부를 확인하는 폴더는 서버 폴더의 package.json이 위치한 곳입니다.
 let server;
-if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
-  const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
-  const certificate = fs.readFileSync(__dirname + "/cert.pem", "utf8");
-  const credentials = { key: privateKey, cert: certificate };
-  db.sequelize.sync();
-  server = https.createServer(credentials, app);
-  server.listen(HTTPS_PORT, () => console.log(`server runnning ${HTTPS_PORT}`));
-  console.log(`server runing on ${HTTPS_PORT}`)
-} else {
-  db.sequelize.sync();
-  server = app.listen(HTTPS_PORT);
-}
 
+// if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
+//   const privateKey = fs.readFileSync(__dirname + "/key.pem", "utf8");
+//   const certificate = fs.readFileSync(__dirname + "/cert.pem", "utf8");
+//   const credentials = { key: privateKey, cert: certificate };
+//   db.sequelize.sync();
+//   server = https.createServer(credentials, app);
+//   server.listen(HTTPS_PORT, () => console.log(`server runnning ${HTTPS_PORT}`));
+// } else {
+//   db.sequelize.sync();
+//   server = app.listen(HTTPS_PORT);
+// }
+
+db.sequelize.sync();
+server = app.listen(HTTPS_PORT);
+console.log(HTTPS_PORT)
 module.exports = server;

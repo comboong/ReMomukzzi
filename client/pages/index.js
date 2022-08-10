@@ -6,21 +6,55 @@ import KaKaoMap from "../components/KaKaoMap";
 
 import { useCallback, useEffect } from "react";
 import axios from "axios";
-import { Image, Row, Col, Button } from "antd";
+import { Row, Col } from "antd";
 import {
 	loadingAction,
 	getShopInfo,
 	firstGetAction,
 	setRandomInt,
 	setShuffleArr,
+	setMapXY,
 } from "../reducers";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import IntroImageSet from "../components/IntroImageSet";
 import MoreviewLoader from "../components/MoreviewLoader";
+import FavoriteModal from "../components/FavoriteModal";
+
+const Title = styled.div`
+	display: flex;
+	padding: 20px 0px 20px 0px;
+	font-size: 24px;
+	justify-content: center;
+	align-items: center;
+	min-width: 550px;
+	& > span {
+		padding: 0px 20px 0px 20px;
+		font-size: 32px;
+		font-weight: bold;
+	}
+`;
+
+const RandomButton = styled.div`
+	text-align: center;
+	min-width: 550px;
+
+	& > button {
+		width: 200px;
+		height: 50px;
+		background: #ffba34;
+		border-radius: 30px;
+		border: none;
+		color: white;
+		font-weight: bold;
+		cursor: pointer;
+	}
+`;
 
 const Home = () => {
 	const dispatch = useDispatch();
 	const isLoading = useSelector(state => state.isLoading);
+	const isFavoriteOn = useSelector(state => state.isFavoriteOn);
 	const shopInfo = useSelector(state => state.shopInfo);
 	const isFirstGet = useSelector(state => state.isFirstGet);
 	const randomInt = useSelector(state => state.randomInt);
@@ -46,6 +80,12 @@ const Home = () => {
 		let n = getRandomInt(0, shopInfo.length);
 		dispatch(setRandomInt(n));
 		dispatch(setShuffleArr(getShuffledArray(shopInfo, n)));
+		dispatch(
+			setMapXY({
+				x: shopInfo[n].shopinfo.shopinfo.y,
+				y: shopInfo[n].shopinfo.shopinfo.x,
+			})
+		);
 	});
 
 	useEffect(() => {
@@ -69,7 +109,6 @@ const Home = () => {
 									return temp;
 								})
 								.then(res => {
-									console.log(res);
 									if (res.length === 45) {
 										axios
 											.post(
@@ -81,9 +120,15 @@ const Home = () => {
 											)
 											.then(res => {
 												let n = getRandomInt(0, res.data.data.result.length);
-												console.log(res.data.data.result);
+
 												dispatch(getShopInfo(res.data.data.result));
 												dispatch(setRandomInt(n));
+												dispatch(
+													setMapXY({
+														x: res.data.data.result[n].shopinfo.shopinfo.y,
+														y: res.data.data.result[n].shopinfo.shopinfo.x,
+													})
+												);
 												dispatch(
 													setShuffleArr(
 														getShuffledArray(res.data.data.result, n)
@@ -112,7 +157,15 @@ const Home = () => {
 		if (!isFirstGet) {
 			getLocation();
 		} else {
-			console.log("다시 불러오지 않음");
+			dispatch(
+				setMapXY({
+					x: shopInfo[randomInt].shopinfo.shopinfo.y,
+					y: shopInfo[randomInt].shopinfo.shopinfo.x,
+				})
+			);
+		}
+		if (localStorage.getItem("visited") === null) {
+			localStorage.setItem("visited", JSON.stringify([]));
 		}
 	}, []);
 
@@ -121,22 +174,40 @@ const Home = () => {
 			{!isLoading ? (
 				<>
 					<Header />
-					<Button onClick={handleReset}>다른메뉴추천받기</Button>
+					{isFavoriteOn && <FavoriteModal />}
+
 					<Row>
-						<Col cs={24} md={16}>
+						<Col lg={24} xl={16}>
+							<Title>
+								오늘은
+								<span
+									style={{
+										paddingLeft: 20,
+										paddingRight: 20,
+										fontSize: 32,
+										fontWeight: "bold",
+									}}
+								>
+									{shopInfo[randomInt].shopinfo.shopinfo.place_name}
+								</span>
+								어떠세요?
+							</Title>
+							<RandomButton>
+								<button onClick={handleReset}>다른메뉴 추천받기</button>
+							</RandomButton>
 							<ImageCarousel imageInfo={shopInfo[randomInt]} />
 							<Row>
-								<Col cs={24} md={12}>
+								<Col xs={24} md={12}>
 									<ShopInfo shopInfo={shopInfo[randomInt]} />
 								</Col>
-								<Col cs={24} md={12}>
+								<Col xs={24} md={12}>
 									<div>
-										<KaKaoMap Info={shopInfo[randomInt]} />
+										<KaKaoMap />
 									</div>
 								</Col>
 							</Row>
 						</Col>
-						<Col cs={24} md={8}>
+						<Col lg={24} xl={8}>
 							<IntroImageSet imageInfo={shuffleArr} />
 						</Col>
 					</Row>

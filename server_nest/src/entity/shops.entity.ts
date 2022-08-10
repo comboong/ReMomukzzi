@@ -19,8 +19,8 @@ export class Shops {
     @Column()
     location : string;
 
-    @Column()
-    total_review : string;
+    @Column({default: 0, type : "float"})
+    total_review : number;
 
     @Column({default: 0})
     star_avg : number;
@@ -34,13 +34,13 @@ export class Shops {
     @Column()
     map_id : number;
 
-    @Column()
+    @Column({type : "real"})
     x : number;
 
-    @Column()
+    @Column({type : "real"})
     y : number;
 
-    @Column()
+    @Column({default: true})
     status : boolean;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
@@ -55,7 +55,7 @@ export class Shops {
     @OneToMany(() => Menu, (menu) => menu.shop)
     menu : Menu[]
 
-    @OneToMany(() => Shop_pic, (shop_pic) => shop_pic.shop)
+    @OneToMany(() => Shop_pic, (shop_pic) => shop_pic.shop,{ cascade: ['insert', 'update'] })
     Shop_pic : Shop_pic[]
 
 }
