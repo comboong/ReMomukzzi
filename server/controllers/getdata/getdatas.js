@@ -38,9 +38,11 @@ module.exports = async (req, res) => {
       }
     }
   }
+  function cutArrBy5(arr){
 
+  }
   async function doCrawling(shopinfo){
-    const browser = await puppeteer.launch({args:['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote'],headless:false});
+    const browser = await puppeteer.launch({args:['--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote']});
   
     for (i of shopinfo){
       const page = await browser.newPage();
