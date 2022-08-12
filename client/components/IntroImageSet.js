@@ -29,16 +29,16 @@ const IntroImageSet = ({ imageInfo }) => {
     <>
       <ImageSetTitle>주변 추천 음식점 리스트</ImageSetTitle>
       <Row gutter={[32, 32]}>
-        {imageInfoCut.map((el) => {
+        {imageInfoCut.map((el, idx) => {
           return (
-            <Col span={12}>
-              <div key={el.shopInfo.id} style={{ textAlign: "center" }}>
+            <Col span={12} key={idx}>
+              <div style={{ textAlign: "center" }}>
                 <PlaceName>{el.shopInfo.place_name}</PlaceName>
                 <Link
                   href="/shopdetail/[id]"
-                  as={`/shopdetail/${el.shopInfo.shop_id}`} // 수정 요함
+                  as={`/shopdetail/${el.shopInfo.id}`}
                 >
-                  <IntroImage key={el.shopInfo.shop_id} src={el.shopPics[0]} />
+                  <IntroImage src={el.shopPics[0]} />
                 </Link>
               </div>
             </Col>

@@ -82,8 +82,8 @@ const Home = () => {
     dispatch(setShuffleArr(getShuffledArray(shopInfo, n)));
     dispatch(
       setMapXY({
-        x: shopInfo[n].shopinfo.y,
-        y: shopInfo[n].shopinfo.x,
+        x: shopInfo[n].shopInfo.y,
+        y: shopInfo[n].shopInfo.x,
       })
     );
   });
@@ -119,8 +119,6 @@ const Home = () => {
                         }
                       )
                       .then((res) => {
-                        console.log(res.data);
-
                         let n = getRandomInt(0, res.data.length);
 
                         dispatch(getShopInfo(res.data));
