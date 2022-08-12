@@ -49,25 +49,23 @@ const ShopInfo = ({ shopInfo }) => {
         <tbody>
           <tr>
             <th>주소</th>
-            <td>{shopInfo.shopinfo.shopinfo.road_address_name}</td>
+            <td>{shopInfo.shopInfo.road_address_name}</td>
           </tr>
           <tr>
             <th>음식 종류</th>
-            <td>{shopInfo.shopinfo.shopinfo.category_name.split(">")[1]}</td>
+            <td>{shopInfo.shopInfo.category_name.split(">")[1]}</td>
           </tr>
           <tr>
             <th>전화번호</th>
             <td>
-              {!shopInfo.shopinfo.shopinfo.phone
-                ? "정보 없음"
-                : shopInfo.shopinfo.shopinfo.phone}
+              {!shopInfo.shopInfo.phone ? "정보 없음" : shopInfo.shopInfo.phone}
             </td>
           </tr>
           <tr>
             <th>메뉴</th>
             <td>
               <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
-                {shopInfo.menulist.menulist.slice(0, 8).map((item, idx) => {
+                {shopInfo.shopMenus.slice(0, 8).map((item, idx) => {
                   return (
                     <li key={idx}>
                       {item[0]} : {item[1]}
