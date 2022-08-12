@@ -129,8 +129,8 @@ const shopdetail = ({ data, id }) => {
       <ShopImages>
         {data.shop_pics.map((el, idx) => {
           return (
-            <div>
-              <img key={idx} src={el.pic_URL} />
+            <div key={idx}>
+              <img src={el.pic_URL} />
             </div>
           );
         })}

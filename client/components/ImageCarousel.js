@@ -47,7 +47,7 @@ const ImageCarousel = ({ imageInfo }) => {
 
   return (
     <StyledSlider {...settings}>
-      {imageInfo.shoppic.photodatas.map((el, idx) => {
+      {imageInfo.shopPics.map((el, idx) => {
         return (
           <div key={idx}>
             <img src={el} />
