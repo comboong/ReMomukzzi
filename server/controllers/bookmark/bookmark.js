@@ -11,11 +11,11 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 module.exports = async (req, res) => {
-  if (req.body.headers.Authorization.split(" ")[1] === "null") {
+  if (req.body.headers.Authorization === null) {
     return res.status(203).send({ message: "not authorized" });
   }
   const payload = jwt.verify(
-    req.body.headers.Authorization.split(" ")[1],
+    req.body.headers.Authorization,
     process.env.ACCESS_SECRET
   );
   // console.log(payload);

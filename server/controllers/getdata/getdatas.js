@@ -1,7 +1,6 @@
 const { shop, shop_pic, menu } = require("../../models");
 const cheerio = require("cheerio");
 const puppeteer = require("puppeteer");
-const { scrollPageToBottom } = require("puppeteer-autoscroll-down");
 const wait =require("waait")
 
 process.setMaxListeners(0);
@@ -29,7 +28,7 @@ module.exports = async (req, res) => {
             attributes: ["menu_name","price"]
           }
         ]
-        })
+      })
 
       if(newshopinfo){
         let shopPics = []
@@ -46,14 +45,16 @@ module.exports = async (req, res) => {
       }
 
 
-        let shopRetrun = {
-          shopInfo : i,
-          shopPics :  shopPics,
-          shopMenus : shopMenus
-        }
+      let shopReturn = {
+        shopInfo : i,
+        shopPics :  shopPics,
+        shopMenus : shopMenus
+      }
 
-
-        answer.push(shopRetrun)
+      if(shopReturn.shopPics.length !== 0){
+        answer.push(shopReturn)
+      }
+        
       }else{
         needCrwaling.push(i)
       }
@@ -136,14 +137,16 @@ module.exports = async (req, res) => {
         }
 
         
-        let shopRetrun = {
+        let shopReturn = {
           shopInfo : crwalingArr[i-1],
           shopPics :  photodatas,
           shopMenus : menulist
         }
         
-        crwalingArr[i-1].id = await saveLogic(shopRetrun)
-        answer.push(shopRetrun)
+        crwalingArr[i-1].id = await saveLogic(shopReturn)
+        if(photodatas.length !== 0){
+          answer.push(shopReturn)
+        }
       }
 
       await browser.close()
