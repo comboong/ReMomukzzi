@@ -9,7 +9,6 @@
 
 
 # STACK
-<!--![프로젝트 '뭐먹지' 아키텍쳐 (7)](https://user-images.githubusercontent.com/81045794/158719016-f4ebd478-1e56-4f32-b018-717cc807cfa5.png)-->
 ![프로젝트 '뭐먹지' 아키텍쳐 (8)](https://user-images.githubusercontent.com/81045794/162653808-5a68a78b-4d16-4ddf-9299-22a310589da9.png)
 
 # CONTRIBUTOR
