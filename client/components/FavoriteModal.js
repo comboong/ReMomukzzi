@@ -165,7 +165,7 @@ const FavoriteModal = () => {
           <InfoContainer>
             {bookmark.map((obj, i) => {
               return (
-                <InfoDiv>
+                <InfoDiv key={i}>
                   <Link href="/shopdetail/[id]" as={`/shopdetail/${obj.id}`}>
                     <img
                       src={obj.pic_URL}

@@ -97,7 +97,7 @@ const Home = () => {
             for (let i = 1; i < 4; i++) {
               axios
                 .get(
-                  `https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&page=${i}&size=15&sort=accuracy&x=${position.coords.longitude}&y=${position.coords.latitude}&radius=2000`,
+                  `https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&page=${i}&size=15&sort=accuracy&x=${position.coords.longitude}&y=${position.coords.latitude}&radius=500`,
                   {
                     headers: {
                       Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_KEY,
@@ -109,7 +109,9 @@ const Home = () => {
                   return temp;
                 })
                 .then((res) => {
-                  if (res.length === 45) {
+                  // if (res.length === 45) {
+                  if (i === 3) {
+                    console.log(res.length);
                     axios
                       .post(
                         `${process.env.NEXT_PUBLIC_SERVER_URL}/data`,
@@ -119,6 +121,7 @@ const Home = () => {
                         }
                       )
                       .then((res) => {
+                        console.log(res);
                         let n = getRandomInt(0, res.data.length);
 
                         dispatch(getShopInfo(res.data));
