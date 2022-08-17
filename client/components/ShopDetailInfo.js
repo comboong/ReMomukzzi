@@ -69,7 +69,11 @@ const ShopDetailInfo = ({ data }) => {
                 {data.menus.map((item, idx) => {
                   return (
                     <li key={idx}>
-                      {item.menu_name} : {item.price}원
+                      {item.menu_name === "메뉴 없음"
+                        ? "등록된 메뉴 정보가 없습니다."
+                        : item.price === "가격 정보 없음"
+                        ? `${item.menu_name}`
+                        : `${item.menu_name} : ${item.price}원`}
                     </li>
                   );
                 })}
