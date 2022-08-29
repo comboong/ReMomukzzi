@@ -27,6 +27,7 @@ module.exports = {
   shoptag: require("./tag/shoptag"),
   data: require("./getdata/getdatas"),
   crawling: require("./getdata/crawling"),
+  fromks: require("./getdata/fromks"),
 
   topicshop: require("./shop/topicshop"),
   shopmanyreviews: require("./shop/shopmanyreviews"),
