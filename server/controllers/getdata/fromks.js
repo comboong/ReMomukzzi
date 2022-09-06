@@ -65,27 +65,32 @@ module.exports = async (req, res) => {
 
 
   async function doCrawling(shopinfos){
-    
-    // for(i of shopinfos){
-    //     let photodatas = []
-    //     console.log(`https://place.map.kakao.com/main/v/${i.id}`)
-    //     let data = await axios.get(`https://place.map.kakao.com/main/v/${i.id}`)
-    //     for (shops of data.data.blogReview.list){
-    //         for (photo of shops.photoList){
-    //             photodatas.push(photo.orgurl)
-    //         }
-    //     }
-    //     console.log(photodatas)
-    // }
 
-    let data = await axios.get(`https://place.map.kakao.com/main/v/25550206`)
-        console.log(data.data.blogReview.list)
-        for (shop of data.data.blogReview.list){
-            console.log(shop)
-            // for (photo of shops.photoList){
-            //    console.log(photo)
-            // }
-        }
+    for(i of shopinfos){
+      let photodatas = []; //이미지 크롤링 결과
+      let menulist = []; //메뉴 정보 크롤링 결과
+      let data = await axios.get(`https://place.map.kakao.com/main/v/${i.id}`)
+          for (s of data.data.blogReview.list){
+            if(s.photoList){
+              for (p of s.photoList){
+                photodatas.push(p.orgurl)
+              }
+            }
+          }
+
+          for (s of data.data.menuInfo.menuList){
+            menulist.push([s.menu,s.price])
+          }
+
+          let shopReturn = {
+            shopInfo : i,
+            shopPics :  photodatas,
+            shopMenus : menulist
+          }
+
+          i.id = await saveLogic(shopReturn)
+          answer.push(shopReturn)
+    }
   }
 
     async function saveLogic(shopinfo){
@@ -136,17 +141,17 @@ module.exports = async (req, res) => {
   
 
   async function main(){
-    // await checkInDB(req.body.data)
-    await doCrawling(req.body.data)
-    // try{
-    //   if (needCrwaling.length > 0){
-    //     await doCrawling(needCrwaling)
-    //   }
-    // }catch(err){
-    //   console.log(err)
-    // }finally{
-    //   res.status(200).json(answer)
-    // }
+      await checkInDB(req.body.data)
+      
+      try{
+        if (needCrwaling.length > 0){
+          await doCrawling(needCrwaling)
+        }
+      }catch(err){
+        console.log(err)
+      }finally{
+        res.status(200).json(answer)
+      }
   }
 
   main ()
