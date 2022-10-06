@@ -67,7 +67,7 @@ function Passwordchange({ setModalPassword }) {
 	});
 	const [changeInfo, setchangeInfo] = useState({
 		user_id: "",
-		password: "",
+		password: "",s
 	});
 
 	const userInfoHandler = () => {
