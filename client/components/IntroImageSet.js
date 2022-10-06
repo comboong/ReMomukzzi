@@ -29,22 +29,16 @@ const IntroImageSet = ({ imageInfo }) => {
     <>
       <ImageSetTitle>주변 추천 음식점 리스트</ImageSetTitle>
       <Row gutter={[32, 32]}>
-        {imageInfoCut.map((el) => {
+        {imageInfoCut.map((el, idx) => {
           return (
-            <Col span={12}>
-              <div
-                key={el.shopinfo.shopinfo.id}
-                style={{ textAlign: "center" }}
-              >
-                <PlaceName>{el.shopinfo.shopinfo.place_name}</PlaceName>
+            <Col span={12} key={idx}>
+              <div style={{ textAlign: "center" }}>
+                <PlaceName>{el.shopInfo.place_name}</PlaceName>
                 <Link
                   href="/shopdetail/[id]"
-                  as={`/shopdetail/${el.shopinfo.shop_id}`}
+                  as={`/shopdetail/${el.shopInfo.id}`}
                 >
-                  <IntroImage
-                    key={el.shopinfo.shop_id}
-                    src={el.shoppic.photodatas[0]}
-                  />
+                  <IntroImage src={el.shopPics[0]} />
                 </Link>
               </div>
             </Col>
