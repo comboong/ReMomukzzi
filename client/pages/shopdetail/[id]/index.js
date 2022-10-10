@@ -73,6 +73,7 @@ const shopdetail = ({ data, id }) => {
         }
       )
       .then((res) => {
+        console.log(res);
         if (
           res.data.message === "add success" ||
           res.data.message === "remove success"
@@ -113,6 +114,7 @@ const shopdetail = ({ data, id }) => {
           }
         )
         .then((res) => {
+          console.log(res);
           if (
             res.data.bookmark.filter((el) => el.id === Number(id)).length === 1
           ) {

@@ -68,8 +68,11 @@ const ShopInfo = ({ shopInfo }) => {
                 {shopInfo.shopMenus.slice(0, 8).map((item, idx) => {
                   return (
                     <li key={idx}>
-                      {item[0]} : {item[1]}
-                      {item[1] !== "가격 정보 없음" ? "원" : ""}
+                      {item[0] === "메뉴 없음"
+                        ? "등록된 메뉴 정보가 없습니다."
+                        : item[1] === "가격 정보 없음"
+                        ? `${item[0]}`
+                        : `${item[0]} : ${item[1]}원`}
                     </li>
                   );
                 })}

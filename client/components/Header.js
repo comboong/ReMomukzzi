@@ -57,6 +57,7 @@ const HeaderContainer = styled.div`
 
   .navbar_logo {
     flex: 1 1 auto;
+    cursor: pointer;
   }
 
   .navbar_logo img {
@@ -155,7 +156,12 @@ const Header = () => {
           <Link href="/">
             <img
               src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
-              style={{ width: 250, height: 100, objectFit: "cover" }}
+              style={{
+                width: 250,
+                height: 100,
+                objectFit: "cover",
+                cursor: "pointer",
+              }}
             />
           </Link>
         </div>

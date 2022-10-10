@@ -192,6 +192,7 @@ const review = () => {
             className="cancel"
             onClick={() => {
               if (window.confirm("리뷰 작성을 취소하시겠습니까?")) {
+                router.back();
                 // window.location.replace(`/shopdetail/${match.params.shop_id}`);
               }
             }}
