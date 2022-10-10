@@ -1,48 +1,49 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
-const KaKaoMap = ({ Info }) => {
-  useEffect(() => {
-    const mapScript = document.createElement("script");
+const MapDiv = styled.div``;
 
-    mapScript.async = true;
-    mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAPKEY}&autoload=false`;
+const KaKaoMap = () => {
+	const mapXY = useSelector(state => state.mapXY);
 
-    document.head.appendChild(mapScript);
+	useEffect(() => {
+		const mapScript = document.createElement("script");
 
-    console.log(Info[0].shopinfo.shopinfo.y);
-    const onLoadKakaoMap = () => {
-      window.kakao.maps.load(() => {
-        var locPosition = new kakao.maps.LatLng(
-          Info[0].shopinfo.shopinfo.y,
-          Info[0].shopinfo.shopinfo.x
-        ); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+		mapScript.async = true;
+		mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.NEXT_PUBLIC_KAKAO_MAPKEY}&autoload=false`;
 
-        const container = document.getElementById("map");
+		document.head.appendChild(mapScript);
 
-        const options = {
-          center: new window.kakao.maps.LatLng(
-            Info[0].shopinfo.shopinfo.y,
-            Info[0].shopinfo.shopinfo.x
-          ),
-          level: 3,
-        };
+		const onLoadKakaoMap = () => {
+			window.kakao.maps.load(() => {
+				var locPosition = new kakao.maps.LatLng(mapXY.x, mapXY.y); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 
-        const map = new window.kakao.maps.Map(container, options);
+				const container = document.getElementById("map");
+				container.style.width = "400px";
+				container.style.height = "350px";
+				container.style.margin = "auto";
 
-        const marker = new window.kakao.maps.Marker({
-          position: locPosition,
-        });
-        marker.setMap(map);
-      });
-    };
+				const options = {
+					center: new window.kakao.maps.LatLng(mapXY.x, mapXY.y),
+					level: 3,
+				};
 
-    mapScript.addEventListener("load", onLoadKakaoMap);
+				const map = new window.kakao.maps.Map(container, options);
 
-    return () => mapScript.removeEventListener("load", onLoadKakaoMap);
-  }, []);
+				const marker = new window.kakao.maps.Marker({
+					position: locPosition,
+				});
+				marker.setMap(map);
+			});
+		};
 
-  return <div id="map" style={{ width: 400, height: 300 }} />;
+		mapScript.addEventListener("load", onLoadKakaoMap);
+
+		return () => mapScript.removeEventListener("load", onLoadKakaoMap);
+	}, [mapXY]);
+
+	return <MapDiv id="map" />;
 };
 
 export default KaKaoMap;

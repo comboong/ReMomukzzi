@@ -14,9 +14,8 @@ const Input = styled.input`
 	border-style: none;
 	height: 39px;
 	padding-left: 5px;
-	font-size: 13px;
+	font-size: 20px;
 	border-bottom: solid 2px gainsboro;
-
 	:focus {
 		outline: none;
 	}
@@ -24,6 +23,8 @@ const Input = styled.input`
 const PasswordText = styled.div`
 	font-size: 20px;
 	color: red;
+	margin-left: 40px;
+	margin-top: 10px;
 `;
 
 function ConfirmPasswordInputField({

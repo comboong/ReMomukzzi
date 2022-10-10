@@ -1,10 +1,13 @@
 import styled from "styled-components";
-import { useEffect } from "react";
 
-const ShopDetailInfo = styled.div`
-  margin: 30px 0px 30px 30px;
+const ShopInfoDiv = styled.div`
+  padding: 30px;
   min-height: 200px;
-  width: 60%;
+  min-width: 470px;
+
+  & > table {
+    margin: auto;
+  }
 
   & > table > tbody {
     display: table-row-group;
@@ -41,33 +44,32 @@ const ShopDetailInfo = styled.div`
 
 const ShopInfo = ({ shopInfo }) => {
   return (
-    <ShopDetailInfo>
+    <ShopInfoDiv>
       <table>
         <tbody>
           <tr>
-            <th>이름</th>
-            <td>{shopInfo[0].shopinfo.shopinfo.place_name}</td>
-          </tr>
-          <tr>
             <th>주소</th>
-            <td>{shopInfo[0].shopinfo.shopinfo.road_address_name}</td>
+            <td>{shopInfo.shopInfo.road_address_name}</td>
           </tr>
           <tr>
             <th>음식 종류</th>
-            <td>{shopInfo[0].shopinfo.shopinfo.category_name}</td>
+            <td>{shopInfo.shopInfo.category_name.split(">")[1]}</td>
           </tr>
           <tr>
             <th>전화번호</th>
-            <td>{shopInfo[0].shopinfo.shopinfo.phone}</td>
+            <td>
+              {!shopInfo.shopInfo.phone ? "정보 없음" : shopInfo.shopInfo.phone}
+            </td>
           </tr>
           <tr>
             <th>메뉴</th>
             <td>
-              <ul style={{ margin: 0, padding: 0 }}>
-                {shopInfo[0].menulist.menulist.map((item, idx) => {
+              <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                {shopInfo.shopMenus.slice(0, 8).map((item, idx) => {
                   return (
                     <li key={idx}>
-                      {item[0]} : {item[1]}원
+                      {item[0]} : {item[1]}
+                      {item[1] !== "가격 정보 없음" ? "원" : ""}
                     </li>
                   );
                 })}
@@ -76,7 +78,7 @@ const ShopInfo = ({ shopInfo }) => {
           </tr>
         </tbody>
       </table>
-    </ShopDetailInfo>
+    </ShopInfoDiv>
   );
 };
 

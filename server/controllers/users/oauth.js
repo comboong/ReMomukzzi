@@ -1,7 +1,6 @@
 const { user, bookmark, shop, shop_pic } = require("../../models");
 const jwt = require("jsonwebtoken");
 const axios = require("axios");
-const { slice } = require("cheerio/lib/api/traversing");
 
 module.exports = async (req, res) => {
   console.log("oauth login!!!!!!!!!!!!!!");
@@ -119,10 +118,6 @@ module.exports = async (req, res) => {
           const refresh_Token = jwt.sign(payload, "5678", {
             expiresIn: "2days",
           });
-
-          console.log(payload);
-
-          console.log(access_Token);
 
           const bookmarkInfo = await bookmark.findAll({
             where: {

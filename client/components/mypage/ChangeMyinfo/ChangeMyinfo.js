@@ -1,126 +1,157 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-// import axios from "axios";
+import axios from "axios";
 import ChangeName from "./ChangeName";
 import ChangePassword from "./ChangePassword";
+import MoreviewLoader from "../../MoreviewLoader";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const MypageMyinfoName = styled.div`
 	z-index: 10;
-	font-size: 2rem;
-	font-weight: bolder;
-	margin-top: 20px;
-	margin-bottom: 5px;
+	font-size: 20px;
+	word-spacing: 50px;
+	margin: 0 auto;
+	padding-top: 50px;
+	:after {
+		content: "";
+		display: block;
+		width: 350px;
+		border-bottom: 1px solid #bcbcbc;
+	}
 `;
 const MypageFixMyinfoToggleBtn = styled.span`
-	margin: 5px 0 5px 0;
+	margin: 0 auto;
 	opacity: 0.5;
 	cursor: pointer;
 	width: -webkit-fit-content;
 	width: -moz-fit-content;
 	width: fit-content;
+	font-size: 20px;
+	padding-top: 20px;
 `;
-const MypageFixToggleContainer = styled.form`
-	padding: 5px;
-	display: -webkit-box;
-	display: -ms-flexbox;
+const MypageFixMyinfoOauth = styled.span`
+	margin: 0 auto;
+	opacity: 0.5;
+	padding-top: 20px;
+	font-size: 20px;
+`;
+const SubmitBtnDiv = styled.div`
+	padding-top: 30px;
+	height: 100px;
+	margin-right: 10px;
 	display: flex;
-	-webkit-box-pack: start;
-	-ms-flex-pack: start;
-	justify-content: flex-start;
+	margin: 0 auto;
+	& > button {
+		padding: 6px 6px;
+		background-color: #ffba34;
+		border-radius: 4px;
+		border: none;
+		color: white;
+		cursor: pointer;
+		height: 40px;
+	}
 `;
-
 function ChangeMyinfo() {
-	// const accessToken = localStorage.getItem("accessToken");
-	// const Oauth = localStorage.getItem("Oauth");
-	// console.log(Oauth);
-
+	const router = useRouter();
+	const accessToken = Cookies.get("accessToken");
+	const Oauth = Cookies.get("Oauth");
+	const [modalOpen, setModalOpen] = useState(false);
+	const [modalPassword, setModalPassword] = useState(false);
 	const [userInfo, setUserInfo] = useState("");
-	const [fixNameToggle, setFixNameToggle] = useState(false);
-	const [fixPasswordToggle, setFixPasswordToggle] = useState(false);
 	const [loading, setLoading] = useState(true);
-	const fixNameToggleHandler = () => {
-		setFixNameToggle(!fixNameToggle);
-	};
-	const fixPasswordToggleHandler = () => {
-		setFixPasswordToggle(!fixPasswordToggle);
-	};
+	const [newNick, setNewNick] = useState();
 
-	// const userInfoHandler = () => {
-	// 	if (!accessToken) {
-	// 		window.location.replace("/");
-	// 	} else {
-	// 		setLoading(true);
-	// 		axios
-	// 			.get(`${process.env.REACT_APP_API_URL}/users`, {
-	// 				headers: { authorization: `Bearer ${accessToken}` },
-	// 				"Content-Type": "application/json",
-	// 			})
-	// 			.then(res => {
-	// 				console.log(res);
-	// 				console.log(res.data.data);
-	// 				setUserInfo(res);
-	// 				setLoading(false);
-	// 				console.log("개인정보가져오기 성공");
-	// 			})
-	// 			.catch(err => {
-	// 				console.log("개인가져오기 에러", err);
-	// 			});
-	// 	}
-	// };
-	// useEffect(() => {
-	// 	userInfoHandler();
-	// }, []);
+	const userInfoHandler = () => {
+		if (!accessToken) {
+			router.push("/");
+		} else {
+			setLoading(true);
+			axios
+				.get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
+					headers: { authorization: `Bearer ${accessToken}` },
+					"Content-Type": "application/json",
+				})
+				.then(res => {
+					setUserInfo(res);
+					setLoading(false);
+					setNewNick(res.data.data.nickname);
+				})
+				.catch(err => {
+					alert("잘못된 요청입니다.");
+				});
+		}
+	};
+	useEffect(() => {
+		userInfoHandler();
+	}, []);
 
 	return (
 		<>
-			<div>
-				{/* <FontAwesomeIcon icon={faUserCircle} className="photo-icon" /> */}
-			</div>
-			{/* <My.MypageMyinfoNickname>오늘 뭐먹지?</My.MypageMyinfoNickname> */}
-			<MypageMyinfoName>
-				{/* 닉네임: {userInfo && userInfo.data.data.userInfo.nickname} 님 */}
-				닉네임: 정윤혁 님
-			</MypageMyinfoName>
-			<MypageMyinfoName>
-				{/* 이메일: {userInfo && userInfo.data.data.userInfo.email} */}
-				이메일: richard@naver.com
-			</MypageMyinfoName>
-			<MypageFixMyinfoToggleBtn onClick={fixNameToggleHandler}>
-				닉네임 수정
-			</MypageFixMyinfoToggleBtn>
-			{fixNameToggle ? (
-				<MypageFixToggleContainer onSubmit={e => e.preventDefault()}>
-					<div className="nickname-container">
-						<ChangeName />
-					</div>
-				</MypageFixToggleContainer>
-			) : null}
-			{/* {Oauth === "true" ? (
-				<MypageFixMyinfoToggleBtn disabled={true}>
-					소셜 계정은 비밀번호 수정을 하실 수 없습니다.
-				</MypageFixMyinfoToggleBtn>
-			) : ( */}
-			<MypageFixMyinfoToggleBtn onClick={fixPasswordToggleHandler}>
-				비밀번호 수정
-			</MypageFixMyinfoToggleBtn>
-			{/* )} */}
-			{fixPasswordToggle ? (
-				<MypageFixToggleContainer onSubmit={e => e.preventDefault()}>
-					<div className="password-container">
-						<ChangePassword />
-					</div>
-				</MypageFixToggleContainer>
-			) : null}
-			<div>
-				<button
-					className="submit"
-					onClick={() => {
-						window.location.replace("/signout");
-					}}
-				>
-					회원탈퇴
-				</button>
-			</div>
+			{loading ? (
+				<MoreviewLoader />
+			) : (
+				<>
+					<MypageMyinfoName>
+						닉네임 {userInfo && userInfo.data.data.userInfo.nickname}
+					</MypageMyinfoName>
+					<MypageMyinfoName>
+						이메일 {userInfo && userInfo.data.data.userInfo.email}
+					</MypageMyinfoName>
+					<MypageFixMyinfoToggleBtn
+						onClick={() => {
+							setModalOpen(true);
+						}}
+					>
+						닉네임 수정
+					</MypageFixMyinfoToggleBtn>
+					{modalOpen && (
+						<ChangeName
+							setModalOpen={setModalOpen}
+							close={() => {
+								setModalOpen(false);
+							}}
+						/>
+					)}
+					{Oauth === "true" ? (
+						<MypageFixMyinfoOauth disabled={true}>
+							소셜 계정은 비밀번호 수정을 하실 수 없습니다.
+						</MypageFixMyinfoOauth>
+					) : (
+						<>
+							<MypageFixMyinfoToggleBtn
+								onClick={() => {
+									setModalPassword(true);
+								}}
+							>
+								비밀번호 수정
+							</MypageFixMyinfoToggleBtn>
+							{modalPassword && (
+								<ChangePassword
+									setModalPassword={setModalPassword}
+									close={() => {
+										setModalPassword(false);
+									}}
+								/>
+							)}
+						</>
+					)}
+					<SubmitBtnDiv>
+						{Oauth === "true" ? (
+							<></>
+						) : (
+							<button
+								className="submit"
+								onClick={() => {
+									router.push("/signout");
+								}}
+							>
+								회원탈퇴
+							</button>
+						)}
+					</SubmitBtnDiv>
+				</>
+			)}
 		</>
 	);
 }

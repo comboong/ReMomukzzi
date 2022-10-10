@@ -1,9 +1,37 @@
 import styled from "styled-components";
 import Slider from "react-slick";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
-const SlideContainer = styled.div`
-  padding: 50px;
-  height: 30%;
+const StyledSlider = styled(Slider)`
+  height: 330px;
+  margin: 30px;
+  min-width: 550px;
+
+  .slick-list {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    overflow-x: hidden;
+  }
+
+  .slick-slide img {
+    //슬라이더  컨텐츠
+    width: 400px;
+    height: 300px;
+    object-fit: fill;
+    margin: 0 auto;
+  }
+
+  .slick-dots {
+    //슬라이드의 위치
+    bottom: -10px;
+    margin-top: 200px;
+  }
+
+  .slick-track {
+    width: 100%;
+  }
 `;
 
 const ImageCarousel = ({ imageInfo }) => {
@@ -13,26 +41,20 @@ const ImageCarousel = ({ imageInfo }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplayspeed: 800,
   };
 
   return (
-    <SlideContainer>
-      <Slider {...settings}>
-        {/* <div>
-          <img src="https://t1.daumcdn.net/cfile/tistory/9926614F5F0661AC20" />
-        </div>
-        <div>
-          <img src="https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201903/08/52cf07ea-c8da-4574-b0e9-21e0e3b31118.jpg" />
-        </div> */}
-        {imageInfo[0].shoppic.photodatas.map((el) => {
-          return (
-            <div>
-              <img src={el} />
-            </div>
-          );
-        })}
-      </Slider>
-    </SlideContainer>
+    <StyledSlider {...settings}>
+      {imageInfo.shopPics.map((el, idx) => {
+        return (
+          <div key={idx}>
+            <img src={el} />
+          </div>
+        );
+      })}
+    </StyledSlider>
   );
 };
 

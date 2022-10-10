@@ -1,16 +1,15 @@
 import { useState } from "react";
 import styled from "styled-components";
-// import axios from "axios";
+import Cookies from "js-cookie";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const Container = styled.div`
-	margin: 0 auto;
-	width: 550px;
+	margin: auto;
 	font-weight: 700;
-	text-align: left;
-	transform: translateY(20%);
-	border: 2px solid #ffba34;
-	background-color: white;
-	border-radius: 20px;
+	height: 600px;
+	transform: translateY(10%);
+	min-width: 800px;
 `;
 const ContentContainer = styled.div`
 	padding: 10px;
@@ -97,7 +96,7 @@ const SubmitBtnDiv = styled.div`
 		border: none;
 		color: white;
 		cursor: pointer;
-		height: 50px;
+		height: 40px;
 	}
 	.cancel {
 		margin-left: auto;
@@ -106,7 +105,8 @@ const SubmitBtnDiv = styled.div`
 `;
 
 function SignoutForm({ close }) {
-	// const accessToken = localStorage.getItem("accessToken");
+	const router = useRouter();
+	const accessToken = Cookies.get("accessToken");
 
 	const [agreeChecked, setAgreeChecked] = useState(false);
 	const [fillText, setFillText] = useState("");
@@ -123,28 +123,29 @@ function SignoutForm({ close }) {
 			return;
 		}
 		axios
-			.delete(`${process.env.REACT_APP_API_URL}/users`, {
+			.delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
 				headers: { authorization: `Bearer ${accessToken}` },
 				"Content-Type": "application/json",
 			})
 			.then(res => {
-				console.log("회원탈퇴성공");
-				localStorage.removeItem("accessToken");
-				localStorage.removeItem("email");
+				Cookies.remove("accessToken");
+				Cookies.remove("nickname");
 				alert("회원 탈퇴가 완료되었습니다.");
-				// openAlertHandler();
-				window.location.replace("/");
+				return router.push("/");
 			})
 			.catch(err => {
 				alert("잘못된 요청입니다");
-				// openWarningAlertHandler();
-				console.log("회원탈퇴실패", err);
 			});
 	};
 	return (
 		<>
 			<Container>
 				<ContentContainer>
+					<img
+						style={{ cursor: "pointer", width: "300px", height: "250px" }}
+						onClick={() => location.replace("/")}
+						src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
+					></img>
 					<Title>탈퇴 안내</Title>
 					<ContentText>
 						회원탈퇴를 신청하기 전에 안내사항입니다. <br />
@@ -183,10 +184,7 @@ function SignoutForm({ close }) {
 									탈퇴하기
 								</button>
 							)}
-							<button
-								className="cancel"
-								onClick={() => window.location.replace("/")}
-							>
+							<button className="cancel" onClick={() => router.push("/")}>
 								취소 (홈으로)
 							</button>
 						</SubmitBtnDiv>
