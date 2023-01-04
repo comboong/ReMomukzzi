@@ -100,6 +100,76 @@ function ChangeName({ setModalOpen }) {
   const accessToken = Cookies.get("accessToken");
   const modalRef = useRef();
 
+  const [changeInfo, setchangeInfo] = useState({
+    user_id: "",
+    nickname: "",
+  });
+  const [message, setMessage] = useState({
+    nickname: "닉네임은 특수문자를 제외한 2 ~ 6 글자이어야 합니다.",
+  });
+  const [validation, setValidation] = useState({
+    nickname: false,
+  });
+  const isValidForNickname = validation.nickname;
+
+  const handleInputValue = key => e => {
+    setchangeInfo({ ...changeInfo, [key]: e.target.value });
+  };
+
+  const isNickname = value => {
+    const regExp = /^[a-zA-Z0-9가-힣]{2,6}$/;
+    return regExp.test(value);
+  };
+
+  const userInfoHandler = () => {
+    if (!accessToken) {
+      return;
+    } else {
+      axios
+        .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
+          headers: { authorization: `Bearer ${accessToken}` },
+          "Content-Type": "application/json",
+        })
+        .then(res => {
+          setchangeInfo(res.data.data.userInfo);
+        })
+        .catch(err => {
+          alert("잘못된 요청입니다.");
+        });
+    }
+  };
+
+  useEffect(() => {
+    userInfoHandler();
+  }, []);
+
+  const nicknameCheck = key => e => {
+    const { nickname } = changeInfo;
+    if (!isNickname(changeInfo.nickname)) {
+      setMessage({
+        ...message,
+        nickname: "닉네임 양식을 맞춰주세요.",
+      });
+      return;
+    }
+    if (changeInfo.nickname.length > 6 || changeInfo.nickname.length < 2) {
+      setMessage({ ...message, nickname: "2 ~ 6 글자이어야 합니다." });
+      return;
+    }
+    axios
+      .post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/check`, {
+        nickname,
+      })
+      .then(res => {
+        setValidation({ ...validation, nickname: true });
+        setMessage({ ...message, nickname: "사용 가능한 닉네임입니다." });
+      })
+      .catch(err => {
+        setValidation({ ...validation, nickname: false });
+        setMessage({ ...message, nickname: "사용 불가능한 닉네임입니다." });
+      });
+  };
+
   return (
     <ModalBackdrop
       ref={modalRef}
