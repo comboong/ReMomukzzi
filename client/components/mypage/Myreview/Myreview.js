@@ -61,6 +61,16 @@ function Myreview() {
 
   let newUserReview = [...userReview];
 
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [reviewCount, setReviewCount] = useState(3);
+
+  const handleReviewMore = async () => {
+    setIsLoaded(true);
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setReviewCount(reviewCount + 4);
+    setIsLoaded(false);
+  };
+
   return (
     <ReviewContainer>
       <MypageTitle>내리뷰</MypageTitle>
