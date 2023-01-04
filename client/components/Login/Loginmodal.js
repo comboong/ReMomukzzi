@@ -109,7 +109,6 @@ function Loginmodal() {
 								type="text"
 								placeholder="아이디"
 								name="input_id"
-								onKeyPress={enterLogin}
 								onChange={handleInputValue("user_id")}
 							/>
 						</InputBox>
