@@ -143,6 +143,34 @@ function Passwordchange({ setModalPassword }) {
     }
   };
 
+  const fixPasswordHandler = () => {
+    const { password } = passwordInput;
+    if (passwordInput.confirmPassword === "" && passwordInput.password === "") {
+      return setPasswordErr("비밀번호를 입력해주세요");
+    }
+    if (passwordInput.confirmPassword === passwordInput.password) {
+      axios
+        .patch(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/users`,
+          { user_id: changeInfo.user_id, password },
+          {
+            headers: { authorization: `Bearer ${accessToken}` },
+          }
+        )
+        .then(res => {
+          if (changeInfo.password === passwordInput.password) {
+            return alert("기존에 사용하는 비밀번호와 같습니다.");
+          } else {
+            alert("패스워드가 변경되었습니다.");
+            return location.replace("/mypage");
+          }
+        })
+        .catch(err => {
+          alert("패스워드 변경 에러입니다.");
+        });
+    }
+  };
+
   return (
     <ModalBackdrop
       ref={modalRef}
