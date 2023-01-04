@@ -8,7 +8,6 @@ const OauthContainer = styled.div`
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   div {
     width: 100%;
     height: 3rem;
