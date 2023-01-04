@@ -170,6 +170,23 @@ function ChangeName({ setModalOpen }) {
       });
   };
 
+  const fixNicknameHandler = () => {
+    const { nickname } = changeInfo;
+    axios
+      .patch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
+        user_id: changeInfo.user_id,
+        nickname,
+      })
+      .then(res => {
+        alert("닉네임이 변경되었습니다.");
+        Cookies.set("nickname", nickname);
+        router.back();
+      })
+      .catch(err => {
+        alert("닉네임 변경 에러입니다.");
+      });
+  };
+
   return (
     <ModalBackdrop
       ref={modalRef}
