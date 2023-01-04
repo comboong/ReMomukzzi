@@ -126,7 +126,9 @@ function Loginmodal() {
 						</InputBox>
 					</InputForm>
 					<LoginButton onClick={onClickLogin}>로그인</LoginButton>
+
 					<hr />
+
 					<Loginoauth />
 				</Div>
 			</LoginForm>
