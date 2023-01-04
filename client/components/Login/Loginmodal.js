@@ -89,6 +89,10 @@ function Loginmodal() {
 			});
 	};
 
+	const enterLogin = e => {
+		if (e.key === "Enter") return onClickLogin();
+	};
+
 	return (
 		<>
 			<LoginForm>
