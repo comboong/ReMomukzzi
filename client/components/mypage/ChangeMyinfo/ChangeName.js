@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -99,97 +99,11 @@ function ChangeName({ setModalOpen }) {
   const router = useRouter();
   const accessToken = Cookies.get("accessToken");
   const modalRef = useRef();
-  const [changeInfo, setchangeInfo] = useState({
-    user_id: "",
-    nickname: "",
-  });
-  const [message, setMessage] = useState({
-    nickname: "닉네임은 특수문자를 제외한 2 ~ 6 글자이어야 합니다.",
-  });
-  const [validation, setValidation] = useState({
-    nickname: false,
-  });
-  const isValidForNickname = validation.nickname;
-
-  const handleInputValue = (key) => (e) => {
-    setchangeInfo({ ...changeInfo, [key]: e.target.value });
-  };
-
-  const isNickname = (asValue) => {
-    let regExp = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
-    return regExp.test(asValue);
-  };
-
-  const userInfoHandler = () => {
-    if (!accessToken) {
-      return;
-    } else {
-      axios
-        .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
-          headers: { authorization: `Bearer ${accessToken}` },
-          "Content-Type": "application/json",
-        })
-        .then((res) => {
-          setchangeInfo(res.data.data.userInfo);
-        })
-        .catch((err) => {
-          alert("잘못된 요청입니다.");
-        });
-    }
-  };
-
-  useEffect(() => {
-    userInfoHandler();
-  }, []);
-
-  const nicknameCheck = (key) => (e) => {
-    const { nickname } = changeInfo;
-    if (!isNickname(changeInfo.nickname)) {
-      setMessage({
-        ...message,
-        nickname: "닉네임 양식을 맞춰주세요.",
-      });
-      return;
-    }
-    if (changeInfo.nickname.length > 6 || changeInfo.nickname.length < 2) {
-      setMessage({ ...message, nickname: "2 ~ 6 글자이어야 합니다." });
-      return;
-    }
-    axios
-      .post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/check`, {
-        nickname,
-      })
-      .then((res) => {
-        setValidation({ ...validation, nickname: true });
-        setMessage({ ...message, nickname: "사용 가능한 닉네임입니다." });
-      })
-      .catch((err) => {
-        setValidation({ ...validation, nickname: false });
-        setMessage({ ...message, nickname: "사용 불가능한 닉네임입니다." });
-      });
-  };
-
-  const fixNicknameHandler = () => {
-    const { nickname } = changeInfo;
-    axios
-      .patch(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
-        user_id: changeInfo.user_id,
-        nickname,
-      })
-      .then((res) => {
-        alert("닉네임이 변경되었습니다.");
-        Cookies.set("nickname", nickname);
-        router.back();
-      })
-      .catch((err) => {
-        alert("닉네임 변경 에러입니다.");
-      });
-  };
 
   return (
     <ModalBackdrop
       ref={modalRef}
-      onClick={(e) => {
+      onClick={e => {
         if (modalRef.current === e.target) {
           setModalOpen(false);
         }
