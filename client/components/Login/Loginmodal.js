@@ -63,6 +63,32 @@ function Loginmodal() {
 		setLoginInfo({ ...loginInfo, [key]: e.target.value.toLowerCase() });
 	};
 
+	const onClickLogin = () => {
+		const { user_id, password } = loginInfo;
+		if (user_id === "") {
+			return;
+		} else if (password === "") {
+			return;
+		}
+		axios
+			.post(
+				`${process.env.NEXT_PUBLIC_SERVER_URL}/users/login`,
+				{
+					user_id,
+					password,
+				},
+				{ "Content-Type": "application/json", withCredentials: true }
+			)
+			.then(res => {
+				Cookies.set("accessToken", res.data.data.accessToken);
+				Cookies.set("nickname", res.data.data.nickname);
+				return location.replace("/");
+			})
+			.catch(err => {
+				alert("아이디와 비밀번호를 확인해 주세요.");
+			});
+	};
+
 	return (
 		<>
 			<LoginForm>
