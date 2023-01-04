@@ -52,3 +52,57 @@ const Input = styled.input`
 const LoginText = styled.div`
 	font-size: 20px;
 `;
+
+function Loginmodal() {
+	const [loginInfo, setLoginInfo] = useState({
+		user_id: "",
+		password: "",
+	});
+
+	const handleInputValue = key => e => {
+		setLoginInfo({ ...loginInfo, [key]: e.target.value.toLowerCase() });
+	};
+
+	return (
+		<>
+			<LoginForm>
+				<Div>
+					<img
+						style={{ cursor: "pointer", width: "300px", height: "250px" }}
+						onClick={() => location.replace("/")}
+						src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
+					></img>
+					<InputForm>
+						<LoginText>아이디</LoginText>
+						<InputBox>
+							<Input
+								type="text"
+								placeholder="아이디"
+								name="input_id"
+								onKeyPress={enterLogin}
+								onChange={handleInputValue("user_id")}
+							/>
+						</InputBox>
+					</InputForm>
+					<InputForm>
+						<LoginText>비밀번호</LoginText>
+						<InputBox>
+							<Input
+								type="password"
+								name="input_Password"
+								placeholder="비밀번호"
+								onKeyPress={enterLogin}
+								onChange={handleInputValue("password")}
+							/>
+						</InputBox>
+					</InputForm>
+					<LoginButton onClick={onClickLogin}>로그인</LoginButton>
+					<hr />
+					<Loginoauth />
+				</Div>
+			</LoginForm>
+		</>
+	);
+}
+
+export default Loginmodal;
