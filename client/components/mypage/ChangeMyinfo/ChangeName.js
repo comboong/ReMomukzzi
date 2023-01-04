@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -99,6 +99,7 @@ function ChangeName({ setModalOpen }) {
   const router = useRouter();
   const accessToken = Cookies.get("accessToken");
   const modalRef = useRef();
+
   const [changeInfo, setchangeInfo] = useState({
     user_id: "",
     nickname: "",
@@ -111,13 +112,13 @@ function ChangeName({ setModalOpen }) {
   });
   const isValidForNickname = validation.nickname;
 
-  const handleInputValue = (key) => (e) => {
+  const handleInputValue = key => e => {
     setchangeInfo({ ...changeInfo, [key]: e.target.value });
   };
 
-  const isNickname = (asValue) => {
-    let regExp = /^[\w\Wㄱ-ㅎㅏ-ㅣ가-힣]{2,6}$/;
-    return regExp.test(asValue);
+  const isNickname = value => {
+    const regExp = /^[a-zA-Z0-9가-힣]{2,6}$/;
+    return regExp.test(value);
   };
 
   const userInfoHandler = () => {
@@ -129,10 +130,10 @@ function ChangeName({ setModalOpen }) {
           headers: { authorization: `Bearer ${accessToken}` },
           "Content-Type": "application/json",
         })
-        .then((res) => {
+        .then(res => {
           setchangeInfo(res.data.data.userInfo);
         })
-        .catch((err) => {
+        .catch(err => {
           alert("잘못된 요청입니다.");
         });
     }
@@ -142,7 +143,7 @@ function ChangeName({ setModalOpen }) {
     userInfoHandler();
   }, []);
 
-  const nicknameCheck = (key) => (e) => {
+  const nicknameCheck = key => e => {
     const { nickname } = changeInfo;
     if (!isNickname(changeInfo.nickname)) {
       setMessage({
@@ -159,11 +160,11 @@ function ChangeName({ setModalOpen }) {
       .post(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/check`, {
         nickname,
       })
-      .then((res) => {
+      .then(res => {
         setValidation({ ...validation, nickname: true });
         setMessage({ ...message, nickname: "사용 가능한 닉네임입니다." });
       })
-      .catch((err) => {
+      .catch(err => {
         setValidation({ ...validation, nickname: false });
         setMessage({ ...message, nickname: "사용 불가능한 닉네임입니다." });
       });
@@ -176,12 +177,12 @@ function ChangeName({ setModalOpen }) {
         user_id: changeInfo.user_id,
         nickname,
       })
-      .then((res) => {
+      .then(res => {
         alert("닉네임이 변경되었습니다.");
         Cookies.set("nickname", nickname);
         router.back();
       })
-      .catch((err) => {
+      .catch(err => {
         alert("닉네임 변경 에러입니다.");
       });
   };
@@ -189,7 +190,7 @@ function ChangeName({ setModalOpen }) {
   return (
     <ModalBackdrop
       ref={modalRef}
-      onClick={(e) => {
+      onClick={e => {
         if (modalRef.current === e.target) {
           setModalOpen(false);
         }
