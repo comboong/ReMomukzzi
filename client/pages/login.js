@@ -1,10 +1,10 @@
-import Loginmodal from "../components/Login/Loginmodal";
+import LoginPage from "../components/Login/LoginPage";
 
 const Login = () => {
-	return (
-		<>
-			<Loginmodal />
-		</>
-	);
+  return (
+    <>
+      <LoginPage />
+    </>
+  );
 };
 export default Login;
