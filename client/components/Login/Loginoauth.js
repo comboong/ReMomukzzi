@@ -8,7 +8,6 @@ const OauthContainer = styled.div`
   margin-top: 0.5rem;
   display: flex;
   flex-direction: column;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   div {
     width: 100%;
     height: 3rem;
@@ -25,7 +24,6 @@ const IconBox = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
-
   img {
     width: 3.5rem;
     height: 3.5rem;

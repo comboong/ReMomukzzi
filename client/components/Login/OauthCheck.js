@@ -7,7 +7,7 @@ import Cookies from "js-cookie";
 function OauthCheck({ code }) {
   const router = useRouter();
 
-  const kakaocode = (code) => {
+  const kakaocode = code => {
     if (code.length !== 20) {
       // KAKAO
       axios
@@ -15,7 +15,7 @@ function OauthCheck({ code }) {
           `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${process.env.NEXT_PUBLIC_REACT_APP_REST_API_KEY}&redirect_uri=${process.env.NEXT_PUBLIC_REDIRECT_URI}&code=${code}`,
           { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
         )
-        .then((res) => {
+        .then(res => {
           axios
             .post(
               `${process.env.NEXT_PUBLIC_SERVER_URL}/users/oauth`,
@@ -27,7 +27,7 @@ function OauthCheck({ code }) {
                 withCredentials: true,
               }
             )
-            .then((res) => {
+            .then(res => {
               Cookies.set("accessToken", res.data.data.accessToken);
               Cookies.set("email", res.data.data.email);
               Cookies.set("nickname", res.data.data.nickname);
@@ -35,8 +35,8 @@ function OauthCheck({ code }) {
 
               router.push("/");
             })
-            .catch((e) => {
-              console.log(e);
+            .catch(err => {
+              console.log(err);
               alert("로그인 오류가 발생했습니다. 다시 시도해 주세요.");
               router.back();
             });
@@ -54,7 +54,7 @@ function OauthCheck({ code }) {
             withCredentials: true,
           }
         )
-        .then((res) => {
+        .then(res => {
           if (res.status === 400) {
             alert("로그인 오류가 발생했습니다. 다시 시도해 주세요.");
             router.back();
@@ -67,7 +67,7 @@ function OauthCheck({ code }) {
             router.push("/");
           }
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err.response);
           alert("요청이 거부되었습니다. 다시 로그인 하세요");
           Cookies.remove("accessToken");
