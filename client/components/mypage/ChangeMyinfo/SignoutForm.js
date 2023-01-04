@@ -87,6 +87,36 @@ function SignoutForm() {
   const router = useRouter();
   const accessToken = Cookies.get("accessToken");
 
+  const [agreeChecked, setAgreeChecked] = useState(false);
+  const [fillText, setFillText] = useState("");
+
+  const agreeCheckHandler = () => {
+    setAgreeChecked(!agreeChecked);
+  };
+  const fillCheckHandler = e => {
+    setFillText(e.target.value);
+  };
+
+  const signoutSubmitHandler = () => {
+    if (!accessToken) {
+      return;
+    }
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
+        headers: { authorization: `Bearer ${accessToken}` },
+        "Content-Type": "application/json",
+      })
+      .then(res => {
+        Cookies.remove("accessToken");
+        Cookies.remove("nickname");
+        alert("회원 탈퇴가 완료되었습니다.");
+        return router.push("/");
+      })
+      .catch(err => {
+        alert("잘못된 요청입니다");
+      });
+  };
+
   return (
     <>
       <Container>
