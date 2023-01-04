@@ -5,52 +5,52 @@ import Loginoauth from "./Loginoauth";
 import Cookies from "js-cookie";
 
 const LoginForm = styled.div`
-  text-align: center;
-  padding-top: 50px;
-  margin: 0 auto;
-  width: 550px;
-  height: 600px;
-  font-weight: 700;
-  border-radius: 20px;
-  background-color: white;
-  padding-bottom: 50px;
+	text-align: center;
+	padding-top: 50px;
+	margin: 0 auto;
+	width: 550px;
+	height: 600px;
+	font-weight: 700;
+	border-radius: 20px;
+	background-color: white;
+	padding-bottom: 50px;
 `;
 const Div = styled.div`
 	margin: 0 auto;
 	width: 440px;
 `;
 const InputForm = styled.div`
-  margin: 0 auto;
-  margin: 5px;
+	margin: 0 auto;
+	margin: 5px;
 `;
 const LoginButton = styled.div`
-  width: 430px;
-  height: 45px;
-  margin: 30px auto 0 auto;
-  border: solid 1px gainsboro;
-  text-align: center;
-  background-color: #ffba34;
-  color: white;
-  cursor: pointer;
-  line-height: 40px;
+	width: 430px;
+	height: 45px;
+	margin: 30px auto 0 auto;
+	border: solid 1px gainsboro;
+	text-align: center;
+	background-color: #ffba34;
+	color: white;
+	cursor: pointer;
+	line-height: 40px;
 `;
 const InputBox = styled.div`
-  width: 430px;
-  border: solid 2px gainsboro;
-  margin-bottom: 20px;
+	width: 430px;
+	border: solid 2px gainsboro;
+	margin-bottom: 20px;
 `;
 const Input = styled.input`
-  width: 390px;
-  border-style: none;
-  height: 39px;
-  padding-left: 5px;
-  font-size: 13px;
-  :focus {
-    outline: none;
-  }
+	width: 390px;
+	border-style: none;
+	height: 39px;
+	padding-left: 5px;
+	font-size: 13px;
+	:focus {
+		outline: none;
+	}
 `;
 const LoginText = styled.div`
-  font-size: 20px;
+	font-size: 20px;
 `;
 
 function Loginmodal() {
@@ -59,9 +59,9 @@ function Loginmodal() {
 		password: "",
 	});
 
-  const handleInputValue = (key) => (e) => {
-    setLoginInfo({ ...loginInfo, [key]: e.target.value.toLowerCase() });
-  };
+	const handleInputValue = key => e => {
+		setLoginInfo({ ...loginInfo, [key]: e.target.value.toLowerCase() });
+	};
 
 	const onClickLogin = () => {
 		const { user_id, password } = loginInfo;
@@ -89,9 +89,9 @@ function Loginmodal() {
 			});
 	};
 
-  const enterLogin = (e) => {
-    if (e.key === "Enter") return onClickLogin();
-  };
+	const enterLogin = e => {
+		if (e.key === "Enter") return onClickLogin();
+	};
 
 	return (
 		<>
@@ -109,7 +109,6 @@ function Loginmodal() {
 								type="text"
 								placeholder="아이디"
 								name="input_id"
-								onKeyPress={enterLogin}
 								onChange={handleInputValue("user_id")}
 							/>
 						</InputBox>
