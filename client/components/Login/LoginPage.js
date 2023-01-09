@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Loginoauth from "./Loginoauth";
 import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const LoginForm = styled.div`
   text-align: center;
@@ -53,7 +54,8 @@ const LoginText = styled.div`
   font-size: 20px;
 `;
 
-function Loginmodal() {
+function LoginPage() {
+  const router = useRouter();
   const [loginInfo, setLoginInfo] = useState({
     user_id: "",
     password: "",
@@ -82,7 +84,7 @@ function Loginmodal() {
       .then(res => {
         Cookies.set("accessToken", res.data.data.accessToken);
         Cookies.set("nickname", res.data.data.nickname);
-        return location.replace("/");
+        router.push("/");
       })
       .catch(err => {
         alert("아이디와 비밀번호를 확인해 주세요.");
@@ -134,4 +136,4 @@ function Loginmodal() {
   );
 }
 
-export default Loginmodal;
+export default LoginPage;
