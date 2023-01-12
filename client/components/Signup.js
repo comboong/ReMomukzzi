@@ -29,6 +29,7 @@ const InputForm = styled.div`
 `;
 const ValidateMsg = styled.div`
   display: ${props => (props.hide ? "none" : "")};
+  color: ${props => (props.hide ? "" : "red")};
   margin: 5px;
 `;
 const Input = styled.input`
@@ -189,7 +190,7 @@ function Signup(props) {
         <Div>
           <img
             style={{ cursor: "pointer", width: "300px", height: "250px" }}
-            onClick={() => location.replace("/")}
+            onClick={() => router.push("/")}
             src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
           ></img>
           <InputForm>
