@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import Link from "next/link";
-import React from "react";
 import { Row, Col } from "antd";
 
 const IntroImage = styled.img`
@@ -21,26 +20,26 @@ const PlaceName = styled.div`
   font-size: 18px;
   padding-bottom: 10px;
   min-width: 200px;
+  textalign: center;
 `;
 
 const IntroImageSet = ({ imageInfo }) => {
-  const imageInfoCut = imageInfo.slice(0, 6);
+  const introPlaceInfo = imageInfo.slice(0, 6);
+
   return (
     <>
       <ImageSetTitle>주변 추천 음식점 리스트</ImageSetTitle>
-      <Row gutter={[32, 32]}>
-        {imageInfoCut.map((el, idx) => {
+      <Row gutter={[32, 40]}>
+        {introPlaceInfo.map((el, idx) => {
           return (
-            <Col span={12} key={idx}>
-              <div style={{ textAlign: "center" }}>
-                <PlaceName>{el.shopInfo.place_name}</PlaceName>
-                <Link
-                  href="/shopdetail/[id]"
-                  as={`/shopdetail/${el.shopInfo.id}`}
-                >
-                  <IntroImage src={el.shopPics[0]} />
-                </Link>
-              </div>
+            <Col span={12} key={idx} style={{ textAlign: "center" }}>
+              <PlaceName>{el.shopInfo.place_name}</PlaceName>
+              <Link
+                href="/shopdetail/[id]"
+                as={`/shopdetail/${el.shopInfo.id}`}
+              >
+                <IntroImage src={el.shopPics[0]} />
+              </Link>
             </Col>
           );
         })}
