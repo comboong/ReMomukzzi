@@ -33,7 +33,7 @@ const Loader = () => {
   return (
     <>
       <LoaderWrap>
-        <H2>정보를 받아오고 있습니다. 잠시만 기다려주세요.</H2>
+        <H2>주변 정보를 받아오고 있습니다. 잠시만 기다려주세요.</H2>
         <Spinner type="spin" color="#ffba34" />
       </LoaderWrap>
     </>
