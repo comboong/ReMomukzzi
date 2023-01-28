@@ -10,7 +10,8 @@ const ReMomukzzi = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>ReMomukzzi</title>
+        <title>오늘 뭐 먹지?</title>
+        <link rel="shortcut icon" href="/favicon/ms-icon-310x310.png" />
       </Head>
       <Component {...pageProps} />
     </>

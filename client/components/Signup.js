@@ -52,7 +52,8 @@ const InputBox = styled.div`
 const SignUpButton = styled.div`
   width: 430px;
   height: 45px;
-  margin: 30px auto 0 auto;
+  margin-top: 30px;
+  margin-bottom: 20px;
   border-radius: 5px;
   text-align: center;
   background-color: #ffba34;
@@ -189,10 +190,16 @@ function Signup(props) {
       <SignUpForm onClick={e => e.stopPropagation()}>
         <Div>
           <img
-            style={{ cursor: "pointer", width: "300px", height: "250px" }}
+            style={{
+              cursor: "pointer",
+              width: "300px",
+              marginBottom: "15px",
+              height: "250px",
+            }}
             onClick={() => router.push("/")}
-            src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
-          ></img>
+            src="https://i.ibb.co/km7ghVt/2023-01-29-12-00-41.png"
+            border="0"
+          />
           <InputForm>
             <SignupText>아이디</SignupText>
             <InputBox>
