@@ -88,82 +88,85 @@ const Home = () => {
 		);
 	});
 
-	useEffect(() => {
-		function getLocation() {
-			if (navigator.geolocation) {
-				navigator.geolocation.getCurrentPosition(
-					function (position) {
-						let temp = [];
-						for (let i = 1; i < 4; i++) {
-							axios
-								.get(
-									`https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&page=${i}&size=15&sort=accuracy&x=${position.coords.longitude}&y=${position.coords.latitude}&radius=2000`,
-									{
-										headers: {
-											Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_KEY,
-										},
-									}
-								)
-								.then(res => {
-									temp = [...temp, ...res.data.documents];
-									return temp;
-								})
-								.then(res => {
-									if (res.length === 45) {
-										axios
-											.post(
-												`${process.env.NEXT_PUBLIC_SERVER_URL}/data`,
-												{ data: res },
-												{
-													withCredentials: true,
-												}
-											)
-											.then(res => {
-												let n = getRandomInt(0, res.data.length);
+  useEffect(() => {
+    async function getLocation() {
+      try {
+        if (navigator.geolocation) {
+          const position = await new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              enableHighAccuracy: false,
+              maximumAge: 0,
+              timeout: Infinity,
+            });
+          });
 
-												dispatch(getShopInfo(res.data));
-												dispatch(setRandomInt(n));
-												dispatch(
-													setMapXY({
-														x: res.data[n].shopInfo.y,
-														y: res.data[n].shopInfo.x,
-													})
-												);
-												dispatch(setShuffleArr(getShuffledArray(res.data, n)));
-												dispatch(loadingAction());
-												dispatch(firstGetAction());
-											});
-									}
-								});
-						}
-					},
-					function (error) {
-						console.error(error);
-					},
-					{
-						enableHighAccuracy: false,
-						maximumAge: 0,
-						timeout: Infinity,
-					}
-				);
-			} else {
-				alert("GPS를 지원하지 않습니다");
-			}
-		}
-		if (!isFirstGet) {
-			getLocation();
-		} else {
-			dispatch(
-				setMapXY({
-					x: shopInfo[randomInt].shopInfo.y,
-					y: shopInfo[randomInt].shopInfo.x,
-				})
-			);
-		}
-		if (localStorage.getItem("visited") === null) {
-			localStorage.setItem("visited", JSON.stringify([]));
-		}
-	}, []);
+          const requests = [];
+
+          for (let i = 1; i < 4; i++) {
+            requests.push(
+              axios.get(
+                `https://dapi.kakao.com/v2/local/search/category.json?category_group_code=FD6&page=${i}&size=15&sort=accuracy&x=${position.coords.longitude}&y=${position.coords.latitude}&radius=500`,
+                {
+                  headers: {
+                    Authorization: process.env.NEXT_PUBLIC_AUTHORIZATION_KEY,
+                  },
+                }
+              )
+            );
+          }
+
+          const results = await axios.all(requests);
+          const temp = results.reduce(
+            (acc, result) => [...acc, ...result.data.documents],
+            []
+          );
+
+          axios
+            .post(
+              `${process.env.NEXT_PUBLIC_SERVER_URL}/data`,
+              { data: temp },
+              {
+                withCredentials: true,
+              }
+            )
+            .then(res => {
+              const n = getRandomInt(0, res.data.length);
+              dispatch(getShopInfo(res.data));
+              dispatch(setRandomInt(n));
+              dispatch(
+                setMapXY({
+                  x: res.data[n].shopInfo.y,
+                  y: res.data[n].shopInfo.x,
+                })
+              );
+              dispatch(setShuffleArr(getShuffledArray(res.data, n)));
+              dispatch(loadingAction());
+              dispatch(firstGetAction());
+            });
+        } else {
+          alert("GPS를 지원하지 않습니다");
+        }
+      } catch (error) {
+        console.error(error);
+        alert("위치 정보를 가져오는데 실패했습니다. 새로고침 해주세요.");
+      }
+    }
+
+    if (!isFirstGet) {
+      getLocation();
+    } else {
+      dispatch(
+        setMapXY({
+          x: shopInfo[randomInt].shopInfo.y,
+          y: shopInfo[randomInt].shopInfo.x,
+        })
+      );
+    }
+
+    if (localStorage.getItem("visited") === null) {
+      localStorage.setItem("visited", JSON.stringify([]));
+    }
+  }, []);
 
 	return (
 		<>
