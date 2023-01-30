@@ -100,10 +100,16 @@ function LoginPage() {
       <LoginForm>
         <Div>
           <img
-            style={{ cursor: "pointer", width: "300px", height: "250px" }}
-            onClick={() => location.replace("/")}
-            src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
-          ></img>
+            style={{
+              cursor: "pointer",
+              width: "300px",
+              marginBottom: "10px",
+              height: "250px",
+            }}
+            onClick={() => router.push("/")}
+            src="https://i.ibb.co/km7ghVt/2023-01-29-12-00-41.png"
+            border="0"
+          />
           <InputForm>
             <LoginText>아이디</LoginText>
             <InputBox>

@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import Slider from "react-slick";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 const StyledSlider = styled(Slider)`
   height: 330px;
@@ -16,7 +14,6 @@ const StyledSlider = styled(Slider)`
   }
 
   .slick-slide img {
-    //슬라이더  컨텐츠
     width: 400px;
     height: 300px;
     object-fit: fill;
@@ -24,7 +21,6 @@ const StyledSlider = styled(Slider)`
   }
 
   .slick-dots {
-    //슬라이드의 위치
     bottom: -10px;
     margin-top: 200px;
   }

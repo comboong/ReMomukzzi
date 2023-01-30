@@ -130,7 +130,7 @@ const Header = () => {
         .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/logout`, {
           withCredentials: true,
         })
-        .then((res) => {
+        .then(res => {
           Cookies.remove("accessToken");
           Cookies.remove("nickname");
           Cookies.remove("email");
@@ -154,8 +154,9 @@ const Header = () => {
         <div className="navbar_logo">
           <Link href="/">
             <img
-              src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
-              style={{ width: 250, height: 100, objectFit: "cover" }}
+              src="https://i.ibb.co/61tm172/2023-01-28-11-58-28.png"
+              border="0"
+              style={{ width: 150, height: 100, objectFit: "cover" }}
             />
           </Link>
         </div>
