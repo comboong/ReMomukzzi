@@ -1,15 +1,15 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import ImageCarousel from "../components/ImageCarousel";
-import IntroImageSet from "../components/IntroImageSet";
-import MoreviewLoader from "../components/MoreviewLoader";
-import ShopInfo from "../components/ShopInfo";
-import KaKaoMap from "../components/KaKaoMap";
-import FavoriteModal from "../components/FavoriteModal";
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import ImageCarousel from '../components/ImageCarousel';
+import IntroImageSet from '../components/IntroImageSet';
+import MoreviewLoader from '../components/MoreviewLoader';
+import ShopInfo from '../components/ShopInfo';
+import KaKaoMap from '../components/KaKaoMap';
+import FavoriteModal from '../components/FavoriteModal';
 
-import { useEffect } from "react";
-import axios from "axios";
-import { Row, Col } from "antd";
+import { useEffect } from 'react';
+import axios from 'axios';
+import { Row, Col } from 'antd';
 import {
   loadingAction,
   getShopInfo,
@@ -17,12 +17,12 @@ import {
   setRandomInt,
   setShuffleArr,
   setMapXY,
-} from "../reducers";
-import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
-import _ from "lodash";
-import useShuffledArray from "../hooks/useShuffledArray";
-import useRandomInt from "../hooks/useRandomInt";
+} from '../reducers';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
+import useShuffledArray from '../hooks/useShuffledArray';
+import useRandomInt from '../hooks/useRandomInt';
 
 const Title = styled.div`
   display: flex;
@@ -129,11 +129,11 @@ const Home = () => {
               dispatch(firstGetAction());
             });
         } else {
-          alert("GPS를 지원하지 않습니다");
+          alert('GPS를 지원하지 않습니다');
         }
       } catch (error) {
         console.error(error);
-        alert("위치 정보를 가져오는데 실패했습니다. 새로고침 해주세요.");
+        alert('위치 정보를 가져오는데 실패했습니다. 새로고침 해주세요.');
       }
     }
 
@@ -148,8 +148,8 @@ const Home = () => {
       );
     }
 
-    if (localStorage.getItem("visited") === null) {
-      localStorage.setItem("visited", JSON.stringify([]));
+    if (localStorage.getItem('visited') === null) {
+      localStorage.setItem('visited', JSON.stringify([]));
     }
   }, []);
 
@@ -171,7 +171,7 @@ const Home = () => {
                     paddingLeft: 20,
                     paddingRight: 20,
                     fontSize: 32,
-                    fontWeight: "bold",
+                    fontWeight: 'bold',
                   }}
                 >
                   {randomShopInfo.shopInfo.place_name}

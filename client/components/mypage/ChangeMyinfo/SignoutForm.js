@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Cookies from "js-cookie";
-import axios from "axios";
-import { useRouter } from "next/router";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import Cookies from 'js-cookie';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import logo from '../../../images/logo-white.png';
 
 const Container = styled.div`
   margin: auto;
@@ -85,10 +86,10 @@ const SubmitBtnDiv = styled.div`
 
 function SignoutForm() {
   const router = useRouter();
-  const accessToken = Cookies.get("accessToken");
+  const accessToken = Cookies.get('accessToken');
 
   const [agreeChecked, setAgreeChecked] = useState(false);
-  const [fillText, setFillText] = useState("");
+  const [fillText, setFillText] = useState('');
 
   const agreeCheckHandler = () => {
     setAgreeChecked(!agreeChecked);
@@ -104,16 +105,16 @@ function SignoutForm() {
     axios
       .delete(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
         headers: { authorization: `Bearer ${accessToken}` },
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       })
       .then(res => {
-        Cookies.remove("accessToken");
-        Cookies.remove("nickname");
-        alert("회원 탈퇴가 완료되었습니다.");
-        return router.push("/");
+        Cookies.remove('accessToken');
+        Cookies.remove('nickname');
+        alert('회원 탈퇴가 완료되었습니다.');
+        return router.push('/');
       })
       .catch(err => {
-        alert("잘못된 요청입니다");
+        alert('잘못된 요청입니다');
       });
   };
 
@@ -122,9 +123,9 @@ function SignoutForm() {
       <Container>
         <ContentContainer>
           <img
-            style={{ cursor: "pointer", width: "300px", height: "250px" }}
-            onClick={() => location.replace("/")}
-            src="https://cdn.discordapp.com/attachments/968002114511073283/977107063681478716/b8f3403718a83d04.png"
+            style={{ cursor: 'pointer', width: '300px', height: '250px' }}
+            onClick={() => router.push('/')}
+            src={logo}
           ></img>
           <Title>탈퇴 안내</Title>
           <ContentText>
@@ -137,34 +138,34 @@ function SignoutForm() {
           <ContentText>회원탈퇴 전에 안내사항을 확인해주세요.</ContentText>
           <CheckboxContainer>
             <input
-              className="checkbox-input-check"
-              type="checkbox"
+              className='checkbox-input-check'
+              type='checkbox'
               onClick={agreeCheckHandler}
             />
-            <div className="checkbox-agree-text">
+            <div className='checkbox-agree-text'>
               안내사항에 동의하면 체크해주세요.
             </div>
           </CheckboxContainer>
           <MiddleContainer>
-            <div className="fill-text">[회원탈퇴]를 입력해주세요.</div>
-            <input className="fill-input" onChange={fillCheckHandler} />
+            <div className='fill-text'>[회원탈퇴]를 입력해주세요.</div>
+            <input className='fill-input' onChange={fillCheckHandler} />
           </MiddleContainer>
           <div>
             <SubmitBtnDiv>
-              {agreeChecked === true && fillText === "회원탈퇴" ? (
+              {agreeChecked === true && fillText === '회원탈퇴' ? (
                 <button
-                  className="submit"
+                  className='submit'
                   disabled={false}
                   onClick={signoutSubmitHandler}
                 >
                   탈퇴하기
                 </button>
               ) : (
-                <button className="submit" disabled={true}>
+                <button className='submit' disabled={true}>
                   탈퇴하기
                 </button>
               )}
-              <button className="cancel" onClick={() => router.push("/")}>
+              <button className='cancel' onClick={() => router.push('/')}>
                 취소 (홈으로)
               </button>
             </SubmitBtnDiv>
