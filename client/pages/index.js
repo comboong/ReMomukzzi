@@ -20,7 +20,6 @@ import {
 } from '../reducers';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
 import useShuffledArray from '../hooks/useShuffledArray';
 import useRandomInt from '../hooks/useRandomInt';
 
