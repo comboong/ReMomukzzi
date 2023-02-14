@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import Myreviewdelete from "./Myreviewdelete";
+import styled from 'styled-components';
+import Myreviewdelete from './Myreviewdelete';
 
 const Wrapper = styled.div`
   display: flex;
@@ -7,8 +7,9 @@ const Wrapper = styled.div`
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  height: 5px;
+  height: 20vh;
   position: relative;
+  margin-top: 30px;
 `;
 const CommentWrapper = styled.div`
   position: relative;
@@ -157,7 +158,7 @@ const Myreviewlist = ({ comment, shop_name, createdAt, star, pic, id }) => {
               <Profile>
                 {!pic ? (
                   <ProfileImgBox>
-                    <ProfileImg src="http://www.billking.co.kr/index/skin/board/basic_support/img/noimage.gif" />
+                    <ProfileImg src='http://www.billking.co.kr/index/skin/board/basic_support/img/noimage.gif' />
                   </ProfileImgBox>
                 ) : (
                   <ProfileImgBox>
@@ -169,7 +170,7 @@ const Myreviewlist = ({ comment, shop_name, createdAt, star, pic, id }) => {
             </ProfileBox>
             <ContentBox>
               <ContentWrapper>
-                <Content name="comment" className="comment-read">
+                <Content name='comment' className='comment-read'>
                   {comment}
                 </Content>
                 <Star>

@@ -1,10 +1,10 @@
-import styled from "styled-components";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Myreviewlist from "./Myreviewlist";
-import Emptyreview from "./Emptyreview";
-import MoreviewBtn from "./MoreviewBtn";
-import Cookies from "js-cookie";
+import styled from 'styled-components';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Myreviewlist from './Myreviewlist';
+import Emptyreview from './Emptyreview';
+import MoreviewBtn from './MoreviewBtn';
+import Cookies from 'js-cookie';
 
 const MypageTitle = styled.div`
   background-color: #f0c83d;
@@ -36,7 +36,7 @@ const MoreMyreviewBtn = styled.button`
 
 function Myreview() {
   const [userReview, setUserReview] = useState([]);
-  const accessToken = Cookies.get("accessToken");
+  const accessToken = Cookies.get('accessToken');
 
   const getReviewHandler = () => {
     if (!accessToken) {
@@ -45,13 +45,13 @@ function Myreview() {
       axios
         .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users`, {
           headers: { authorization: `Bearer ${accessToken}` },
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         })
         .then(res => {
           setUserReview(res.data.data.userInfo.reviews);
         })
         .catch(err => {
-          alert("잘못된 요청입니다.");
+          alert('잘못된 요청입니다.');
         });
     }
   };
@@ -96,7 +96,7 @@ function Myreview() {
         <MoreviewBtn />
       ) : (
         <MoreMyreviewBtn onClick={handleReviewMore}>
-          {reviewCount < newUserReview.length ? "더 보기" : " "}
+          {reviewCount < newUserReview.length ? '더 보기' : ' '}
         </MoreMyreviewBtn>
       )}
     </ReviewContainer>
