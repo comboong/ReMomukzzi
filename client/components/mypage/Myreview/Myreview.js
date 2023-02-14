@@ -29,8 +29,7 @@ const ReviewContainer = styled.div`
 const MoreMyreviewBtn = styled.button`
   margin-top: 50px;
   width: 98%;
-  border-radius: 10px;
-  border: #eee solid;
+  border: none;
   background-color: white;
   cursor: pointer;
 `;
