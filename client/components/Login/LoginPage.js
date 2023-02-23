@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import Loginoauth from "./Loginoauth";
-import Cookies from "js-cookie";
-import { useRouter } from "next/router";
+import React, { useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import Loginoauth from './Loginoauth';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
+import logo from '../../images/logo-white.png';
 
 const LoginForm = styled.div`
   text-align: center;
@@ -57,8 +58,8 @@ const LoginText = styled.div`
 function LoginPage() {
   const router = useRouter();
   const [loginInfo, setLoginInfo] = useState({
-    user_id: "",
-    password: "",
+    user_id: '',
+    password: '',
   });
 
   const handleInputValue = key => e => {
@@ -67,9 +68,9 @@ function LoginPage() {
 
   const onClickLogin = () => {
     const { user_id, password } = loginInfo;
-    if (user_id === "") {
+    if (user_id === '') {
       return;
-    } else if (password === "") {
+    } else if (password === '') {
       return;
     }
     axios
@@ -79,20 +80,20 @@ function LoginPage() {
           user_id,
           password,
         },
-        { "Content-Type": "application/json", withCredentials: true }
+        { 'Content-Type': 'application/json', withCredentials: true }
       )
       .then(res => {
-        Cookies.set("accessToken", res.data.data.accessToken);
-        Cookies.set("nickname", res.data.data.nickname);
-        router.push("/");
+        Cookies.set('accessToken', res.data.data.accessToken);
+        Cookies.set('nickname', res.data.data.nickname);
+        router.push('/');
       })
       .catch(err => {
-        alert("아이디와 비밀번호를 확인해 주세요.");
+        alert('아이디와 비밀번호를 확인해 주세요.');
       });
   };
 
   const enterLogin = e => {
-    if (e.key === "Enter") return onClickLogin();
+    if (e.key === 'Enter') return onClickLogin();
   };
 
   return (
@@ -101,23 +102,23 @@ function LoginPage() {
         <Div>
           <img
             style={{
-              cursor: "pointer",
-              width: "300px",
-              marginBottom: "10px",
-              height: "250px",
+              cursor: 'pointer',
+              width: '300px',
+              marginBottom: '10px',
+              height: '250px',
             }}
-            onClick={() => router.push("/")}
-            src="https://i.ibb.co/km7ghVt/2023-01-29-12-00-41.png"
-            border="0"
+            onClick={() => router.push('/')}
+            src={logo}
+            border='0'
           />
           <InputForm>
             <LoginText>아이디</LoginText>
             <InputBox>
               <Input
-                type="text"
-                placeholder="아이디"
-                name="input_id"
-                onChange={handleInputValue("user_id")}
+                type='text'
+                placeholder='아이디'
+                name='input_id'
+                onChange={handleInputValue('user_id')}
               />
             </InputBox>
           </InputForm>
@@ -125,11 +126,11 @@ function LoginPage() {
             <LoginText>비밀번호</LoginText>
             <InputBox>
               <Input
-                type="password"
-                name="input_Password"
-                placeholder="비밀번호"
+                type='password'
+                name='input_Password'
+                placeholder='비밀번호'
                 onKeyPress={enterLogin}
-                onChange={handleInputValue("password")}
+                onChange={handleInputValue('password')}
               />
             </InputBox>
           </InputForm>

@@ -1,7 +1,8 @@
-import { useState } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import { useRouter } from "next/router";
+import { useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import logo from '../images/logo-white.png';
 
 const SignUpForm = styled.div`
   margin: 0 auto;
@@ -28,8 +29,8 @@ const InputForm = styled.div`
   margin: 5px;
 `;
 const ValidateMsg = styled.div`
-  display: ${props => (props.hide ? "none" : "")};
-  color: ${props => (props.hide ? "" : "red")};
+  display: ${props => (props.hide ? 'none' : '')};
+  color: ${props => (props.hide ? '' : 'red')};
   margin: 5px;
 `;
 const Input = styled.input`
@@ -65,13 +66,13 @@ const SignupText = styled.div`
   font-size: 20px;
 `;
 
-function Signup(props) {
+function Signup() {
   const router = useRouter();
-  const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordRetype, setPasswordRetype] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordRetype, setPasswordRetype] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
 
   const [hideLengthFail, setHideLengthFail] = useState(true);
   const [hideIDFail, setHideIDFail] = useState(true);
@@ -141,7 +142,7 @@ function Signup(props) {
   };
 
   const nameCheck = () => {
-    if (name === "") {
+    if (name === '') {
       setHideNameFail(false);
       return false;
     }
@@ -172,11 +173,11 @@ function Signup(props) {
           { withCredentials: true }
         )
         .then(res => {
-          if (res.data.message === "exist") {
+          if (res.data.message === 'exist') {
             setHideIDCheckFail(false);
-          } else if (res.data.message === "created") {
+          } else if (res.data.message === 'created') {
             setHideIDCheckFail(true);
-            router.push("/");
+            router.push('/');
           }
         })
         .catch(err => {
@@ -191,19 +192,19 @@ function Signup(props) {
         <Div>
           <img
             style={{
-              cursor: "pointer",
-              width: "300px",
-              marginBottom: "15px",
-              height: "250px",
+              cursor: 'pointer',
+              width: '300px',
+              marginBottom: '15px',
+              height: '250px',
             }}
-            onClick={() => router.push("/")}
-            src="https://i.ibb.co/km7ghVt/2023-01-29-12-00-41.png"
-            border="0"
+            onClick={() => router.push('/')}
+            src={logo}
+            border='0'
           />
           <InputForm>
             <SignupText>아이디</SignupText>
             <InputBox>
-              <Input type="text" onChange={e => setUserId(e.target.value)} />
+              <Input type='text' onChange={e => setUserId(e.target.value)} />
             </InputBox>
             <ValidateMsg hide={hideLengthFail}>
               아이디는 네 글 자 이상이여야 합니다.
@@ -218,7 +219,7 @@ function Signup(props) {
           <InputForm>
             <SignupText>이메일</SignupText>
             <InputBox>
-              <Input type="text" onChange={e => setEmail(e.target.value)} />
+              <Input type='text' onChange={e => setEmail(e.target.value)} />
             </InputBox>
             <ValidateMsg hide={hideEmailFail}>
               올바른 이메일 형식을 입력해주세요
@@ -228,7 +229,7 @@ function Signup(props) {
             <SignupText>비밀번호</SignupText>
             <InputBox>
               <Input
-                type="password"
+                type='password'
                 onChange={e => setPassword(e.target.value)}
               />
             </InputBox>
@@ -237,7 +238,7 @@ function Signup(props) {
             <SignupText>비밀번호 확인</SignupText>
             <InputBox>
               <Input
-                type="password"
+                type='password'
                 onChange={e => setPasswordRetype(e.target.value)}
               />
             </InputBox>
@@ -252,7 +253,7 @@ function Signup(props) {
           <InputForm>
             <SignupText>닉네임</SignupText>
             <InputBox>
-              <Input type="text" onChange={e => setName(e.target.value)} />
+              <Input type='text' onChange={e => setName(e.target.value)} />
             </InputBox>
             <ValidateMsg hide={hideNameFail}>
               닉네임은 필수입력입니다.

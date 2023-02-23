@@ -1,11 +1,12 @@
-import Link from "next/link";
-import Cookies from "js-cookie";
-import styled from "styled-components";
-import { useCallback, useState, useEffect } from "react";
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useDispatch } from "react-redux";
-import { FavoriteAction } from "../reducers";
+import Link from 'next/link';
+import Cookies from 'js-cookie';
+import styled from 'styled-components';
+import { useCallback, useState, useEffect } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { FavoriteAction } from '../reducers';
+import logo from '../images/logo-yellow.png';
 
 const HeaderContainer = styled.div`
   margin: 0 auto;
@@ -122,75 +123,75 @@ const HeaderContainer = styled.div`
 const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [nick, setNick] = useState(Cookies.get("nickname"));
+  const [nick, setNick] = useState(Cookies.get('nickname'));
 
   const handleLogOut = useCallback(() => {
-    if (window.confirm("로그아웃 하시겠습니까?")) {
+    if (window.confirm('로그아웃 하시겠습니까?')) {
       axios
         .get(`${process.env.NEXT_PUBLIC_SERVER_URL}/users/logout`, {
           withCredentials: true,
         })
         .then(res => {
-          Cookies.remove("accessToken");
-          Cookies.remove("nickname");
-          Cookies.remove("email");
-          Cookies.remove("Oauth");
+          Cookies.remove('accessToken');
+          Cookies.remove('nickname');
+          Cookies.remove('email');
+          Cookies.remove('Oauth');
 
-          localStorage.setItem("visited", JSON.stringify([]));
+          localStorage.setItem('visited', JSON.stringify([]));
 
           console.log(res);
-          router.push("/");
+          router.push('/');
         });
     }
   });
 
   useEffect(() => {
-    setNick(Cookies.get("nickname"));
+    setNick(Cookies.get('nickname'));
   }, [nick]);
 
   return (
     <HeaderContainer>
-      <nav className="navbar">
-        <div className="navbar_logo">
-          <Link href="/">
+      <nav className='navbar'>
+        <div className='navbar_logo'>
+          <Link href='/'>
             <img
-              src="https://i.ibb.co/61tm172/2023-01-28-11-58-28.png"
-              border="0"
-              style={{ width: 150, height: 100, objectFit: "cover" }}
+              src={logo}
+              border='0'
+              style={{ width: 150, height: 100, objectFit: 'cover' }}
             />
           </Link>
         </div>
-        {Cookies.get("accessToken") ? (
-          <ul className="navbar_menu">
-            <li className="navlist">
+        {Cookies.get('accessToken') ? (
+          <ul className='navbar_menu'>
+            <li className='navlist'>
               <div>{nick}님</div>
             </li>
-            <li className="navlist">
-              <Link href="/mypage" className="navbar_link">
+            <li className='navlist'>
+              <Link href='/mypage' className='navbar_link'>
                 <div>마이페이지</div>
               </Link>
             </li>
-            <li onClick={handleLogOut} className="navlist">
+            <li onClick={handleLogOut} className='navlist'>
               <div>로그아웃</div>
             </li>
             <li
               onClick={() => {
                 dispatch(FavoriteAction(true));
               }}
-              className="navlist"
+              className='navlist'
             >
               <div>즐겨찾기</div>
             </li>
           </ul>
         ) : (
-          <ul className="navbar_menu">
-            <li className="navlist">
-              <Link href="/login">
+          <ul className='navbar_menu'>
+            <li className='navlist'>
+              <Link href='/login'>
                 <div>로그인</div>
               </Link>
             </li>
-            <li className="navlist">
-              <Link href="/signup">
+            <li className='navlist'>
+              <Link href='/signup'>
                 <div>회원가입</div>
               </Link>
             </li>
@@ -198,7 +199,7 @@ const Header = () => {
               onClick={() => {
                 dispatch(FavoriteAction(true));
               }}
-              className="navlist"
+              className='navlist'
             >
               <div>즐겨찾기</div>
             </li>
