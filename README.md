@@ -9,7 +9,7 @@
 
 ## 프로젝트 설명 및 시연
 
-<a href="https://younhyuk.notion.site/younhyuk/momukzzi-1734abf1775d4403a4650a70a759ec17" target="_blank" >project 설명 및 시연</a>
+<a href="https://younhyuk.notion.site/db5720ded66d4fa58a30b899cb8df8c7" target="_blank" >project 설명 및 시연</a>
 
 ## Stack
 
