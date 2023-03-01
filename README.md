@@ -12,13 +12,6 @@
 <a href="https://younhyuk.notion.site/db5720ded66d4fa58a30b899cb8df8c7" target="_blank" >project 설명 및 시연</a>
 
 ## Stack
-
-- `Library` React
-- `Framework` Next.js
-- `Style` Styled-component
-- `Deploy` Vercel
-- `VCS` Github
-
 ![프로젝트 '뭐먹지' 아키텍쳐 (8)](https://user-images.githubusercontent.com/81045794/162653808-5a68a78b-4d16-4ddf-9299-22a310589da9.png)
 
 ## Run
