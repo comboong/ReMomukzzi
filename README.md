@@ -1,4 +1,4 @@
-<img width="300" alt="스크린샷 2023-01-28 오후 11 49 51" src="https://user-images.githubusercontent.com/81045794/218673673-a25040f5-1e25-4d54-93c5-5677334f5e9e.png">
+![깃허브 리드미](https://user-images.githubusercontent.com/81045794/222084376-51d09556-280c-4ef3-810d-cea87e581b58.gif)
 
 # 고민 조차 귀찮은 현대인을 위한 메뉴 추천 어플
 
