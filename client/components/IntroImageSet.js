@@ -1,12 +1,22 @@
-import styled from "styled-components";
 import Link from "next/link";
-import { Row, Col } from "antd";
+import styled from "styled-components";
+import { Col, Row } from "antd";
 
 const IntroImage = styled.img`
-  width: 200px;
+  width: 250px;
   height: 200px;
   border-radius: 30px;
   cursor: pointer;
+  padding: 10px;
+  object-fit: cover;
+
+  @media (max-width: 1550px) {
+    width: 220px;
+  }
+
+  @media (max-width: 1280px) {
+    width: 200px;
+  }
 `;
 
 const ImageSetTitle = styled.div`
@@ -20,7 +30,7 @@ const PlaceName = styled.div`
   font-size: 18px;
   padding-bottom: 10px;
   min-width: 200px;
-  textalign: center;
+  text-align: center;
 `;
 
 const IntroImageSet = ({ imageInfo }) => {
@@ -29,16 +39,16 @@ const IntroImageSet = ({ imageInfo }) => {
   return (
     <>
       <ImageSetTitle>주변 추천 음식점 리스트</ImageSetTitle>
-      <Row gutter={[32, 40]}>
-        {introPlaceInfo.map((el, idx) => {
+      <Row>
+        {introPlaceInfo.map((shopInfo, i) => {
           return (
-            <Col span={12} key={idx} style={{ textAlign: "center" }}>
-              <PlaceName>{el.shopInfo.place_name}</PlaceName>
+            <Col span={12} key={i} style={{ textAlign: "center" }}>
+              <PlaceName>{shopInfo?.shopInfo?.place_name}</PlaceName>
               <Link
                 href="/shopdetail/[id]"
-                as={`/shopdetail/${el.shopInfo.id}`}
+                as={`/shopdetail/${shopInfo.shopInfo.id}`}
               >
-                <IntroImage src={el.shopPics[0]} />
+                <IntroImage src={shopInfo?.shopPics[0]} />
               </Link>
             </Col>
           );

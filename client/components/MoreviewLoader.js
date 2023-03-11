@@ -14,10 +14,17 @@ const LoaderWrap = styled.div`
 `;
 
 const H2 = styled.h2`
-  position: fixed;
+  position: absolute;
   top: 50%;
   left: 50%;
+  margin-left: calc(-${(props) => props.width} / 2);
+  margin-top: 12px;
+  display: block;
   transform: translate(-48%, -100%);
+
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const Spinner = styled(ReactLoading)`
@@ -33,8 +40,12 @@ const Loader = () => {
   return (
     <>
       <LoaderWrap>
-        <H2>주변 정보를 받아오고 있습니다. 잠시만 기다려주세요.</H2>
-        <Spinner type="spin" color="#ffba34" />
+        <H2>
+          주변 정보를 받아오고 있습니다. <br />
+          잠시만 기다려주세요.
+        </H2>
+
+        <Spinner type="spin" color="#ffba34"></Spinner>
       </LoaderWrap>
     </>
   );
