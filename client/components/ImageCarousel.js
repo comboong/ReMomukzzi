@@ -1,23 +1,15 @@
+import React from "react";
 import styled from "styled-components";
 import Slider from "react-slick";
 
 const StyledSlider = styled(Slider)`
-  height: 330px;
-  margin: 30px;
-  min-width: 550px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 
   .slick-list {
-    width: 100%;
     height: 100%;
     margin: 0 auto;
     overflow-x: hidden;
-  }
-
-  .slick-slide img {
-    width: 400px;
-    height: 300px;
-    object-fit: fill;
-    margin: 0 auto;
   }
 
   .slick-dots {
@@ -30,28 +22,48 @@ const StyledSlider = styled(Slider)`
   }
 `;
 
+const IMGWrapper = styled.div`
+  width: 100%;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: 450px) {
+    height: 180px;
+  }
+`;
+
+const IMG = styled.img`
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+`;
+
 const ImageCarousel = ({ imageInfo }) => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplayspeed: 800,
+    autoplaySpeed: 800,
+    arrows: false,
   };
 
   return (
     <StyledSlider {...settings}>
-      {imageInfo.shopPics.map((el, idx) => {
+      {imageInfo?.shopPics?.map((shopImg, i) => {
         return (
-          <div key={idx}>
-            <img src={el} />
-          </div>
+          <React.Fragment key={i}>
+            <IMGWrapper>
+              <IMG src={shopImg} />
+            </IMGWrapper>
+          </React.Fragment>
         );
       })}
     </StyledSlider>
   );
 };
-
 export default ImageCarousel;
