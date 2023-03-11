@@ -1,6 +1,6 @@
+import Link from "next/link";
 import styled from "styled-components";
 import { BsGithub } from "react-icons/bs";
-import Link from "next/link";
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -8,14 +8,19 @@ const FooterContainer = styled.footer`
   height: 150px;
   background-color: #3e3e3e;
   color: white;
-  margin-top: 50px;
-  min-width: 660px;
+  bottom: 0;
+  margin-top: 30px;
+
+  @media (max-width: 550px) {
+    display: none;
+  }
 
   .footer_info {
     list-style-type: none;
     flex: 1 1 auto;
     margin-left: 200px;
     text-decoration: none;
+    user-select: none;
 
     @media (max-width: 1200px) {
       list-style-type: none;
@@ -35,17 +40,43 @@ const FooterContainer = styled.footer`
       list-style-type: none;
       flex: 1 1 auto;
       text-decoration: none;
-      margin-left: 0px;
-      padding-left: 0px;
+    }
+  }
+
+  .footer_info > li {
+    @media (max-width: 1024px) {
+      font-size: 12px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 10px;
     }
   }
 
   .footer_info > li div {
-    width: 200px;
     height: 100px;
     font-size: 40px;
-
     color: white;
+    padding-top: 10px;
+    cursor: pointer;
+
+    @media (max-width: 1280px) {
+      font-size: 36px;
+      padding-top: 20px;
+      padding-left: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      font-size: 32px;
+      padding-top: 20px;
+      padding-left: 20px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 24px;
+      padding-top: 30px;
+      padding-left: 30px;
+    }
   }
 
   .footer_github {
@@ -72,6 +103,18 @@ const FooterContainer = styled.footer`
 
   .footer_github_members {
     display: flex;
+
+    @media (max-width: 1280px) {
+      font-size: 20px;
+    }
+
+    @media (max-width: 1024px) {
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 
   .footer_github_members > div {
@@ -83,6 +126,7 @@ const FooterContainer = styled.footer`
     font-size: 50px;
     color: white;
   }
+
   .currentColor {
     font-size: 25px;
   }
@@ -95,10 +139,27 @@ const FooterContainer = styled.footer`
   .footer_github_members_name > a {
     text-decoration: none;
     color: white;
+    cursor: pointer;
   }
 
   #github_title {
+    user-select: none;
     margin: 10px;
+    padding-top: 5px;
+
+    @media (max-width: 1280px) {
+      font-size: 24px;
+      padding-top: 10px;
+    }
+
+    @media (max-width: 1024px) {
+      font-size: 20px;
+      padding-top: 12px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+    }
   }
 `;
 
@@ -108,7 +169,7 @@ const Footer = () => {
       <ul className="footer_info">
         <li>
           <Link href="/" style={{ textDecoration: "none" }}>
-            <div>REMOMUKZZI</div>
+            <div>MOMUKZZI</div>
           </Link>
         </li>
         <li>Copyright @ 2022 All right Reserved</li>
@@ -118,7 +179,10 @@ const Footer = () => {
           <li id="github_title">TEAM MEMBERS</li>
           <li className="footer_github_members">
             <div>
-              <a href="https://github.com/codestates/Momukzzi" target="_blank">
+              <a
+                href="https://github.com/kimyounlim/ReMomukzzi"
+                target="_blank"
+              >
                 <BsGithub className="github_icons" />
               </a>
             </div>
